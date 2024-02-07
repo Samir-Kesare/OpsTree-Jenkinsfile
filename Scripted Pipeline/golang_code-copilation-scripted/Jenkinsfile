@@ -1,0 +1,14 @@
+node {
+    // Define the Go tool version
+    def goHome = tool name: 'go1.22.0', type: 'go'
+
+    stage('Checkout') {
+        // Checkout the code from the Git repository
+        git branch: 'main', credentialsId: 'khushi_cred', url: 'https://github.com/OT-MyGurukulam/employee-api.git'
+    }
+    
+    stage('Code Compilation') {
+        // Compile the Go code
+        sh "${goHome}/bin/go build -o myapp main.go" // Replace 'main.go' with the main file of your Go API
+    }
+}
