@@ -1,1 +1,29 @@
+pipeline {
+    agent any
 
+    stages {
+        stage('Clone Repository') {
+            steps {
+                // Clone the repository
+                git branch: 'main', url: 'https://github.com/vyadavP7/Salary-API.git'
+            }
+        }
+        stage('Package Artifacts') {
+            steps {
+                sh 'mvn clean package -DskipTests=true'
+            }
+        }
+        stage('Owasp DP-Check') {
+            steps {
+                // Run DP-Check
+                dependencyCheck additionalArguments: '--scan target/ --format ALL', odcInstallation: 'DP-check'
+            }
+            post {
+                // Archive the HTML report as artifact
+                always {
+                    archiveArtifacts artifacts: '**/dependency-check-report.html'
+                }
+            }
+        }
+    }
+}
