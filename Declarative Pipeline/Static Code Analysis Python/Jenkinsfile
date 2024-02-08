@@ -1,35 +1,43 @@
 pipeline {
     agent any
-    tools {
-      maven 'mvn'
-    }
-    stages {
-        stage('Checkout GIT') {
-            steps {
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Panu-S-Harshit-Ninja-07/OT-Salary-API.git']])
-                sh 'ls $WORKSPACE/'
-            }
-        }
-        stage('Analysing Code with SpotBugs ') {
-            steps {
-                sh 'mvn spotbugs:check'
-            }
-        }
-        stage('Genrating SpotBugs Report') {
-            steps {
-                sh 'mvn spotbugs:spotbugs'
 
+    stages {
+        stage('Code Checkout') {
+            steps {
+                git branch: 'main', credentialsId: 'Attendance-creds', url: 'https://github.com/OT-MICROSERVICES/attendance-api.git'
+            }
+        }
+
+        stage('Create Virtual ENV') {
+            steps {
+                script {
+                    sh 'python3 -m venv myenv'
+                    sh '. myenv/bin/activate'
+                }
+            }
+        }
+
+        stage('Install dependencies') {
+            steps {
+                script {
+                    sh 'python3 -m pip install -r requirements.txt'
+                }
+            }
+        }
+
+        stage('Static Code Analysis') {
+            steps {
+                script {
+                    sh 'pylint router/ client/ models/ utils/ app.py | tee pylint.log'
+                }
             }
         }
     }
-post { 
-        success { 
-            sh 'ls $WORKSPACE/'
-            echo 'Compiled Successfully !'
-            sh 'tree $WORKSPACE/target/'
-        }
-        failure { 
-            echo 'Compilation Failed !'
+
+    post {
+        always {
+            // Archive pylint reports
+            archiveArtifacts artifacts: '**/pylint.log', allowEmptyArchive: true
         }
     }
 }
