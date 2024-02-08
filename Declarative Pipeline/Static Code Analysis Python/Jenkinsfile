@@ -1,1 +1,35 @@
+pipeline {
+    agent any
+    tools {
+      maven 'mvn'
+    }
+    stages {
+        stage('Checkout GIT') {
+            steps {
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Panu-S-Harshit-Ninja-07/OT-Salary-API.git']])
+                sh 'ls $WORKSPACE/'
+            }
+        }
+        stage('Analysing Code with SpotBugs ') {
+            steps {
+                sh 'mvn spotbugs:check'
+            }
+        }
+        stage('Genrating SpotBugs Report') {
+            steps {
+                sh 'mvn spotbugs:spotbugs'
 
+            }
+        }
+    }
+post { 
+        success { 
+            sh 'ls $WORKSPACE/'
+            echo 'Compiled Successfully !'
+            sh 'tree $WORKSPACE/target/'
+        }
+        failure { 
+            echo 'Compilation Failed !'
+        }
+    }
+}
