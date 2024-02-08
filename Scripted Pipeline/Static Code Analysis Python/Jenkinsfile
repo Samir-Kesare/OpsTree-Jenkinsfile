@@ -1,1 +1,27 @@
+node {
+    stage('Code Checkout') {
+        git branch: 'main', credentialsId: 'Attendance-creds', url: 'https://github.com/OT-MICROSERVICES/attendance-api.git'
+    }
 
+    stage('Create Virtual ENV') {
+        sh 'python3 -m venv myenv'
+        sh '. myenv/bin/activate'
+    }
+
+    stage('Install dependencies') {
+        sh 'python3 -m pip install -r requirements.txt'
+    }
+
+    stage('Static Code Analysis') {
+        sh 'pylint router/ client/ models/ utils/ app.py | tee pylint.log'
+    }
+}
+
+post {
+    always {
+        archiveArtifacts artifacts: '**/pylint.log', allowEmptyArchive: true
+    }
+    success {
+        echo 'Pipeline executed successfully!'
+    }
+}
