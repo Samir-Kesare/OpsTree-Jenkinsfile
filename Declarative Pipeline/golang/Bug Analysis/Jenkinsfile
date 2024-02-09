@@ -1,1 +1,44 @@
-B
+pipeline {
+    agent any
+    
+    stages {
+        stage('Installation Pre-Requisites') {
+            steps {
+                script {
+                    // Update apt packages
+                    sh 'sudo apt update'
+                    // Install Go using snap
+                    sh 'sudo snap install go --classic'
+                    // Remove golangci-lint using snap
+                    sh 'sudo snap remove golangci-lint || true'
+                    // Install GolangCI-lint
+                    sh 'GO111MODULE=on go get github.com/golangci/golangci-lint/cmd/golangci-lint@latest'
+                    // Add $HOME/go/bin to PATH
+                    env.PATH += ":$HOME/go/bin"
+                }
+            }
+        }
+        stage('Clone Repository') {
+            steps {
+                // Clone the Git repository
+                git branch: 'main', credentialsId: 'vishal-cred', url: 'https://github.com/OT-MICROSERVICES/employee-api.git'
+            }
+        }
+        stage('Linting') {
+            steps {
+                script {
+                    // Run golangci-lint and ignore errors
+                    sh 'golangci-lint run ./... || true'
+                }
+            }
+        }
+        stage('Generate HTML Report') {
+            steps {
+                script {
+                    // Run golangci-lint with the --out-format option to specify the output format
+                    sh 'golangci-lint run ./... --out-format html > report.html || true'
+                }
+            }
+        }
+    }
+}
