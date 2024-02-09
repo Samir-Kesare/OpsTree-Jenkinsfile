@@ -21,6 +21,13 @@ pipeline {
             }
         }
 
+        stage('Install gosec') {
+            steps {
+                // Install gosec
+                sh 'sudo snap install gosec'
+            }
+        }
+
         stage('Static Code Analysis') {
             steps {
                 // Run gosec for static code analysis
