@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout your code from version control
-                 git branch: 'main', credentialsId: 'khushi_cred', url: 'https://github.com/OT-MyGurukulam/employee-api.git'
+                git branch: 'main', credentialsId: 'khushi_cred', url: 'https://github.com/OT-MyGurukulam/employee-api.git'
             }
         }
 
@@ -21,36 +21,38 @@ pipeline {
             }
         }
 
-      stage('Install gosec') {
-    steps {
-        script {
-            def gosecBinary = '/snap/bin/gosec'
+        stage('Install gosec') {
+            steps {
+                script {
+                    def gosecBinary = '/snap/bin/gosec'
 
-            // Check if gosec binary already exists
-            if (!fileExists(gosecBinary)) {
-                // Download gosec binary
-                sh 'wget -O gosec https://github.com/securego/gosec/releases/download/v2.18.2/gosec_linux_amd64'
-                
-                // Give execute permission to the gosec binary
-                sh 'chmod +x gosec' 
-                
-                // Move the binary to /snap/bin
-                sh 'sudo mv gosec /snap/bin/'
+                    // Check if gosec binary already exists
+                    if (!fileExists(gosecBinary)) {
+                        // Download gosec binary
+                        sh 'wget -O gosec https://github.com/securego/gosec/releases/download/v2.18.2/gosec_linux_amd64'
+                        
+                        // Give execute permission to the gosec binary
+                        sh 'chmod +x gosec' 
+                        
+                        // Move the binary to /snap/bin
+                        sh 'sudo mv gosec /snap/bin/'
 
-                // Verify if `gosec` can be executed
-                sh 'gosec --version'
+                        // Verify if `gosec` can be executed
+                        sh 'gosec --version'
+                    }
+                }
             }
         }
-    }
-}
-
 
         stage('Static Code Analysis') {
             steps {
-                // Run gosec for static code analysis
-                sh 'gosec -fmt=json ./...'
-                // Publish gosec results
-                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'gosec-report', reportFiles: 'gosec-report/gosec.json', reportName: 'GoSec Report', reportTitles: ''])
+                // Set HOME environment variable to a directory within /home
+                withEnv(['HOME=/home/jenkins']) {
+                    // Run gosec for static code analysis
+                    sh 'gosec -fmt=json ./...'
+                    // Publish gosec results
+                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'gosec-report', reportFiles: 'gosec-report/gosec.json', reportName: 'GoSec Report', reportTitles: ''])
+                }
             }
         }
     }
