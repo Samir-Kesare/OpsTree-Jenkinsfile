@@ -21,29 +21,24 @@ pipeline {
             }
         }
 
-      stage('Install gosec') {
+        stage('Install gosec') {
             steps {
-                sh 'wget -O gosec https://github.com/securego/gosec/releases/latest/download/gosec_linux_amd64'
-                sh 'chmod +x gosec' // Give execute permission to the gosec binary
-                // Set SNAP_USER_COMMON environment variable
-                withEnv(['SNAP_USER_COMMON=/var/lib/jenkins.snap']) {
-                sh 'gosec --version' // Just to verify if `gosec` can be executed
-                }
+                // Download gosec binary
+                sh 'wget -O gosec https://github.com/securego/gosec/releases/download/v2.18.2/gosec_linux_amd64'
+                // Give execute permission to the gosec binary
+                sh 'chmod +x gosec' 
+                // Verify if `gosec` can be executed
+                sh 'gosec --version'
             }
         }
-
 
         stage('Static Code Analysis') {
             steps {
-                // Set HOME environment variable
-                withEnv(['HOME=/home/jenkins']) {
-                    // Run gosec for static code analysis
-                    sh 'gosec -fmt=json ./...'
-                    // Publish gosec results
-                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'gosec-report', reportFiles: 'gosec-report/gosec.json', reportName: 'GoSec Report', reportTitles: ''])
-                }
+                // Run gosec for static code analysis
+                sh 'gosec -fmt=json ./...'
+                // Publish gosec results
+                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'gosec-report', reportFiles: 'gosec-report/gosec.json', reportName: 'GoSec Report', reportTitles: ''])
             }
         }
-
     }
 }
