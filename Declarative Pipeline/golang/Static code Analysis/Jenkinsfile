@@ -7,7 +7,7 @@ pipeline {
     }
     
     environment {
-         GOMODCACHE = '/var/lib/jenkins/go/pkg/mod'
+         GOMODCACHE = '/home/jenkins/go/pkg/mod'
     }
   
     stages {
