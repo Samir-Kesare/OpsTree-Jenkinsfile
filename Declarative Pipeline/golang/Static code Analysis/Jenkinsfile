@@ -30,12 +30,16 @@ pipeline {
 
         stage('Static Code Analysis') {
             steps {
-                // Run gosec for static code analysis
-                sh 'gosec -fmt=json ./...'
-                // Publish gosec results
-                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'gosec-report', reportFiles: 'gosec-report/gosec.json', reportName: 'GoSec Report', reportTitles: ''])
+                // Set HOME environment variable
+                withEnv(['HOME=/home/jenkins']) {
+                    // Run gosec for static code analysis
+                    sh 'gosec -fmt=json ./...'
+                    // Publish gosec results
+                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'gosec-report', reportFiles: 'gosec-report/gosec.json', reportName: 'GoSec Report', reportTitles: ''])
+                }
             }
         }
+
 
         // Add more stages as necessary
     }
