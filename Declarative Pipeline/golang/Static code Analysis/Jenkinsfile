@@ -26,7 +26,7 @@ pipeline {
                 sh 'sudo snap install gosec'
                 sh 'sudo chmod +x /snap/bin/gosec'
                 // Set SNAP_USER_COMMON environment variable
-                withEnv(['SNAP_USER_COMMON=/home/jenkins/.snap']) {
+                withEnv(['SNAP_USER_COMMON=/var/lib/jenkins.snap']) {
                 sh 'gosec --version' // Just to verify if `gosec` can be executed
                 }
             }
