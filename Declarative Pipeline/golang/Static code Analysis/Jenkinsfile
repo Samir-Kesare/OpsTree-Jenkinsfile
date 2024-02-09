@@ -14,13 +14,6 @@ pipeline {
             }
         }
 
-         stage('Install gosec') {
-            steps {
-                sh 'wget -O gosec https://github.com/securego/gosec/releases/latest/download/gosec_linux_amd64'
-                sh 'chmod +x gosec'
-            }
-        }
-
         stage('Build') {
             steps {
                 // Build your GoLang code
@@ -32,6 +25,7 @@ pipeline {
             steps {
                 // Install gosec
                 sh 'sudo snap install gosec'
+                sh 'chmod +x gosec'
             }
         }
 
