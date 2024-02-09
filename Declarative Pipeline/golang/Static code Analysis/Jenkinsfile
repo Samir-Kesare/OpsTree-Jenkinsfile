@@ -23,8 +23,8 @@ pipeline {
 
       stage('Install gosec') {
             steps {
-                sh 'wget -O gosec https://github.com/securego/gosec/releases/latest/download/gosec_linux_amd64'
-                sh 'chmod +x gosec'
+                sh 'sudo snap install gosec'
+                sh 'sudo chmod +x /snap/bin/gosec'
             }
         }
 
