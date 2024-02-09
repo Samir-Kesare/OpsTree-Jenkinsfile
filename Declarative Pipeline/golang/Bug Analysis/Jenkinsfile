@@ -12,7 +12,7 @@ pipeline {
                     // Remove golangci-lint using snap
                     sh 'sudo snap remove golangci-lint || true'
                     // Install GolangCI-lint
-                    sh 'sh 'go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest'
+                    sh 'go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest'
                     // Add $HOME/go/bin to PATH
                     env.PATH += ":$HOME/go/bin"
                 }
