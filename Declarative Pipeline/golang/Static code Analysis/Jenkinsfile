@@ -5,6 +5,10 @@ pipeline {
         // Define the Go tool installation named 'Go' using the configured path
         go 'go1.22.0'
     }
+    
+    environment {
+        HOME = '/var/lib/jenkins'
+    }
   
     stages {
         stage('Checkout') {
