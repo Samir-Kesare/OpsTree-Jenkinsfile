@@ -1,1 +1,26 @@
 
+node {
+    def DEP_CHECK_VERSION = '9.0.9'
+
+    stage('Install JDK') {
+        sh 'sudo apt update && sudo apt install -y openjdk-17-jdk'
+    }
+
+    stage('Download Dependency Check') {
+        sh "wget -q https://github.com/jeremylong/DependencyCheck/releases/download/v${DEP_CHECK_VERSION}/dependency-check-${DEP_CHECK_VERSION}-release.zip"
+        sh "unzip -q dependency-check-${DEP_CHECK_VERSION}-release.zip"
+    }
+
+    stage('Clone Repository') {
+        git branch: 'main', credentialsId: 'vishal-cred', url: 'https://github.com/OT-MICROSERVICES/attendance-api.git'
+    }
+
+    stage('Run Dependency Check') {
+        sh 'dependency-check/bin/dependency-check.sh --scan /var/lib/jenkins/workspace/ --out dep-check.html'
+    }
+
+    stage('Clean workspace') {
+        sh 'rm dependency-check-${DEP_CHECK_VERSION}-release.zip'
+        sh 'rm -rf dependency-check'
+    }
+}
