@@ -1,26 +1,31 @@
-
 node {
+    // Define environment variable
     def DEP_CHECK_VERSION = '9.0.9'
 
+    // Stage: Install JDK
     stage('Install JDK') {
         sh 'sudo apt update && sudo apt install -y openjdk-17-jdk'
     }
 
+    // Stage: Download Dependency Check
     stage('Download Dependency Check') {
         sh "wget -q https://github.com/jeremylong/DependencyCheck/releases/download/v${DEP_CHECK_VERSION}/dependency-check-${DEP_CHECK_VERSION}-release.zip"
         sh "unzip -q dependency-check-${DEP_CHECK_VERSION}-release.zip"
     }
 
+    // Stage: Clone Repository
     stage('Clone Repository') {
         git branch: 'main', credentialsId: 'vishal-cred', url: 'https://github.com/OT-MICROSERVICES/attendance-api.git'
     }
 
+    // Stage: Run Dependency Check
     stage('Run Dependency Check') {
         sh 'dependency-check/bin/dependency-check.sh --scan /var/lib/jenkins/workspace/ --out dep-check.html'
     }
 
+    // Stage: Clean workspace
     stage('Clean workspace') {
-        sh 'rm -rf dependency-check-${DEP_CHECK_VERSION}-release.zip'
-        sh 'rm -rf dependency-check'
+        sh "rm -rf dependency-check-${DEP_CHECK_VERSION}-release.zip"
+        sh "rm -rf dependency-check"
     }
 }
