@@ -20,7 +20,7 @@ node {
     }
 
     stage('Clean workspace') {
-        sh 'rm dependency-check-${DEP_CHECK_VERSION}-release.zip'
+        sh 'rm -rf dependency-check-${DEP_CHECK_VERSION}-release.zip'
         sh 'rm -rf dependency-check'
     }
 }
