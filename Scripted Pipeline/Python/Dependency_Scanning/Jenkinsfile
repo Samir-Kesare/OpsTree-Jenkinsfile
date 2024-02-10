@@ -20,7 +20,7 @@ node {
 
     // Stage: Run Dependency Check
     stage('Run Dependency Check') {
-        sh 'dependency-check/bin/dependency-check.sh --scan /var/lib/jenkins/workspace/ --out dep-check.html'
+        sh './dependency-check/bin/dependency-check.sh --scan /var/lib/jenkins/workspace/ --out dep-check.html'
     }
 
     // Stage: Clean workspace
