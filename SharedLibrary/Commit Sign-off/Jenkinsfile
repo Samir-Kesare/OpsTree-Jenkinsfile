@@ -6,7 +6,10 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
-                gitCheckout()
+                gitCheckout(
+                url: 'https://github.com/avengers-p7/SharedLibrary.git',
+                    branch: 'main'
+                )
             }
         }
         stage('Fetch Last Commit') {
