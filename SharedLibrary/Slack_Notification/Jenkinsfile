@@ -1,1 +1,14 @@
+@Library('SharedLibrary') _
+
+pipeline {
+    agent any
+    
+    stages {
+        // Call the build steps from the BuildSteps script
+        buildSteps()
+    }
+    
+    // Call the post steps from the PostSteps script
+    postSteps()
+}
 
