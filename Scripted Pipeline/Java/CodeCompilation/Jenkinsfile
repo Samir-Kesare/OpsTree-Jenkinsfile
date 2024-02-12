@@ -1,1 +1,15 @@
-
+node {
+    stage('Checkout GIT') {
+        checkout scm: [
+            $class: 'GitSCM',
+            branches: [[name: '*/main']],
+            userRemoteConfigs: [[url: 'https://github.com/Panu-S-Harshit-Ninja-07/OT-Salary-API.git']]
+        ]
+        sh 'ls $WORKSPACE/'
+    }
+    
+    stage('Starting Code Compilation') {
+        echo 'Starting Java Code Compilation..........'
+        sh 'mvn clean compile'
+    }
+}
