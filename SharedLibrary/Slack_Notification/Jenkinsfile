@@ -1,5 +1,7 @@
 @Library("my-shared-library") _
 
+import my_shared_library.postSteps // Importing the postSteps function from the shared library
+
 pipeline {
     agent any
 
@@ -28,6 +30,6 @@ pipeline {
         }
     }
     
-    // Call the post steps from the postSteps script
+    // Call the postSteps function from the shared library
     postSteps()
 }
