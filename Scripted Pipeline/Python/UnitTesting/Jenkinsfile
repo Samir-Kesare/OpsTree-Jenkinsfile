@@ -1,0 +1,26 @@
+node {
+    stage('Code Checkout') {
+        git branch: 'main', credentialsId: 'snataak', url: 'https://github.com/OT-MICROSERVICES/attendance-api.git'
+    }
+
+    stage('Create Virtual ENV') {
+        script {
+            sh 'python3 -m venv myenv'
+            sh '. myenv/bin/activate'
+        }
+    }
+
+    stage('Install Dependencies') {
+        script {
+            sh 'pip install -r requirements.txt'
+            sh 'pip install pytest pytest-html'
+        }
+    }
+
+    stage('Unit Test') {
+        script {
+            sh '. myenv/bin/activate'
+            sh 'pytest router/tests/test_cache.py'
+        }
+    }
+}
