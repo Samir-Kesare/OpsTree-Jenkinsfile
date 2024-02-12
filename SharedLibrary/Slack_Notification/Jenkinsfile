@@ -23,18 +23,12 @@ pipeline {
         }
     }
     
-    post {
-        success {
-            script {
-                // Call the function from the shared library to send Slack notification for success
-                postSteps().success()
-            }
-        }
-        failure {
-            script {
-                // Call the function from the shared library to send Slack notification for failure
-                postSteps().failure()
-            }
+   post {
+    always {
+        script {
+            // Call the function from the shared library to handle success or failure
+            postSteps().call()
         }
     }
 }
+
