@@ -4,7 +4,7 @@ pipeline {
       maven 'mvn'
     }
     stages {
-        stage('Checkout GIT') {
+        stage('GIT Checkout') {
             steps {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Panu-S-Harshit-Ninja-07/OT-Salary-API.git']])
                 sh 'ls $WORKSPACE/'
