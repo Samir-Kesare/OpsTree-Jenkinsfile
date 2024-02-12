@@ -4,14 +4,6 @@ pipeline {
     agent any
     
     stages {
-        stage('Setup') {
-            steps {
-                gitCheckout(
-                url: 'https://github.com/avengers-p7/SharedLibrary.git',
-                    branch: 'main'
-                )
-            }
-        }
         stage('Fetch Last Commit') {
             steps {
                 // Use the shared library method
