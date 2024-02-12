@@ -1,9 +1,14 @@
-@Library('my-shared-library') _
+@Library("my-shared-library") _
 
 pipeline {
     agent any
-    
+
     stages {
+        stage('GIT Checkout') {
+            steps {
+                gitCheckout(branch: "main", url: ""  )
+            }
+        }
         stage('Build') {
             steps {
                 script {
