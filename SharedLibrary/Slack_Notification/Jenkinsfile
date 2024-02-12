@@ -22,15 +22,16 @@ pipeline {
             }
         }
     }
+}
     post {
     always {
         script {
             // Call the function from the shared library to handle success or failure
             postSteps().call()
-           }
         }
     }
 }
+
 
     
     
