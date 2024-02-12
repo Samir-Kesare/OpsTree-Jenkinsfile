@@ -4,11 +4,6 @@ pipeline {
     agent any
 
     stages {
-        stage('GIT Checkout') {
-            steps {
-                gitCheckout(branch: "main", url: "https://github.com/avengers-p7/SharedLibrary.git"  )
-            }
-        }
         stage('Build') {
             steps {
                 script {
