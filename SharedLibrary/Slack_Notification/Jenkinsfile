@@ -24,21 +24,20 @@ pipeline {
     }
 
     post {
-        success {
-            script {
-                sendSuccessNotification()
-                echo 'Compiled Successfully !'
-            }
+        success { 
+            slackNotification("SUCCESS")
+            echo 'Compiled Successfully !'
         }
-        failure {
-            script {
-                sendFailureNotification()
-                echo 'Compilation Failed !'
-            }
+        failure { 
+            slackNotification("FAILURE")
+            echo 'Compilation Failed !'
         }
     }
 }
 
+
+    
+    
 
     
 
