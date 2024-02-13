@@ -22,19 +22,19 @@ pipeline {
             }
         }
     }
-}
 
-   post {
-    success {
-        script {
-            slackNotification.sendSuccessNotification(message: "Success")
-            echo 'Compiled Successfully !'
+    post {
+        success {
+            script {
+                slackNotification.sendSuccessNotification(message: "Success")
+                echo 'Compiled Successfully !'
+            }
         }
-    }
-    failure {
-        script {
-            slackNotification.sendFailureNotification(message: "Failure")
-            echo 'Compilation Failed !'
+        failure {
+            script {
+                slackNotification.sendFailureNotification(message: "Failure")
+                echo 'Compilation Failed !'
+            }
         }
     }
 }
