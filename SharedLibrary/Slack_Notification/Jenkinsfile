@@ -1,5 +1,7 @@
 @Library("my-shared-library") _
 
+import SlackNotifier
+
 pipeline {
     agent any
 
@@ -25,15 +27,16 @@ pipeline {
 
     post {
         success { 
-            slackNotification("SUCCESS")
+            slackNotifier.slackNotification("SUCCESS")
             echo 'Compiled Successfully !'
         }
         failure { 
-            slackNotification("FAILURE")
+            slackNotifier.slackNotification("FAILURE")
             echo 'Compilation Failed !'
         }
     }
 }
+
 
 
     
