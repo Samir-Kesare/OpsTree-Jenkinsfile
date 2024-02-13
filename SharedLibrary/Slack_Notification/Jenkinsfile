@@ -34,6 +34,7 @@ pipeline {
         script {
             slackNotification.sendFailureNotification(message: "Failure")
             echo 'Compilation Failed !'
+           }
         }
     }
 }
