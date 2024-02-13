@@ -24,23 +24,16 @@ pipeline {
     }
 
     post {
-        success {
-            script {
-                load 'SlackNotification.groovy'
-                slackNotification("SUCCESS")
-            }
+        success { 
+            slackNotification("SUCCESS")
             echo 'Compiled Successfully !'
         }
-        failure {
-            script {
-                load 'SlackNotification.groovy'
-                slackNotification("FAILURE")
-            }
+        failure { 
+            slackNotification("FAILURE")
             echo 'Compilation Failed !'
         }
     }
 }
-
 
 
     
