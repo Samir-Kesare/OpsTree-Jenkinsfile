@@ -1,1 +1,37 @@
 
+@Library('snaatak-p7') _
+
+pipeline {
+    agent any
+    
+    stages {
+        stage('Installation Pre-Requisites') {
+            steps {
+                script{
+                    golangBugAnalysis.installprerequisites()
+                }
+            }
+        }
+        stage('Checkout') {
+            steps {
+                gitCheckoutPrivate(branch: 'main', url: 'https://github.com/OT-MICROSERVICES/employee-api.git', credentialsId: 'vishal-cred')
+            }
+        }
+        stage('Linting') {
+            steps {
+                script{
+                    golangBugAnalysis.linting()
+                }
+            }
+        }
+        stage('Generate HTML Report') {
+            steps {
+                script{
+                    golangBugAnalysis.html()
+                }
+            }
+        }
+    }
+}
+    
+        
