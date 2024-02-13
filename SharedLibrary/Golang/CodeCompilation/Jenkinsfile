@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
-                gitCheckout()
+                git branch: 'main', credentialsId: 'Khushi-malhoz-PAT', url: 'https://github.com/avengers-p7/Jenkinsfile.git'
             }
         }
         
