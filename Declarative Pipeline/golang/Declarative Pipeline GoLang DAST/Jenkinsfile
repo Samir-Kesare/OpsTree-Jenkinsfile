@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+    
+    environment {
+        TARGET_URL = 'https://github.com/OT-MICROSERVICES/employee-api.git'
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout your code repository
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/OT-MICROSERVICES/employee-api.git']])
+            }
+        }
+        
+        stage('Install ZAP') {
+            steps {
+                script {
+                    // Download and install OWASP ZAP
+                    sh 'wget https://github.com/zaproxy/zaproxy/releases/download/v2.14.0/ZAP_2.14.0_Linux.tar.gz'
+                    sh 'tar -xvf ZAP_2.14.0_Linux.tar.gz'
+                    
+                }
+            }
+        }
+        
+        stage('Run ZAP Scan') {
+            steps {
+                script {
+                    // Start ZAP and perform the scan
+                    sh "/var/lib/jenkins/workspace/'Declarative Pipeline GoLang DAST'/ZAP_2.14.0/zap.sh -cmd -port 8090 -quickurl http://18.183.109.200:8080/api/v1/employee/health -quickprogress -quickout ~/out2.html"
+                }
+            }
+        }
+        
+        stage('Publish ZAP Scan Report') {
+            steps {
+                // Publish HTML report
+                publishHTML(target: [allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: '/var/lib/jenkins/workspace/Declarative Pipeline GoLang DAST/ZAP_2.14.0/', reportFiles: 'out2.html', reportName: 'ZAP Scan Report', reportTitles: ''])
+            }
+        }
+    }
+}
