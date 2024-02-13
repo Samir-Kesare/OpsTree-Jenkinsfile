@@ -26,18 +26,19 @@ pipeline {
     post {
         success {
             script {
-                slackNotification.sendSuccessNotification(message: "Success")
+                sendSuccessNotification()
                 echo 'Compiled Successfully !'
             }
         }
         failure {
             script {
-                slackNotification.sendFailureNotification(message: "Failure")
+                sendFailureNotification()
                 echo 'Compilation Failed !'
             }
         }
     }
 }
+
 
     
 
