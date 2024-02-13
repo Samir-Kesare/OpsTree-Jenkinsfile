@@ -1,4 +1,3 @@
-
 @Library("my-shared-library") _
 
 pipeline {
@@ -24,17 +23,22 @@ pipeline {
         }
     }
 
-    post {
-        success { 
-            slackNotification("SUCCESS")
+   post {
+    success {
+        script {
+            slackNotification.sendSuccessNotification(message: "Success")
             echo 'Compiled Successfully !'
         }
-        failure { 
-            slackNotification("FAILURE")
+    }
+    failure {
+        script {
+            slackNotification.sendFailureNotification(message: "Failure")
             echo 'Compilation Failed !'
         }
     }
 }
+
+    
 
 
     
