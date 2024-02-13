@@ -25,11 +25,11 @@ pipeline {
 
     post {
         success { 
-            slackNotification("SUCCESS")
+            notifyStatus("SUCCESS")
             echo 'Compiled Successfully !'
         }
         failure { 
-            slackNotification("FAILURE")
+            notifyStatus("FAILURE")
             echo 'Compilation Failed !'
         }
     }
