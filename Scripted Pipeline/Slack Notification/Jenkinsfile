@@ -12,18 +12,18 @@ node {
         // Execute the job DSL to create the Freestyle job
         jobDsl scriptText: jobDSL
     }
-}
 
-try {
-    // Execute this block if the build succeeds
-    stage('Notify Success') {
-        // Send Slack notification for success
-        slackSend channel: 'jenkinss', message: 'Job Build successfully'
-    }
-} catch (Exception e) {
-    // Execute this block if the build fails
-    stage('Notify Failure') {
-        // Send Slack notification for failure
-        slackSend channel: 'jenkinss', message: 'Job Failed '
+    try {
+        // Execute this block if the build succeeds
+        stage('Notify Success') {
+            // Send Slack notification for success
+            slackSend(channel: '#jenkinss', message: 'Job Build successfully')
+        }
+    } catch (Exception e) {
+        // Execute this block if the build fails
+        stage('Notify Failure') {
+            // Send Slack notification for failure
+            slackSend(channel: '#jenkinss', message: 'Job Failed')
+        }
     }
 }
