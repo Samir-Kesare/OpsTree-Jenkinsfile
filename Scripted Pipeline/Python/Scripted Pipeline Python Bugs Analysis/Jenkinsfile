@@ -1,0 +1,47 @@
+node {
+    def REPO_URL = 'https://github.com/OT-MICROSERVICES/attendance-api.git'
+
+    stage('Checkout') {
+        checkout scmGit(
+            branches: [[name: '*/main']],
+            extensions: [],
+            userRemoteConfigs: [[url: "${REPO_URL}"]]
+        )
+    }
+
+    stage('Install Dependencies') {
+        script {
+            // Install necessary dependencies
+            sh 'python3 -m venv myenv'
+            sh '. myenv/bin/activate'
+        }
+    }
+
+    stage('Bugs Analysis - Bandit') {
+        script {
+            try {
+                // Ensure Bandit is installed and run the analysis
+                sh 'bandit --version' // Check Bandit version to ensure it's installed
+                sh 'bandit -r . -f json -o bandit_report.json'
+            } catch (Exception e) {
+                echo "Bugs analysis failed: ${e.message}"
+            }
+        }
+    }
+
+    stage('Publish Bandit Report') {
+        try {
+            // Publish Bandit report as post-build action
+            publishHTML(target: [
+                allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: '.',
+                reportFiles: 'bandit_report.json',
+                reportName: 'Bandit Security Report'
+            ])
+        } catch (Exception e) {
+            echo "Failed to publish Bandit report: ${e.message}"
+        }
+    }
+}
