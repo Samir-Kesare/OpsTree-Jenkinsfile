@@ -9,11 +9,11 @@ pipeline {
         stage("Git Checkout") {
             steps {
                 script {
-                    git branch: 'main', url: 'https://github.com/shreya0522/salary-api.git'
+                    git branch: 'main', url: 'https://github.com/OT-MICROSERVICES/salary-api.git'
                 }
             }
         }
-        stage ('Compile'){
+        stage ('compile'){
             steps{
                 sh 'mvn clean compile'
                 }
@@ -25,6 +25,20 @@ pipeline {
                     sh './mvnw org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
                 }
             }
+        }
+    }
+    post {
+        always {
+        // One or more steps need to be included within each condition's block.
+        cleanWs cleanWhenSuccess: false
+       }
+        success { 
+            sh 'ls $WORKSPACE/'
+            echo 'Compiled Successfully !'
+            sh 'tree $WORKSPACE/target/'
+        }
+        failure { 
+            echo 'Compilation Failed !'
         }
     }
 }
