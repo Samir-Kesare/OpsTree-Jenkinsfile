@@ -13,7 +13,7 @@ pipeline {
                 }
             }
         }
-        stage ('compile'){
+        stage ('Compile'){
             steps{
                 sh 'mvn clean compile'
                 }
@@ -21,14 +21,6 @@ pipeline {
 
         stage('Static Code Analysis') {
             steps {
-                // withSonarQubeEnv(installationName: 'aq1') {
-                // // withSonarQubeEnv('sonar-server') {
-                //     // sh 'mvn clean compile' 
-                //     // sonar:sonar'
-                //     // sh 'mvn verify sonar:sonar'
-                //     // sh 'mvn clean verify sonar:sonar -Dsonar.token="sqa_6958b1ed44213d5754179662670d9e27e34425e2"'
-                    
-                // }
                 withSonarQubeEnv(installationName: 'sq1') { 
                     sh './mvnw org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
                 }
