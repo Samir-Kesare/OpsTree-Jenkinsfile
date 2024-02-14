@@ -25,7 +25,7 @@ post {
         success { 
             sh 'ls $WORKSPACE/'
             echo 'Compiled Successfully !'
-            sh 'tree $WORKSPACE/target/'
+            sh 'tree $WORKSPACE/'
         }
         failure { 
             echo 'Compilation Failed !'
