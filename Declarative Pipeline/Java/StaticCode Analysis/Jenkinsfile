@@ -33,12 +33,10 @@ pipeline {
         cleanWs cleanWhenSuccess: false
        }
         success { 
-            sh 'ls $WORKSPACE/'
-            echo 'Compiled Successfully !'
-            sh 'tree $WORKSPACE/target/'
+            echo 'Build Successfully !'
         }
         failure { 
-            echo 'Compilation Failed !'
+            echo 'Build Failed !'
         }
     }
 }
