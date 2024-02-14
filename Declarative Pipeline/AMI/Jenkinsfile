@@ -2,43 +2,25 @@ pipeline {
     agent any
     
     environment {
-        AWS_ACCESS_KEY_ID = credentials('aws-credentials')
-        AWS_SECRET_ACCESS_KEY = credentials('aws-credentials')
-        PACKER_LOG = '1' // Set PACKER_LOG environment variable
+        AWS_ACCESS_KEY_ID     = credentials('credentials')
+        AWS_SECRET_ACCESS_KEY = credentials('credentials')
     }
     
     stages {
-        stage('Initialize Packer') {
-            steps {
-                dir('/home/shreya') {
-                    sh '/usr/bin/packer init .'
-                }
-            }
-        }
         stage('Build AMI') {
             steps {
                 script {
-                    try {
-                        sh "/usr/bin/packer build -var AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} -var AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} /home/shreya/ami.pkr.hcl"
-                        currentBuild.result = 'SUCCESS'
-                    } catch (Exception e) {
-                        currentBuild.result = 'FAILURE'
-                        echo "AMI creation failed: ${e.message}"
-                        error("AMI creation failed: ${e.message}")
+                    // Change to the directory containing the Packer configuration
+                    dir('/home/shreya/') {
+                        // Initialize Packer (if necessary)
+                        sh '/usr/bin/packer init .'
+                        
+                        // Build the AMI
+                        sh '/usr/bin/packer build .'
                     }
                 }
             }
         }
     }
-    post {
-        always {
-            echo 'Pipeline completed.'
-        }
-        success {
-            echo 'AMI creation completed successfully.'
-        }
-        failure {
-            echo 'AMI creation failed.'
-        }
-    }
 }
+
