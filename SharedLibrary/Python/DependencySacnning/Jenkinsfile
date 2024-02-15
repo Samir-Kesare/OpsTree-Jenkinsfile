@@ -1,1 +1,14 @@
 
+@Library('snaatak-p7') _
+def pythonDependencyScanning = new org.avengers.template.PythonDependencyScanning()
+
+node {
+    
+    def url = 'https://github.com/OT-MICROSERVICES/attendance-api.git'
+    def creds = 'vishal-cred'
+    def branch = 'main'
+    def version = '9.0.9'
+    
+    golangUnitTesting.call(url, creds, branch, version)
+    
+}
