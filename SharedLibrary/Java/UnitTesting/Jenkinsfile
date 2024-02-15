@@ -1,21 +1,24 @@
-// Define the function for the Checkout stage
-def checkoutStage() {
-    return {
-        stage("Checkout") {
+@Library('my-shared-library') _
+
+pipeline {
+    agent any
+    
+    stages {
+        stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Parasharam-DevOps/salary-api.git'
+                script {
+                    // Call the checkoutStage function from the shared library
+                    javaUnitTesting.checkoutStage()
+                }
             }
         }
-    }
-}
-
-// Define the function for the Test stage
-def testStage() {
-    return {
-        stage("Test") {
+        
+        stage('Test') {
             steps {
-                echo "Executing Java Unit Testing"
-                sh 'mvn test'
+                script {
+                    // Call the testStage function from the shared library
+                    javaUnitTesting.testStage()
+                }
             }
         }
     }
