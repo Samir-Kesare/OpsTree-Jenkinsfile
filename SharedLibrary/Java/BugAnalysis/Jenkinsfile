@@ -6,23 +6,36 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    javaBugAnalysis.checkoutStage()
+                    gitCheckout(branch: "main", url: "https://github.com/Parasharam-Desai/salary-api.git")
                 }
             }
         }
         stage('Bug Analysis') {
             steps {
                 script {
-                    javaBugAnalysis.bugAnalysisStage()
+                    javaBugAnalysis()
                 }
             }
         }
         stage('Publish HTML Report') {
             steps {
                 script {
-                    javaBugAnalysis.htmlReportStage()
+                    javaBugHtmlReport()
                 }
             }
+        }
+    }
+}
+post {
+        always {
+        // One or more steps need to be included within each condition's block.
+        cleanWorkspace()
+       }
+        success { 
+            echo 'Compiled Successfully !'
+        }
+        failure { 
+            echo 'Compilation Failed !'
         }
     }
 }
