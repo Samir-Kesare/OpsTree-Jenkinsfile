@@ -1,36 +1,12 @@
 @Library('snaatak-p7') _
+def golangUnitTesting = new org.avengers.template.GolangUnitTesting()
 
-pipeline {
-    agent any
+node {
     
-    stages {
-        stage('Install Go') {
-            steps {
-                script{
-                    golangUnitTesting.installgo()
-                }
-            }
-        }
-        stage('Checkout') {
-            steps {
-                gitCheckoutPrivate(branch: 'main', url: 'https://github.com/OT-MICROSERVICES/employee-api.git', credentialsId: 'vishal-cred')
-            }
-        }
-        stage('Testing') {
-            steps {
-                script{
-                    golangUnitTesting.testing()
-                }
-            }
-        }
-        stage('Generate HTML Report') {
-            steps {
-                script{
-                    golangUnitTesting.html()
-                }
-            }
-        }
-    }
+    def url = 'https://github.com/OT-MICROSERVICES/employee-api.git'
+    def creds = 'vishal-cred'
+    def branch = 'main'
+    
+    golangUnitTesting.call(url, creds, branch)
+    
 }
-    
-        
