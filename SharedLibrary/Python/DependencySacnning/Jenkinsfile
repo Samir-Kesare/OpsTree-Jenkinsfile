@@ -7,8 +7,9 @@ node {
     def url = 'https://github.com/OT-MICROSERVICES/attendance-api.git'
     def creds = 'vishal-cred'
     def branch = 'main'
-    def version = '9.0.9'
+    def depVersion = '9.0.9'
+    def javaVersion = '17'
     
-    golangUnitTesting.call(url, creds, branch, version)
+    pythonDependencyScanning.call(url, creds, branch, depVersion, javaVersion)
     
 }
