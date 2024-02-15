@@ -32,10 +32,10 @@ post {
         cleanWorkspace()
        }
         success { 
-            echo 'Compiled Successfully !'
+            echo 'Job Run Successfully !'
         }
         failure { 
-            echo 'Compilation Failed !'
+            echo 'Job Failed !'
         }
     }
 }
