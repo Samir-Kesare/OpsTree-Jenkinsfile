@@ -1,12 +1,12 @@
 @Library("my-shared-library") _
 
-def javaCodeCompile = new org.avengers.template.java.javaCodeCompilation()
+def staticCodeAnalysis = new org.avengers.template.java.staticCodeAnalysis()
 
 node {
     
     def url = 'https://github.com/OT-MICROSERVICES/salary-api.git'
     def branch = 'main'
     
-    javaCodeCompile.call(branch: branch,url: url)
+    staticCodeAnalysis.call(branch: branch,url: url)
     
 }
