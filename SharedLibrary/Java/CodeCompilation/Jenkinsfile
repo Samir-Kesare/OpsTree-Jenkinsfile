@@ -4,7 +4,7 @@ def javaCodeCompile = new org.avengers.template.java.javaCodeCompilation()
 
 node {
     
-    def url = 'https://github.com/OT-MICROSERVICES/attendance-api.git'
+    def url = 'https://github.com/OT-MICROSERVICES/salary-api.git'
     def branch = 'main'
     
     javaCodeCompilation.call(url, branch)
