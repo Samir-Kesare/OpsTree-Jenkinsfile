@@ -1,41 +1,12 @@
-@Library('my-shared-library') _
+@Library("my-shared-library") _
 
-pipeline {
-    agent any
-    stages {
-        stage('Checkout') {
-            steps {
-                script {
-                    gitCheckout(branch: "main", url: "https://github.com/Parasharam-Desai/salary-api.git")
-                }
-            }
-        }
-        stage('Bug Analysis') {
-            steps {
-                script {
-                    javaBugAnalysis()
-                }
-            }
-        }
-        stage('Publish HTML Report') {
-            steps {
-                script {
-                    javaBugHtmlReport()
-                }
-            }
-        }
-    }
-}
-post {
-        always {
-        // One or more steps need to be included within each condition's block.
-        cleanWorkspace()
-       }
-        success { 
-            echo 'Job Run Successfully !'
-        }
-        failure { 
-            echo 'Job Failed !'
-        }
-    }
+def javaBugAnalysis = new org.avengers.template.java.javaBugAnalysis()
+
+node {
+    
+    def url = 'https://github.com/Parasharam-Desai/salary-api.git'
+    def branch = 'main'
+    
+    javaBugAnalysis.call(branch: branch,url: url)
+    
 }
