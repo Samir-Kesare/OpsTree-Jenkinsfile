@@ -1,11 +1,11 @@
 @Library("my-shared-library") _
 
-def genericCiSlackNotification = new org.avengers.genericCi.slackNotification.GenericCiSlackNotification()
+def genericCiSlackNotification = new org.avengers.template.genericCi.GenericCiSlackNotification()
 
 node {
-    // Assuming you have a variable called buildStatus with either 'SUCCESS' or 'FAILURE'
-    genericCiSlackNotification.call(buildStatus)
+   genericCiSlackNotification.call() 
 }
+
 
 
     
