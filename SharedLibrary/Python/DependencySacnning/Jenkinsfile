@@ -1,6 +1,6 @@
 
 @Library('snaatak-p7') _
-def pythonDependencyScanning = new org.avengers.template.PythonDependencyScanning()
+def pythonDependencyScanning = new org.avengers.template.python.PythonDependencyScanning()
 
 node {
     
