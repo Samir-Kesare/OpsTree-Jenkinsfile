@@ -2,11 +2,11 @@
 
 def javaCodeCompile = new org.avengers.template.java.javaCodeCompilation()
 
-// node {
+node {
     
     def url = 'https://github.com/OT-MICROSERVICES/salary-api.git'
     def branch = 'main'
     
     javaCodeCompile.call(branch: branch,url: url)
     
-// }
+}
