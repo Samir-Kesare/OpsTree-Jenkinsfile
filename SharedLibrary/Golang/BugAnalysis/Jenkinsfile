@@ -1,5 +1,5 @@
 @Library('snaatak-p7') _
-def golangBugAnalysis = new org.avengers.template.GolangBugAnalysis()
+def golangBugAnalysis = new org.avengers.template.golang.GolangBugAnalysis()
 
 
 node {
