@@ -1,6 +1,6 @@
 @Library("my-shared-library") _
 
-def staticCodeAnalysis = new org.avengers.template.java.staticCodeAnalysis()
+def staticCodeAnalysis = new org.avengers.template.java.codeAnalysis()
 
 node {
     
