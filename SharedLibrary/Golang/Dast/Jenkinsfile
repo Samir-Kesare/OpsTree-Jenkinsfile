@@ -1,13 +1,14 @@
 @Library('snaatak-p7') _
-def golangBugAnalysis = new org.avengers.template.golang.GolangBugAnalysis()
+def dast = new org.avengers.template.golang.GolangDast()
 
 
 node {
     
     def url = 'https://github.com/OT-MICROSERVICES/employee-api.git'
-    def creds = 'vishal-cred'
+    def creds = 'Snatak-SamirKesare'
     def branch = 'main'
+    def zapVersion = '2.14.0'
     
-    golangBugAnalysis.call(url, creds, branch)
+    dast.call(url, creds, branch, zapVersion)
     
 }
