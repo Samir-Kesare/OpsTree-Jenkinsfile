@@ -1,5 +1,5 @@
 @Library('snaatak-p7') _
-def golangUnitTesting = new org.avengers.template.GolangUnitTesting()
+def golangUnitTesting = new org.avengers.template.golang.GolangUnitTesting()
 
 node {
     
