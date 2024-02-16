@@ -1,9 +1,9 @@
 @Library("my-shared-library") _
 
-def genericCiSlacNotification = new org.avengers.template.genericCi.GenericCiSlacNotification()
+def genericCiSlackNotification = new org.avengers.template.genericCi.GenericCiSlackNotification()
 
 node {
-   genericCiSlacNotification.call() 
+   genericCiSlackNotification.call() 
 }
     
 
