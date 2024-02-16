@@ -7,6 +7,6 @@ node {
     def url = 'https://github.com/OT-MICROSERVICES/salary-api.git'
     def branch = 'main'
     
-    javaCodeCompilation.call(url, branch)
+    javaCodeCompile.call(branch: branch,url: url)
     
 }
