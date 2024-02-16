@@ -1,30 +1,12 @@
 @Library("my-shared-library") _
-pipeline {
-    agent any
 
-    stages {
-        stage('GIT Checkout') {
-            steps {
-                gitCheckout(branch: "main", url: "https://github.com/Parasharam-DevOps/salary-api.git"  )
+def unitTesting = new org.avengers.template.java.javaUnitTesting()
 
-            }
-        }
-        stage('Compile'){
-            steps{
-                javaUnitTesting()
-            }
-        }
-    }
-post {
-        always {
-        // One or more steps need to be included within each condition's block.
-        cleanWorkspace()
-       }
-        success { 
-            echo 'Job Run Successfully !'
-        }
-        failure { 
-            echo 'Job Failed !'
-        }
-    }
+node {
+    
+    def url = 'https://github.com/Parasharam-DevOps/salary-api.git'
+    def branch = 'main'
+    
+    unitTesting.call(branch: branch,url: url)
+    
 }
