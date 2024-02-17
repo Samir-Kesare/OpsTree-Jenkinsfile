@@ -24,12 +24,17 @@ pipeline {
                 // Run DP-Check
                 dependencyCheck additionalArguments: '--scan target/ --format ALL', odcInstallation: 'DP-check'
             }
-            post {
-                // Archive the HTML report as artifact
-                always {
-                    archiveArtifacts artifacts: '**/dependency-check-report.html'
-                }
-            }
+        }
+    }
+    post {
+        success {
+            archiveArtifacts artifacts: '**/dependency-check-report.html'
+            sh "ls $WORKSPACE/"
+            echo 'DP check Successfull !'
+            sh 'tree $WORKSPACE/'
+        }
+        failure {
+            echo 'DP check Failed !'
         }
     }
 }
