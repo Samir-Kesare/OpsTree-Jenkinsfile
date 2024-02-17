@@ -7,6 +7,6 @@ node {
     def url = 'https://github.com/vyadavP7/Salary-API.git'
     def branch = 'main'
     
-    dependencyCheck.call(branch: branch,url: url)
+    dpcheck.call(branch: branch,url: url)
     
 }
