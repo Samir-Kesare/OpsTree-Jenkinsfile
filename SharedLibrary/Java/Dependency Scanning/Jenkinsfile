@@ -1,1 +1,12 @@
+@Library("shared_library") _
 
+def dpcheck = new org.avengers.template.java.dependencyCheck()
+
+node {
+    
+    def url = 'https://github.com/vyadavP7/Salary-API.git'
+    def branch = 'main'
+    
+    dependencyCheck.call(branch: branch,url: url)
+    
+}
