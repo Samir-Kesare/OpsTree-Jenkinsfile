@@ -1,1 +1,8 @@
+@Library("my-shared-library") _
+
+def genericCiPackerAmi = new org.avengers.template.genericCi.GenericCiAmi()
+
+node {
+   genericCiPackerAmi.call() 
+}
 
