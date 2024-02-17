@@ -4,7 +4,7 @@ def dast = new org.avengers.template.golang.GolangDast()
 
 node {
     
-    def url = 'https://github.com/OT-MICROSERVICES/employee-api.git'
+    def url = 'https://github.com/CodeOps-Hub/employee-api.git'
     def creds = 'Snatak-SamirKesare'
     def branch = 'main'
     def zapVersion = '2.14.0'
