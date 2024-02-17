@@ -1,6 +1,6 @@
 @Library("shared_library") _
 
-def dpcheck = new org.avengers.template.java.dependencyCheck()
+def dpcheck = new org.avengers.template.java.dependencyCheck.dpCheck()
 
 node {
     
