@@ -9,5 +9,4 @@ node {
     def credentialsId = 'vyadavP7'
     
     dpcheck.call(branch: branch,url: url, credentialsId: credentialsId)
-    
 }
