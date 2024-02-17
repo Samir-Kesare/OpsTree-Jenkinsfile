@@ -2,12 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Cleanup Workspace') {
-            steps {
-                // Clean up the workspace
-                cleanWs()
-            }
-        }
         stage('Clone Repository') {
             steps {
                 // Clone the repository
