@@ -3,10 +3,6 @@
 def genericCiPackerAmi = new org.avengers.template.genericCi.GenericCiAmi()
 
 node {
-   genericCiPackerAmi.call() 
-}
-
-node {
     
     def url = 'https://github.com/CodeOps-Hub/AMI.git'
     def creds = 'c78ea501-f75a-4296-8f25-05a43fb2b116'
