@@ -8,5 +8,5 @@ node {
     def branch = 'main'
     def creds = 'vyadavP7'
     
-    dpcheck.call(config)
+    dpcheck.call(url, creds, branch)
 }
