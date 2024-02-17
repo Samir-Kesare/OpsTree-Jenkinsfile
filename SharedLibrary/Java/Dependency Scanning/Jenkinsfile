@@ -12,9 +12,5 @@ node {
     println "Branch: ${branch}"
     println "Credentials ID: ${credentialsId}"
     
-    dpcheck.call([
-        branch: branch,
-        url: url,
-        credentialsId: credentialsId
-    ])
+    dpcheck.call(config)
 }
