@@ -1,9 +1,5 @@
 node {
     try {
-        stage('Cleanup Workspace') {
-            cleanWs()
-        }
-
         stage('Clone Repository') {
             git branch: 'main', url: 'https://github.com/vyadavP7/Salary-API.git'
         }
