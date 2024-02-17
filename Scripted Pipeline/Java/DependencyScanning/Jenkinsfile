@@ -1,33 +1,27 @@
 node {
-    stage('Cleanup Workspace') {
-      cleanWs()
-    }
-    
-    stage('Clone Repository') {
-        git branch: 'main', url: 'https://github.com/vyadavP7/Salary-API.git'
-    }
-    
-    stage('Package Artifacts') {
-        sh 'mvn clean package -DskipTests=true'
-    }
-    
-    stage('Owasp DP-Check') {
-        // Run DP-Check
-        dependencyCheck additionalArguments: '--scan target/ --format ALL', odcInstallation: 'DP-check'
-    }
-    
-    // Post-build actions
-    success {
-        // Archive the HTML report as artifact
+    try {
+        stage('Cleanup Workspace') {
+            cleanWs()
+        }
+
+        stage('Clone Repository') {
+            git branch: 'main', url: 'https://github.com/vyadavP7/Salary-API.git'
+        }
+
+        stage('Package Artifacts') {
+            sh 'mvn clean package -DskipTests=true'
+        }
+
+        stage('Owasp DP-Check') {
+            dependencyCheck additionalArguments: '--scan target/ --format ALL', odcInstallation: 'DP-check'
+        }
+    } catch (Exception e) {
+        echo 'DP check Failed !'
+    } finally {
         archiveArtifacts artifacts: '**/dependency-check-report.html'
         sh "ls ${WORKSPACE}"
         echo 'DP check Successful !'
-        
-        // Display tree structure
+
         sh 'tree ${WORKSPACE}'
-    }
-    
-    failure {
-        echo 'DP check Failed !'
     }
 }
