@@ -7,10 +7,6 @@ node {
     def url = 'https://github.com/vyadavP7/Salary-API.git'
     def branch = 'main'
     def creds = 'vyadavP7'
-
-    println "URL: ${url}"
-    println "Branch: ${branch}"
-    println "Credentials ID: ${credentialsId}"
     
     dpcheck.call(config)
 }
