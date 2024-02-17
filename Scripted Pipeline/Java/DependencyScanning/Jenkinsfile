@@ -13,7 +13,7 @@ node {
     
     stage('Owasp DP-Check') {
         // Run DP-Check
-        sh 'dependency-check --scan target/ --format ALL'
+        dependencyCheck additionalArguments: '--scan target/ --format ALL', odcInstallation: 'DP-check'
     }
     
     // Post-build actions
