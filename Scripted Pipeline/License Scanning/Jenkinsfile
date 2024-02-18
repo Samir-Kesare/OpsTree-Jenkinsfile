@@ -1,1 +1,38 @@
+node {
+    // Define repository URL and branch
+    def repoUrl = 'https://github.com/OT-MICROSERVICES/employee-api.git'
+    def branch = 'main'
+
+    // Define FOSSA API key credential ID
+    def fossaTokenCredentialId = 'fossaToken'
+
+    // Checkout SCM
+    stage('Checkout SCM') {
+        git branch: branch, url: repoUrl
+    }
+
+    // Set FOSSA API key as environment variable
+    withCredentials([string(credentialsId: fossaTokenCredentialId, variable: 'FOSSA_API_KEY')]) {
+        // Download and Install FOSSA
+        stage('Download and Install FOSSA') {
+            sh 'curl -H \'Cache-Control: no-cache\' https://raw.githubusercontent.com/fossas/fossa-cli/master/install-latest.sh | bash'
+        }
+
+        // FOSSA Scan
+        stage('FOSSA Scan') {
+             try {
+            sh 'fossa analyze'
+            sh 'fossa test'
+        } catch (Exception e) {
+            echo "FOSSA Test failed. Review Your Code."
+            cleanWs()
+            error 'FOSSA scan failed'
+        }
+            
+        }
+    }
+
+    // Post-build actions
+   cleanWs()
+}
 
