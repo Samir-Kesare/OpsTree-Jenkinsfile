@@ -1,5 +1,5 @@
 @Library('snaatak-p7') _
-def BugsAnalysis = new org.avengers.template.python.PythonBugsAnalysis()
+def bugsAnalysis = new org.avengers.template.python.PythonBugsAnalysis()
 
 node {
     
