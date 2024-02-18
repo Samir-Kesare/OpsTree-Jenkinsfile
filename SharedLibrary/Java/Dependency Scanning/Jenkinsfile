@@ -4,7 +4,7 @@ def dpcheck = new org.avengers.template.java.dependencyCheck()
 
 node {
     
-    def url = 'https://github.com/vyadavP7/Salary-API.git'
+    def url = 'https://github.com/CodeOps-Hub/p7-salary-API.git'
     def branch = 'main'
     def creds = 'vyadavP7'
     
