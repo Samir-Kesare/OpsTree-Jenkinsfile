@@ -1,1 +1,12 @@
+@Library('snaatak-p7') _
+def bugsAnalysis = new org.avengers.template.python.PythonStaticCodeAnalysis()
 
+node {
+    
+    def url = 'https://github.com/CodeOps-Hub/attendance-api.git'
+    def creds = 'Attendance-creds'
+    def branch = 'main'
+       
+    bugsAnalysis.call(url, creds, branch)
+    
+}
