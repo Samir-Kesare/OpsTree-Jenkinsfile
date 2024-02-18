@@ -1,0 +1,2 @@
+@Library('snaatak-p7') _
+def org/avengers/template/python/PythonBugsAnalysis
