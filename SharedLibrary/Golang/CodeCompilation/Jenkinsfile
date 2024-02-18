@@ -1,25 +1,12 @@
 @Library('shared-library') _
+def golangcodecompilation = new org.avengers.template.golang.GolangCodeCompilation()
 
-
-pipeline {
-    agent any
+node {
     
-    tools {
-        // Define the Go tool installation named 'Go' using the configured path
-        go 'go1.22.0'
-    }
+    def url = 'https://github.com/OT-MICROSERVICES/employee-api.git'
+    def creds = 'khushi09'
+    def branch = 'main'
     
-    stages {
-        stage('Setup') {
-            steps {
-                git branch: 'main', credentialsId: 'Khushi-malhoz-PAT', url: 'https://github.com/avengers-p7/Jenkinsfile.git'
-            }
-        }
-        
-        stage('Code Compilation') {
-            steps {
-                golangCodeCompilation()
-            }
-        }
-    }
+    golangcodecompilation.call(url, creds, branch)
+    
 }
