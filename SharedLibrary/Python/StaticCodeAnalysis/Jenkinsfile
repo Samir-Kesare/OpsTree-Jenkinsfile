@@ -1,5 +1,5 @@
 @Library('snaatak-p7') _
-def bugsAnalysis = new org.avengers.template.python.PythonStaticCodeAnalysis()
+def codeAnalysis = new org.avengers.template.python.PythonStaticCodeAnalysis()
 
 node {
     
@@ -7,6 +7,6 @@ node {
     def creds = 'Attendance-creds'
     def branch = 'main'
        
-    bugsAnalysis.call(url, creds, branch)
+    codeAnalysis.call(url, creds, branch)
     
 }
