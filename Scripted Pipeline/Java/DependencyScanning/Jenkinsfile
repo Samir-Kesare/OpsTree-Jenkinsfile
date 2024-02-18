@@ -3,11 +3,6 @@ node {
         stage('Clone Repository') {
             git branch: 'main', url: 'https://github.com/vyadavP7/Salary-API.git'
         }
-
-        stage('Package Artifacts') {
-            sh 'mvn clean package -DskipTests=true'
-        }
-
         stage('Owasp DP-Check') {
             dependencyCheck additionalArguments: '--scan target/ --format ALL', odcInstallation: 'DP-check'
         }
