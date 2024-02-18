@@ -1,1 +1,41 @@
+pipeline {
+    agent any
+    
+    environment {
+        // Define the environment variable that will hold the secret
+        FOSSA_API_KEY = credentials('fossaToken')
+    }
 
+    stages {
+         stage('Checkout SCM') {
+            steps {
+                    git branch: 'main', url: 'https://github.com/OT-MICROSERVICES/salary-api.git'
+            }
+        }
+        
+        stage('Download and Install FOSSA') {
+            steps {
+                     sh 'curl -H \'Cache-Control: no-cache\' https://raw.githubusercontent.com/fossas/fossa-cli/master/install-latest.sh | bash'
+            }
+        }
+        
+
+        stage('FOSSA Scan') {
+            steps {
+                    sh 'fossa analyze'
+                    sh 'fossa test'
+            }
+        }
+    }
+    post {
+        success {
+            sh 'echo "No Issues Reported"'
+            cleanWs()
+        }
+        failure {
+            sh 'echo "Issues Reported - Please review your code"'
+            cleanWs()
+        }
+        }
+        
+    }
