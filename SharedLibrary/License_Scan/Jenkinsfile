@@ -1,1 +1,13 @@
+@Library("my-shared-library") _
+
+def licenseScan  = new org.avengers.template.genericCi.LicenseScan()
+
+node {
+    
+    def url = 'https://github.com/OT-MICROSERVICES/employee-api.git'
+    def branch = 'main'
+    
+   licenseScan.call(branch: branch,url: url)
+    
+}
 
