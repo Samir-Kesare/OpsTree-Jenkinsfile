@@ -47,6 +47,7 @@ pipeline {
             steps {
                 // Use tool step for better integration
                 tool name: 'gosec'
+                sh 'sudo snap refresh gosec'
                 withEnv(['HOME=/home/jenkins']) {
                 sh 'gosec -fmt=json -out=gosec-report.json ./...'
 }
