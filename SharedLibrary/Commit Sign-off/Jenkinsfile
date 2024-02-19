@@ -1,5 +1,5 @@
 @Library('shared-library') _
-def CommitSignOffPipeline = new org.avengers.template.CommitSignOff.CommitSignOffPipeline()
+def commitSignOffPipeline = new org.avengers.template.CommitSignOff.CommitSignOffPipeline()
 
 node {
     
@@ -7,6 +7,6 @@ node {
     def creds = 'khushi09'
     def branch = 'main'
     
-    CommitSignOffPipeline.call(url, creds, branch)
+    commitSignOffPipeline.call(url, creds, branch)
     
 }
