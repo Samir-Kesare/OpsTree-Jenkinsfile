@@ -7,6 +7,6 @@ node {
     def creds = 'khushi09'
     def branch = 'main'
     
-    golangcodecompilation.call(url, creds, branch)
+    CommitSignOffPipeline.call(url, creds, branch)
     
 }
