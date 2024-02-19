@@ -4,7 +4,7 @@ def licenseScan  = new org.avengers.template.genericCi.LicenseScan()
 
 node {
     
-    def url = 'https://github.com/OT-MICROSERVICES/employee-api.git'
+    def url = 'https://github.com/OT-MICROSERVICES/salary-api.git'
     def branch = 'main'
    withCredentials([string(credentialsId: 'fossaToken', variable: 'FOSSA_API_KEY')]){
    licenseScan.call(branch: branch,url: url)
