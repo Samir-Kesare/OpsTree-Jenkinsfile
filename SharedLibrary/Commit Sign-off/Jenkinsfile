@@ -1,5 +1,5 @@
 @Library('shared-library') _
-def CommitSignOffPipeline = new org.avengers.template.CommitSignOff.CommitSignOffPipeline()
+def CommitSignOffPipeline = new org.avengers.template.CommitSignOff()
 
 node {
     
