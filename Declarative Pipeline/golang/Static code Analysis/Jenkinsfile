@@ -47,7 +47,10 @@ pipeline {
             steps {
                 // Use tool step for better integration
                 tool name: 'gosec'
-                sh 'gosec -fmt json ./...' // Adjust paths as needed
+                withEnv(['HOME=/home/jenkins']) {
+                sh 'gosec -fmt=json -out=gosec-report.json ./...'
+}
+               // sh 'gosec -fmt json ./...' // Adjust paths as needed
 
                 // Publish results with better formatting
                 publishJunit testsFileName: 'gosec-report.json', className: 'gosec'
