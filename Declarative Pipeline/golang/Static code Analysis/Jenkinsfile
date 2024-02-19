@@ -2,19 +2,16 @@ pipeline {
     agent any
 
     tools {
-        // Define the Go tool installation named 'Go' using the configured path
-        go 'go1.22.0'
+        // Use pre-installed Go version if available
+        // Install 'Go' tool only if needed
+        go 'go1.22.0' // Adjust version as needed
     }
-    
-    environment {
-         GOMODCACHE = '/var/lib/jenkins'
-    }
-  
+
     stages {
         stage('Checkout') {
             steps {
-                // Checkout your code from version control
-                git branch: 'main', credentialsId: 'khushi_cred', url: 'https://github.com/OT-MyGurukulam/employee-api.git'
+                // Use credentials if necessary
+                git branch: 'main', credentialsId: 'khushi09', url: 'https://github.com/OT-MyGurukulam/employee-api.git'
             }
         }
 
@@ -25,23 +22,21 @@ pipeline {
             }
         }
 
-        stage('Install gosec') {
+        stage('Install gosec (Optimized)') {
             steps {
                 script {
-                    def gosecBinary = '/snap/bin/gosec'
+                    // Check if gosec already exists in PATH
+                    if (!sh(returnStdout: true, script: 'which gosec').trim()) {
+                        // Download to temporary directory
+                        def gosecTempDir = '/tmp/gosec-install'
+                        sh "mkdir -p ${gosecTempDir}"
+                        sh "wget -O ${gosecTempDir}/gosec https://github.com/securego/gosec/releases/download/v2.18.2/gosec_linux_amd64"
 
-                    // Check if gosec binary already exists
-                    if (!fileExists(gosecBinary)) {
-                        // Download gosec binary
-                        sh 'wget -O gosec https://github.com/securego/gosec/releases/download/v2.18.2/gosec_linux_amd64'
-                        
-                        // Give execute permission to the gosec binary
-                        sh 'chmod +x gosec' 
-                        
-                        // Move the binary to /snap/bin
-                        sh 'sudo mv gosec /snap/bin/'
+                        // Set up permissions and add to PATH
+                        sh "chmod +x ${gosecTempDir}/gosec"
+                        sh "sudo mv ${gosecTempDir}/gosec /usr/local/bin/"
 
-                        // Verify if `gosec` can be executed
+                        // Verify installation
                         sh 'gosec --version'
                     }
                 }
@@ -50,14 +45,27 @@ pipeline {
 
         stage('Static Code Analysis') {
             steps {
-                // Set HOME environment variable to a directory within /home
-                withEnv(['HOME=/home/jenkins']) {
-                    // Run gosec for static code analysis
-                    sh 'gosec -fmt=json ./...'
-                    // Publish gosec results
-                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'gosec-report', reportFiles: 'gosec-report/gosec.json', reportName: 'GoSec Report', reportTitles: ''])
-                }
+                // Use tool step for better integration
+                tool name: 'gosec'
+                sh 'gosec -fmt json ./...' // Adjust paths as needed
+
+                // Publish results with better formatting
+                publishJunit testsFileName: 'gosec-report.json', className: 'gosec'
             }
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
