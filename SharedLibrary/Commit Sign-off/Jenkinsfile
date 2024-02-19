@@ -1,5 +1,12 @@
 @Library('shared-library') _
+def CommitSignOffPipeline = new org.avengers.template.CommitSignOff.CommitSignOffPipeline()
 
-import org.avengers.template.CommitSignOffPipeline
-
-CommitSignOffPipeline.performCommitSignOff()
+node {
+    
+    def url = 'https://github.com/CodeOps-Hub/SharedLibrary.git'
+    def creds = 'khushi09'
+    def branch = 'main'
+    
+    golangcodecompilation.call(url, creds, branch)
+    
+}
