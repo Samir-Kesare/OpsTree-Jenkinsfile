@@ -6,8 +6,8 @@ node {
     
     def url = 'https://github.com/OT-MICROSERVICES/employee-api.git'
     def branch = 'main'
-    
+   withCredentials([string(credentialsId: 'fossaToken', variable: 'FOSSA_API_KEY')]){
    licenseScan.call(branch: branch,url: url)
-    
+   }
 }
 
