@@ -7,7 +7,8 @@ node {
     def creds = 'vyadavP7'
     def branch = 'main'
     def zapVersion = '2.14.0'
-    
+    def currentWorkspace = env.WORKSPACE 
+        
     dast.call(url, creds, branch, zapVersion)
     
 }
