@@ -3,11 +3,6 @@ def commitSignOffPipeline = new org.avengers.template.CommitSignOff.CommitSignOf
 
 node {
    
-    def url = 'https://github.com/orgs/CodeOps-Hub/repositories'
-    def creds = 'khushi09'
-    def branch = 'main'
-    
-    golangcodecompilation.call(url, creds, branch)
     commitSignOffPipeline.call()  
     
 }
