@@ -5,7 +5,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 // Clone the repository
-                git branch: 'main', url: 'https://github.com/vyadavP7/Salary-API.git'
+                git branch: 'main', url: 'https://github.com/CodeOps-Hub/Salary-API.git'
             }
         }
         stage('Owasp DP-Check') {
