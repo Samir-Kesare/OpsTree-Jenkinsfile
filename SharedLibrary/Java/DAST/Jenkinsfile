@@ -1,5 +1,5 @@
 @Library('dast_sharedLib') _
-def dast = new org.avengers.template.javaDast()
+def dast = new org.avengers.template.java.javaDast()
 
 node {
     
