@@ -9,6 +9,6 @@ node {
     def zapVersion = '2.14.0'
     def currentWorkspace = env.WORKSPACE 
         
-    dast.call(url, creds, branch, zapVersion)
+    dast.call(url, creds, branch, zapVersion, currentWorkspace)
     
 }
