@@ -1,0 +1,13 @@
+@Library('dast_sharedLib') _
+def dast = new org.avengers.template.javaDast.groovy()
+
+node {
+    
+    def url = 'https://github.com/CodeOps-Hub/Salary-API.git'
+    def creds = 'vyadavP7'
+    def branch = 'main'
+    def zapVersion = '2.14.0'
+    
+    dast.call(url, creds, branch, zapVersion)
+    
+}
