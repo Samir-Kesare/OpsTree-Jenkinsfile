@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+
+    environment {
+        CURRENT_WORKSPACE = "${WORKSPACE}"
+    }
+    
+    stages {
+        stage('Clone Repository') {
+            steps {
+                // Clone the repository
+                git branch: 'main', url: 'https://github.com/CodeOps-Hub/Salary-API.git'
+            }
+        }
+        stage('Install ZAP') {
+            steps {
+                script {
+                    // Download and install OWASP ZAP
+                    sh 'wget https://github.com/zaproxy/zaproxy/releases/download/v2.14.0/ZAP_2.14.0_Linux.tar.gz'
+                    sh 'tar -xf ZAP_2.14.0_Linux.tar.gz'
+                }
+            }
+        }
+        stage('Run Zap Scan') {
+            steps {
+                script {
+                    sh "${CURRENT_WORKSPACE}/ZAP_2.14.0/zap.sh -cmd -port 8082 -quickurl http://174.129.170.198:8080/swagger-ui/index.html -quickout ${CURRENT_WORKSPACE}/results.html"
+                }
+            }
+        }
+        stage('Archive reports') {
+            steps {
+                // Archive ZAP scan report
+                archiveArtifacts artifacts: '**/results.html'
+            }
+        }
+    }
+}
+
