@@ -16,7 +16,7 @@ pipeline {
             steps {
                 sh '''
                 sonar-scanner \
-                    -X
+                    //-X
                     -Dsonar.projectKey=golang-SCA \
                     -Dsonar.sources=. \
                     -Dsonar.host.url=http://13.201.1.99:9000/
