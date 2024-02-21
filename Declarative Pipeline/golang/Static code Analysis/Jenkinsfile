@@ -1,46 +1,32 @@
 pipeline {
     agent any
 
-    tools {
-        go 'go1.22.0' // Define the Go tool installation named 'Go' using the configured path
-    }
-    
-    environment {
-        JENKINS_HOME = '/home/jenkins' // Set the HOME environment variable to /home/jenkins
-    }
-  
     stages {
-        stage('Checkout') {
+        stage('codecheckout') {
             steps {
-                git branch: 'main', credentialsId: 'khushi09', url: 'https://github.com/OT-MyGurukulam/employee-api.git' // Checkout your code from version control
+                 git branch: 'main', credentialsId: 'khushi09', url: 'https://github.com/OT-MyGurukulam/employee-api.git'
             }
         }
 
-        stage('Build') {
+        stage('code analysis') {
             steps {
-                sh 'go build' // Build your GoLang code
-            }
-        }
-
-        stage('Install gosec') {
-            steps {
-                sh 'wget -O - -q https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s v2.19.0'
-                sh 'sudo chmod +x /snap/bin/gosec'
-                withEnv(['JENKINS_HOME=/home/jenkins']) {
-                    sh 'gosec --version' // Verify if `gosec` can be executed
+                withCredentials([string(credentialsId: 'demo', variable: 'tokenn')]) {
+                    sh '''
+                          sonar-scanner \
+                         -Dsonar.projectKey=demo-token \
+                         -Dsonar.sources=. \
+                         -Dsonar.host.url=http://13.201.1.99/:9000 \
+                         -Dsonar.token=${tokenn}
+                    '''
                 }
             }
         }
 
-        stage('Static Code Analysis') {
+        stage('Quality Gate') {
             steps {
-                withEnv(['JENKINS_HOME=/home/jenkins']) {
-                    sh 'gosec -fmt=json ./...' // Run gosec for static code analysis
-                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'gosec-report', reportFiles: 'gosec-report/gosec.json', reportName: 'GoSec Report', reportTitles: '']) // Publish gosec results
-                }
+                waitForQualityGate abortPipeline: true
             }
         }
-
-        // Add more stages as necessary
     }
 }
+
