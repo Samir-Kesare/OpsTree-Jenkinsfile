@@ -3,8 +3,8 @@ def dependency = new org.avengers.template.golang.Dependency()
 
 node {
     
-    def url = 'https://github.com/OT-MICROSERVICES/attendance-api.git'
-    def creds = 'vishal-cred'
+    def url = 'https://github.com/CodeOps-Hub/Employee-API.git'
+    def creds = 'cred'
     def branch = 'main'
     def depVersion = '9.0.9'
     def javaVersion = '17'
