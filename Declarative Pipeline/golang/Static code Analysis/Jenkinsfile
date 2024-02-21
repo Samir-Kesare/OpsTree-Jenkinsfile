@@ -1,12 +1,10 @@
 pipeline {
     agent any
-
     tools {
         // Use pre-installed Go version if available
         // Install 'Go' tool only if needed
         go 'go1.22.0' // Adjust version as needed
     }
-
     stages {
         stage('Checkout') {
             steps {
@@ -14,14 +12,12 @@ pipeline {
                 git branch: 'main', credentialsId: 'khushi09', url: 'https://github.com/OT-MyGurukulam/employee-api.git'
             }
         }
-
         stage('Build') {
             steps {
                 // Build your GoLang code
                 sh 'go build'
             }
         }
-
         stage('Install gosec (Optimized)') {
             steps {
                 script {
@@ -31,18 +27,15 @@ pipeline {
                         def gosecTempDir = '/tmp/gosec-install'
                         sh "mkdir -p ${gosecTempDir}"
                         sh "wget -O ${gosecTempDir}/gosec https://github.com/securego/gosec/releases/download/v2.18.2/gosec_linux_amd64"
-
                         // Set up permissions and add to PATH
                         sh "chmod +x ${gosecTempDir}/gosec"
                         sh "sudo mv ${gosecTempDir}/gosec /usr/local/bin/"
-
                         // Verify installation
                         sh 'gosec --version'
                     }
                 }
             }
         }
-
         stage('Static Code Analysis') {
             steps {
                 // Use tool step for better integration
@@ -52,24 +45,9 @@ pipeline {
                 sh 'gosec -fmt=json -out=gosec-report.json ./...'
 }
                // sh 'gosec -fmt json ./...' // Adjust paths as needed
-
                 // Publish results with better formatting
                 publishJunit testsFileName: 'gosec-report.json', className: 'gosec'
             }
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
