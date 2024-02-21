@@ -1,32 +1,43 @@
 pipeline {
     agent any
 
-    stages {
-        stage('codecheckout') {
-            steps {
-                 git branch: 'main', changelog: false, poll: false, url: 'https://github.com/OT-MyGurukulam/employee-api.git'
-            }
-        }
+    tools {
+        go 'go1.22.0'  // Assuming "go.1.22.0" tool is installed and configured
+    }
 
-        stage('code analysis') {
+    stages {
+        stage('Git Checkout') {
             steps {
-                withCredentials([string(credentialsId: 'demo', variable: 'tokenn')]) {
-                    sh '''
-                          sonar-scanner \
-                         -Dsonar.projectKey=demo-token \
-                         -Dsonar.sources=. \
-                         -Dsonar.host.url=http://13.201.1.99/:9000 \
-                         -Dsonar.token=${tokenn}
-                    '''
+                script {
+                    git branch: 'main', url: 'https://github.com/OT-MyGurukulam/employee-api.git'
                 }
             }
         }
 
-        stage('Quality Gate') {
+        stage('Static Code Analysis') {
             steps {
-                waitForQualityGate abortPipeline: true
+                withCredentials([string(credentialsId: 'jenkins-sonar-01', variable: 'jenkins-sonar-01')]) {
+                    sh '''
+                    gosonar-scanner \
+                      -DprojectKey=employee-api \
+                      -Dsonar.sources=. \
+                      -Dsonar.host.url=http://13.201.1.99/:9000 \
+                      -Dsonar.token=${jenkins-sonar-01}
+                    '''
+                }
             }
         }
     }
-}
 
+    post {
+        always {
+            cleanWs cleanWhenSuccess: false
+        }
+        success {
+            echo 'Build Successfully !'
+        }
+        failure {
+            echo 'Build Failed !'
+        }
+    }
+}
