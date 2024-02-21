@@ -1,43 +1,11 @@
-pipeline {
-    agent any
-
-    tools {
-        go 'go1.22.0'  // Assuming "go.1.22.0" tool is installed and configured
+node {
+  stage('SCM') {
+    checkout scm
+  }
+  stage('SonarQube Analysis') {
+    def scannerHome = tool 'goland-SCA';
+    withSonarQubeEnv() {
+      sh "${scannerHome}/bin/goland-SCAr"
     }
-
-    stages {
-        stage('Git Checkout') {
-            steps {
-                script {
-                    git branch: 'main', credentialsId: 'khushi_cred', url: 'https://github.com/OT-MyGurukulam/employee-api.git'
-                }
-            }
-        }
-
-        stage('Static Code Analysis') {
-            steps {
-                withCredentials([string(credentialsId: 'jenkins-sonar-01', variable: 'jenkins-sonar-01')]) {
-                    sh '''
-                    sonar-scanner \
-                       -Dsonar.projectKey=golang-SCA \
-                       -Dsonar.sources=. \
-                       -Dsonar.host.url=http://13.201.1.99:9000 \
-                       -Dsonar.login=sqp_285f389f62489891cd0ed149dd5daeb2717da76f
-                     '''
-                }
-            }
-        }
-    }
-
-    post {
-        always {
-            cleanWs cleanWhenSuccess: false
-        }
-        success {
-            echo 'Build Successfully !'
-        }
-        failure {
-            echo 'Build Failed !'
-        }
-    }
+  }
 }
