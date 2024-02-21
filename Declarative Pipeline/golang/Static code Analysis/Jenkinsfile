@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('codecheckout') {
             steps {
-                 git branch: 'main', credentialsId: 'khushi09', url: 'https://github.com/OT-MyGurukulam/employee-api.git'
+                 git branch: 'main', url: 'https://github.com/OT-MyGurukulam/employee-api.git'
             }
         }
 
