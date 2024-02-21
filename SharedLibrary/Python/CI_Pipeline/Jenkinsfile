@@ -1,1 +1,20 @@
+@Library("my-shared-library") _
+// testing  webhook-001
 
+// testing  salary CI webhook-001
+def Attandance_CI = new org.avengers.template.python.Attandance_CI.attandanceCI.groovy()
+    
+node {
+    
+    def url = 'https://github.com/CodeOps-Hub/attendance-api.git'
+    def branch = 'main'
+    def creds = '890c8a72-7383-4986-8573-519aacdeb7d2'
+    def creds = 'vishal-cred'
+    def depVersion = '9.0.9'
+    def javaVersion = '17'
+    def creds = 'Attendance-creds'
+
+
+   Attandance_CI.call(branch: branch,url: url, creds: creds, depVersion: depVersion, javaVersion: javaVersion )
+   
+    }
