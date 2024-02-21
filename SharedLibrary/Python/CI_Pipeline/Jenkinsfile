@@ -9,9 +9,7 @@ node {
     def url = 'https://github.com/CodeOps-Hub/attendance-api.git'
     def branch = 'main'
     def creds = 'vikram445'    
-   #def depVersion = '9.0.9'
-
-
-   Attandance_CI.call(branch: branch,url: url, creds: creds)
+   
+    Attandance_CI.call(branch: branch,url: url, creds: creds)
    
     }
