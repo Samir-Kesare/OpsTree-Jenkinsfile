@@ -2,7 +2,7 @@
 // testing  webhook-001
 
 // testing  salary CI webhook-001
-def Attandance_CI = new org.avengers.template.python.Attandance_CI.attandanceCI.groovy()
+def Attandance_CI = new org.avengers.template.Attandance_CI.attandanceCI()
     
 node {
     
