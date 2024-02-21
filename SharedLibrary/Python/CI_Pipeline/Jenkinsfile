@@ -10,6 +10,6 @@ node {
     def branch = 'main'
     def creds = 'vikram445'    
    
-    Attandance_CI.call(branch: branch,url: url, creds: creds)
+    Attandance_CI.call(branch, url, creds)
    
     }
