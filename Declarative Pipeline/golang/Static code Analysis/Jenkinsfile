@@ -9,7 +9,7 @@ pipeline {
         stage('Git Checkout') {
             steps {
                 script {
-                    git branch: 'main', url: 'https://github.com/OT-MyGurukulam/employee-api.git'
+                    git branch: 'main', credentialsId: 'khushi_cred', url: 'https://github.com/OT-MyGurukulam/employee-api.git'
                 }
             }
         }
