@@ -1,29 +1,25 @@
 pipeline {
     agent any
 
-    tools {
-        go 'go1.22.0'  // Assuming "go.1.22.0" tool is installed and configured
-    }
-
     stages {
-        stage('Git Checkout') {
+        stage("Git Checkout") {
             steps {
                 script {
-                    git branch: 'main', credentialsId: 'khushi09', url: 'https://github.com/OT-MyGurukulam/employee-api.git'
+                    git branch: 'main', url: 'https://github.com/OT-MyGurukulam/employee-api.git'
                 }
             }
         }
-
         stage('Static Code Analysis') {
             steps {
-                withCredentials([string(credentialsId: 'jenkins-sonar-01', variable: 'jenkins-sonar-01')]) {
+                withSonarQubeEnv(credentialsId: 'jenkins-sonar-01', installationName: 'sq1') { 
                     sh '''
+                    export PATH="$PATH:/path/to/sonar-scanner/bin"  # Add Sonar Scanner to PATH
                     sonar-scanner \
-                       -Dsonar.projectKey=golang-SCA \
-                       -Dsonar.sources=. \
-                       -Dsonar.host.url=http://13.201.1.99:9000 \
-                       -Dsonar.login=sqp_285f389f62489891cd0ed149dd5daeb2717da76f
-                     '''
+                        -Dsonar.projectKey=golang-SCA\
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=http://13.201.1.99/:9000 \
+                        -Dsonar.login=demo-token
+                    '''
                 }
             }
         }
