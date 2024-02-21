@@ -10,17 +10,17 @@ pipeline {
             }
         }
         stage('Static Code Analysis') {
+            environment {
+                PATH = "/opt/sonar-scanner/bin:$PATH"
+            }
             steps {
-                withSonarQubeEnv(credentialsId: 'jenkins-sonar-01', installationName: 'sq1') { 
-                    sh '''
-                    export PATH="/opt/sonar-scanner/bin"  
-                    sonar-scanner \
-                        -Dsonar.projectKey=golang-SCA\
-                        -Dsonar.sources=. \
-                        -Dsonar.host.url=http://13.201.1.99/:9000 \
-                        -Dsonar.login=demo-token
-                    '''
-                }
+                sh '''
+                sonar-scanner \
+                    -Dsonar.projectKey=golang-SCA \
+                    -Dsonar.sources=. \
+                    -Dsonar.host.url=http://13.201.1.99/:9000 \
+                    -Dsonar.login=demo-token
+                '''
             }
         }
     }
