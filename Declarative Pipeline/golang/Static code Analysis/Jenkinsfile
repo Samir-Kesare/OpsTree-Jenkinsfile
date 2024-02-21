@@ -1,53 +1,46 @@
 pipeline {
     agent any
+
     tools {
-        // Use pre-installed Go version if available
-        // Install 'Go' tool only if needed
-        go 'go1.22.0' // Adjust version as needed
+        go 'go1.22.0' // Define the Go tool installation named 'Go' using the configured path
     }
+    
+    environment {
+        JENKINS_HOME = '/home/jenkins' // Set the HOME environment variable to /home/jenkins
+    }
+  
     stages {
         stage('Checkout') {
             steps {
-                // Use credentials if necessary
-                git branch: 'main', credentialsId: 'khushi09', url: 'https://github.com/OT-MyGurukulam/employee-api.git'
+                git branch: 'main', credentialsId: 'khushi09', url: 'https://github.com/OT-MyGurukulam/employee-api.git' // Checkout your code from version control
             }
         }
+
         stage('Build') {
             steps {
-                // Build your GoLang code
-                sh 'go build'
+                sh 'go build' // Build your GoLang code
             }
         }
-        stage('Install gosec (Optimized)') {
+
+        stage('Install gosec') {
             steps {
-                script {
-                    // Check if gosec already exists in PATH
-                    if (!sh(returnStdout: true, script: 'which gosec').trim()) {
-                        // Download to temporary directory
-                        def gosecTempDir = '/tmp/gosec-install'
-                        sh "mkdir -p ${gosecTempDir}"
-                        sh "wget -O ${gosecTempDir}/gosec https://github.com/securego/gosec/releases/download/v2.18.2/gosec_linux_amd64"
-                        // Set up permissions and add to PATH
-                        sh "chmod +x ${gosecTempDir}/gosec"
-                        sh "sudo mv ${gosecTempDir}/gosec /usr/local/bin/"
-                        // Verify installation
-                        sh 'gosec --version'
-                    }
+                sh 'wget -O - -q https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s v2.19.0'
+                sh 'sudo chmod +x /snap/bin/gosec'
+                withEnv(['JENKINS_HOME=/home/jenkins']) {
+                    sh 'gosec --version' // Verify if `gosec` can be executed
                 }
             }
         }
+
         stage('Static Code Analysis') {
             steps {
-                // Use tool step for better integration
-                tool name: 'gosec'
-                sh 'sudo snap refresh gosec'
-                withEnv(['HOME=/var/lib/jenkins']) {
-                sh 'gosec -fmt=json -out=gosec-report.json ./...'
-}
-               // sh 'gosec -fmt json ./...' // Adjust paths as needed
-                // Publish results with better formatting
-                publishJunit testsFileName: 'gosec-report.json', className: 'gosec'
+                withEnv(['JENKINS_HOME=/home/jenkins']) {
+                    sh 'gosec -fmt=json ./...' // Run gosec for static code analysis
+                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'gosec-report', reportFiles: 'gosec-report/gosec.json', reportName: 'GoSec Report', reportTitles: '']) // Publish gosec results
+                }
             }
         }
+
+        // Add more stages as necessary
     }
 }
