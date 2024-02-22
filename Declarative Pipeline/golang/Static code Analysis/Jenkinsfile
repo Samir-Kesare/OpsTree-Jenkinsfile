@@ -19,7 +19,7 @@ pipeline {
                     -Dsonar.projectKey=golang-SCA \
                     -Dsonar.sources=. \
                     -Dsonar.host.url=http://13.201.35.61:9000/
-                    -Dsonar.login=sqp_285f389f62489891cd0ed149dd5daeb2717da76f
+                    -Dsonar.login=squ_11b031411f0d15601ed4b4e075e62721c99ee078
                 '''
             }
         }
