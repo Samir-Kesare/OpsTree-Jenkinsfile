@@ -9,19 +9,20 @@ pipeline {
             }
         }
         stage('Static Code Analysis') {
-           environment {
-                 PATH = "/opt/sonar-scanner/sonar-scanner-4.6.2.2472-linux/bin:$PATH"
-                }
-                 steps {
-                     sh '''
-                          sonarscanner \
-                         -Dsonar.projectKey=SCA-go \
-                         -Dsonar.sources=. \
-                         -Dsonar.host.url=http://13.201.35.61:9000/ // Corrected with a trailing backslash
-                         -Dsonar.login=sqp_ea6d6dc038364bae89aa72209aed54f42b3b9d57
-                       '''
+            environment {
+                PATH = "/opt/sonar-scanner/sonar-scanner-4.6.2.2472-linux/bin:$PATH"
+            }
+            steps {
+                sh '''
+                    sonarscanner \
+                    -Dsonar.projectKey=SCA-go \
+                    -Dsonar.sources=. \
+                    -Dsonar.host.url=http://13.201.35.61:9000/ \
+                    -Dsonar.login=sqp_ea6d6dc038364bae89aa72209aed54f42b3b9d57
+                '''
+            }
+        }
     }
-}
     post {
         always {
             cleanWs cleanWhenSuccess: false
@@ -33,5 +34,4 @@ pipeline {
             echo 'Build Failed !'
         }
     }
-}
 }
