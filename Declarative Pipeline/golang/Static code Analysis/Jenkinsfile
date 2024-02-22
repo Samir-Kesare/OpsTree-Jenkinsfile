@@ -37,10 +37,10 @@ pipeline {
                 //        withEnv(["/opt/sonarqube/sonarqube-9.6.1.59531/bin/linux-x86-64/sonar.sh=${scannerHome}/bin"]) {
                  //           sh 'sonar-scanner'
                       withSonarQubeEnv('sq1') {
-                        sh '/opt/sonarqube/sonarqube-9.6.1.59531/bin/sonar-scanner 
+                        sh '/opt/sonarqube/sonarqube-9.6.1.59531/bin/sonar-scanner -Dsonar.projectKey=sqp_eea3e72ff557b782be9e7389c0add95a5754b1f9  -Dsonar.sources=.'
                         //  -Dsonar.organization=wm1 
-                          -Dsonar.projectKey=sqp_eea3e72ff557b782be9e7389c0add95a5754b1f9
-                          -Dsonar.sources=. 
+                        //  -Dsonar.projectKey=sqp_eea3e72ff557b782be9e7389c0add95a5754b1f9
+                        //  -Dsonar.sources=. 
                          // -Dsonar.host.url=http://34.130.152.26:9000/  ///sonarcloud.io'
                     }
                         }
