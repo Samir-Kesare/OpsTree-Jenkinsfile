@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+    
+    environment {
+        TARGET_URL = 'https://github.com/CodeOps-Hub/Attendance-API.git'
+        ZAP_VERSION = '2.14.0'
+        ZAP_DIR = "/var/lib/jenkins/workspace/DAST_declarative/ZAP_${ZAP_VERSION}"
+        ZAP_URL = "https://github.com/zaproxy/zaproxy/releases/download/v${ZAP_VERSION}/ZAP_${ZAP_VERSION}_Linux.tar.gz"
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout your code repository
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: TARGET_URL]])
+            }
+        }
+        
+        stage('Install ZAP') {
+            steps {
+                script {
+                    // Download and install OWASP ZAP
+                    sh "wget ${ZAP_URL}"
+                    sh "tar -xvf ZAP_${ZAP_VERSION}_Linux.tar.gz"
+                }
+            }
+        }
+        
+        stage('Run ZAP Scan') {
+            steps {
+                script {
+                    // Start ZAP and perform the scan
+                    sh "${ZAP_DIR}/zap.sh -cmd -port 8090 -quickurl http://54.179.71.71:8080/api/v1/attendance/health -quickprogress -quickout ~/out2.html"
+                }
+            }
+        }
+        
+        stage('Publish ZAP Scan Report') {
+            steps {
+                // Publish HTML report
+                publishHTML(target: [allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: ZAP_DIR, reportFiles: 'out2.html', reportName: 'ZAP Scan Report', reportTitles: ''])
+            }
+        }
+    }
+}
