@@ -19,7 +19,7 @@ pipeline {
                          -Dsonar.projectKey=golang-SCA \
                          -Dsonar.sources=. \
                          -Dsonar.host.url=http://13.201.35.61:9000/ // Corrected with a trailing backslash
-                         -Dsonar.login=squ_11b031411f0d15601ed4b4e075e62721c99ee078
+                         -Dsonar.login=sqp_ea6d6dc038364bae89aa72209aed54f42b3b9d57
                        '''
     }
 }
