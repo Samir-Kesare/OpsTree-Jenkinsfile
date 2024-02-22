@@ -1,6 +1,6 @@
 pipeline {
     agent any
-     tools {
+    tools {
         go 'go1.22.0'
     }
     stages {
@@ -11,13 +11,27 @@ pipeline {
         }
         stage('Build') {
             steps {
-                // Your build steps here
                 sh 'go build'
             }
         }
         stage('Test') {
             steps {
-                // Your test steps here
+                // Create a test file
+                script {
+                    writeFile file: 'test_my_function_test.go', text: '''
+                        package main
+
+                        import (
+                            "testing"
+                        )
+
+                        func TestMyFunction(t *testing.T) {
+                            // Your test logic here
+                        }
+                    '''
+                }
+                
+                // Execute Go tests
                 sh 'go test ./...'
             }
         }
