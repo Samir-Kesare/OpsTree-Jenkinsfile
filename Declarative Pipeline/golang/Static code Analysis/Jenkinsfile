@@ -32,7 +32,7 @@ pipeline {
                 }
                 
                 
-                sh 'go test ./...'
+                sh 'go test ./...' || false
             }
         }
         stage('SonarQube Analysis') {
