@@ -9,11 +9,12 @@ pipeline {
             }
         }
         stage('Static Code Analysis') {
-            environment {
-                PATH = "/var/lib/jenkins/workspace/Declarative-Pipeline-Static-Code-analysis-Go/bin:$PATH"
-            }
+           // environment {
+              //  PATH = "/var/lib/jenkins/workspace/Declarative-Pipeline-Static-Code-analysis-Go/bin:$PATH"
+           // }
             steps {
                 sh '''
+                 PATH = "/var/lib/jenkins/workspace/Declarative-Pipeline-Static-Code-analysis-Go/bin:$PATH"
                     sonarscanner \
                     -Dsonar.projectKey=SCA-go \
                     -Dsonar.sources=. \
