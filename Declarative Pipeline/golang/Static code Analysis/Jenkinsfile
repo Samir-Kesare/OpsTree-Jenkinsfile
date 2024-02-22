@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Static Code Analysis') {
             environment {
-                PATH = "/opt/sonar-scanner:$PATH"
+                PATH = "/var/lib/jenkins/workspace/Declarative-Pipeline-Static-Code-analysis-Go/bin:$PATH"
             }
             steps {
                 sh '''
