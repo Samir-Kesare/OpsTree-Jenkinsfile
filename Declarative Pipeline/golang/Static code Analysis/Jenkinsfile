@@ -10,20 +10,19 @@ pipeline {
             }
         }
         stage('Static Code Analysis') {
-            environment {
-                PATH = "/opt/sonar-scanner/sonar-scanner-4.6.2.2472-linux/bin:$PATH"
-            }
-            steps {
-                sh '''
-                sonarscanner \
-                    -Dsonar.projectKey=golang-SCA \
-                    -Dsonar.sources=. \
-                    -Dsonar.host.url=http://13.201.35.61:9000/
-                    -Dsonar.login=squ_11b031411f0d15601ed4b4e075e62721c99ee078
-                '''
-            }
-        }
+           environment {
+                 PATH = "/opt/sonar-scanner/sonar-scanner-4.6.2.2472-linux/bin:$PATH"
+                }
+                 steps {
+                     sh '''
+                          sonarscanner \
+                         -Dsonar.projectKey=golang-SCA \
+                         -Dsonar.sources=. \
+                         -Dsonar.host.url=http://13.201.35.61:9000/ \  // Corrected with a trailing backslash
+                         -Dsonar.login=squ_11b031411f0d15601ed4b4e075e62721c99ee078
+                       '''
     }
+}
 
     post {
         always {
