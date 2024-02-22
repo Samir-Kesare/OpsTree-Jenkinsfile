@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Static Code Analysis') {
             environment {
-                PATH = "/opt/sonar-scanner/sonar-scanner-4.6.2.2472-linux/bin:$PATH"
+                PATH = "/opt/sonar-scanner:$PATH"
             }
             steps {
                 sh '''
