@@ -1,39 +1,34 @@
 pipeline {
     agent any
-
     stages {
-        stage("Git Checkout") {
+        stage('Checkout') {
             steps {
-                script {
-                    git branch: 'main', credentialsId: 'khushi_cred', url: 'https://github.com/OT-MyGurukulam/employee-api.git'
+                git branch: 'main', credentialsId: 'khushi_cred', url: 'https://github.com/OT-MyGurukulam/employee-api.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                // Your build steps here
+                sh 'go build'
+            }
+        }
+        stage('Test') {
+            steps {
+                // Your test steps here
+                sh 'go test ./...'
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('sq1') {
+                    script {
+                        def scannerHome = tool 'sonar-scanner'
+                        withEnv(["/opt/sonar-scanner=${scannerHome}/bin"]) {
+                            sh 'sonar-scanner'
+                        }
+                    }
                 }
             }
         }
-        stage('Static Code Analysis') {
-           environment {
-                 PATH = "/opt/sonar-scanner/sonar-scanner-4.6.2.2472-linux/bin:$PATH"
-                }
-                 steps {
-                     sh '''
-                          sonarscanner \
-                         -Dsonar.projectKey=golang-SCA \
-                         -Dsonar.sources=. \
-                         -Dsonar.host.url=http://13.201.35.61:9000/ // Corrected with a trailing backslash
-                         -Dsonar.login=sqp_ea6d6dc038364bae89aa72209aed54f42b3b9d57
-                       '''
     }
-}
-
-    post {
-        always {
-            cleanWs cleanWhenSuccess: false
-        }
-        success {
-            echo 'Build Successfully !'
-        }
-        failure {
-            echo 'Build Failed !'
-        }
-    }
-}
 }
