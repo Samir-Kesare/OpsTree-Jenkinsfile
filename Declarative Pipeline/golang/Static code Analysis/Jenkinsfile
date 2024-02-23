@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'khushi_cred', url: 'https://github.com/OT-MyGurukulam/employee-api.git'
+                git branch: 'main', url: 'https://github.com/OT-MyGurukulam/employee-api.git'
             }
         }
         stage('SonarQube Analysis') {
