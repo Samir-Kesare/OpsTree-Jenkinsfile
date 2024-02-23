@@ -1,1 +1,12 @@
+@Library("unitTesting-python-library") _
 
+def unitTesting = new org.avengers.template.java.javaUnitTesting()
+
+node {
+    
+    def url = 'https://github.com/CodeOps-Hub/Attendance-API.git'
+    def branch = 'main'
+    
+    unitTesting.call(branch: branch,url: url)
+    
+}
