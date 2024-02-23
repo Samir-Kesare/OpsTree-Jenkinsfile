@@ -1,6 +1,6 @@
 @Library("unitTesting-python-library") _
 
-def unitTesting = new org.avengers.template.python.javaUnitTesting()
+def unitTesting = new org.avengers.template.python.unitTesting()
 
 node {
     
