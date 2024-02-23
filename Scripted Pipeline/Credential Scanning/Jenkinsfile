@@ -15,14 +15,16 @@ node {
          try {
             sh './gitleaks detect -r credScanReport'
         } catch (Exception e) {
-            echo "Gitleaks scan failed. Archiving report."
-            archiveArtifacts artifacts: 'credScanReport', allowEmptyArchive: true
+           // echo "Gitleaks scan failed. Archiving report."
             error 'Gitleaks scan failed'
+        }
+        finally{
+             archiveArtifacts artifacts: 'credScanReport', allowEmptyArchive: true
+             cleanWs()
         }
     }
 
-    // Post-build actions
-    cleanWs()
+   
 
 }
 
