@@ -1,7 +1,5 @@
 node {
-    tools {
-        go 'go1.22.0'
-    }
+    def goHome = tool name: 'go1.22.0', type: 'go'
     
     stage('Checkout') {
         git branch: 'main', url: 'https://github.com/CodeOps-Hub/Employee-API.git'
