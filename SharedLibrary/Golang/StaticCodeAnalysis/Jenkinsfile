@@ -7,6 +7,6 @@ node {
     def creds = 'Harshit-Github-PAT'
     def branch = 'main'
     
-    golangcodecompilation.call(url, creds, branch)
+    StaticAnalysisGo.call(url, creds, branch)
     
 }
