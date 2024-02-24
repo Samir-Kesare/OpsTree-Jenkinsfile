@@ -8,7 +8,8 @@ node {
     def branch = 'main'
     def depVersion = '9.0.9'
     def javaVersion = '17'
+    def depreport = 'dep-check.html'
     
-  dependency.call(url, creds, branch, depVersion, javaVersion)
+  dependency.call(url, creds, branch, depVersion, javaVersion, depreport)
     
 }
