@@ -1,1 +1,12 @@
+@Library('my-shared-library') _
+def staticanalysisgo = new org.avengers.template.golang.StaticAnalysisGo()
 
+node {
+    
+    def url = 'https://github.com/OT-MICROSERVICES/employee-api.git'
+    //def creds = 'khushi09'
+    def branch = 'main'
+    
+    golangcodecompilation.call(url, branch)
+    
+}
