@@ -7,6 +7,6 @@ node {
     def creds = 'Harshit-Github-PAT'
     def branch = 'main'
     
-    StaticAnalysisGo.call(url, creds, branch)
+    staticanalysisgo.call(url, creds, branch)
     
 }
