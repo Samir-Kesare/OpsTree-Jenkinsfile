@@ -1,6 +1,5 @@
 @Library('snaatak-p7') _
-def ansible_CI = new org.avengers.template.ansible_CI()
-
+def ansible_CI = new org.avengers.template.ansible_CI.ansibleCI()
 
 node {
     
@@ -10,6 +9,6 @@ node {
     def gitleaksVersion = '8.18.2'
     def tagVersion = '1.0'
     
-    dast.call(url, creds, branch, gitleaksVersion, tagVersion)
+    ansible_CI.call(url, creds, branch, gitleaksVersion, tagVersion)
     
 }
