@@ -1,5 +1,5 @@
 @Library('snaatak-p7') _
-def dast = new org.avengers.template.ansible_CI()
+def ansible_CI = new org.avengers.template.ansible_CI()
 
 
 node {
