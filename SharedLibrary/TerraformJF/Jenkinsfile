@@ -1,0 +1,20 @@
+@Library('shared-library') _
+import org.avengers.template.terraform.*
+properties([
+    parameters([
+        choice(name: 'branch', choices: ['harshit/vpc', ''], description: 'Select the branch'),
+        choice(name: 'rootDir', choices: ['Dev_Infra'], description: 'Select the root directory'),
+        choice(name: 'childDir',choices: ['Static_Tf', 'network'], description: 'Select the child directory'),
+    ])
+])
+node {
+    def repoUrl = 'https://github.com/CodeOps-Hub/Terraform.git'
+    def credentialsId = 'khushimalhoz'
+    def terraformCI = new org.avengers.template.terraform.terraformCI()
+    tf.call(
+        repoUrl,
+        credentialsId,
+        params.branch,
+        params.rootDir,
+        params.childDir,
+    )
