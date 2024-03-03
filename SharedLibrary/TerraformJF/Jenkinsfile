@@ -1,5 +1,6 @@
 @Library('shared-library') _
 import org.avengers.template.terraform.*
+def terraformCI = new org.avengers.template.terraform.terraformCI()
 properties([
     parameters([
         choice(name: 'branch', choices: ['harshit/vpc', ''], description: 'Select the branch'),
@@ -10,7 +11,7 @@ properties([
 node {
     def repoUrl = 'https://github.com/CodeOps-Hub/Terraform.git'
     def credentialsId = 'khushimalhoz'
-    def terraformCI = new org.avengers.template.terraform.terraformCI()
+  //  def terraformCI = new org.avengers.template.terraform.terraformCI()
     tf.call(
         repoUrl,
         credentialsId,
