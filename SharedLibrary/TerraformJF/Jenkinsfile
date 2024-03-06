@@ -13,9 +13,9 @@ properties([
     ])
 ])
 node {
-    def repoUrl = 'https://github.com/CodeOps-Hub/Terraform.git'
-    def credentialsId = 'khushimalhoz'
+    def url = 'https://github.com/CodeOps-Hub/Terraform.git'
+    def creds = 'khushimalhoz'
   //  def terraformCI = new org.avengers.template.terraform.terraformCI()
-    terraformCI.call(repoUrl, credentialsId, params.branch, params.rootDir, params.childDir)
+    terraformCI.call(url, creds, params.branch, params.rootDir, params.childDir)
      
 }
