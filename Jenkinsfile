@@ -80,6 +80,7 @@ pipeline {
         }
         failure {
             echo 'Terraform operation failed!'
+            cleanWs()
         }
     }
 }
