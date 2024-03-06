@@ -7,8 +7,8 @@ node {
     def creds = '890c8a72-7383-4986-8573-519aacdeb7d2'
     def branch = 'main'
     def gitleaksVersion = '8.18.2'
-   
+    def path = '/var/lib/jenkins/workspace/Ansible_CD/jenkins_playbook/install_debian.yml'
     
-    ansible_CD.call(url, creds, branch, gitleaksVersion)
+    ansible_CD.call(url, creds, branch, gitleaksVersion, path)
     
 }
