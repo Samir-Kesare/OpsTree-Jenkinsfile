@@ -1,6 +1,6 @@
 @Library('shared-library') _
 
-import org.avengers.template.terraform.*
+//import org.avengers.template.terraform.*
 def terraformCI = new org.avengers.template.terraform.terraformCI()
 properties([
     parameters([
