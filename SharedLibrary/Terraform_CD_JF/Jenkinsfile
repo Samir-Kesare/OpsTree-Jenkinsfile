@@ -1,7 +1,7 @@
 @Library('shared-library') _
 
 //import org.avengers.template.terraform.*
-def terraformCI = new org.avengers.template.terraformCD.terraform_CD()
+def terraformCD = new org.avengers.template.terraformCD.terraform_CD()
 properties([
     parameters([
        // choice(name: 'branch', choices: ['harshit/vpc', ''], description: 'Select the branch'),
@@ -16,6 +16,6 @@ node {
     def url = 'https://github.com/HarshitSingh-Codes/jenkins-final.git'
     def creds = 'khushi_pass'
   //  def terraformCI = new org.avengers.template.terraform.terraformCI()
-    terraformCI.call(url, creds, params.branch, params.rootPath, params.childPath)
+    terraformCD.call(url, creds, params.branch, params.rootPath, params.childPath)
      
 }
