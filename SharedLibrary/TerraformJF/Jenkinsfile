@@ -14,7 +14,7 @@ properties([
 ])
 node {
     def url = 'https://github.com/CodeOps-Hub/Terraform.git'
-    def creds = 'khushimalhoz'
+    def creds = 'khushi_pass'
   //  def terraformCI = new org.avengers.template.terraform.terraformCI()
     terraformCI.call(url, creds, params.branch, params.rootPath, params.childPath)
      
