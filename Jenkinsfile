@@ -77,7 +77,6 @@ pipeline {
     post {
         success {
             echo 'Terraform operation successful!'
-            archiveArtifacts artifacts: '*.pem', followSymlinks: false
         }
         failure {
             echo 'Terraform operation failed!'
