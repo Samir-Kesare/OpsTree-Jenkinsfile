@@ -1,0 +1,14 @@
+@Library('snaatak-p7') _
+def ansible_CI = new org.avengers.template.ansible_CD.ansibleCD()
+
+node {
+    
+    def url = 'https://github.com/CodeOps-Hub/Jenkins-Playbook.git'
+    def creds = '890c8a72-7383-4986-8573-519aacdeb7d2'
+    def branch = 'main'
+    def gitleaksVersion = '8.18.2'
+   
+    
+    ansible_CI.call(url, creds, branch, gitleaksVersion)
+    
+}
