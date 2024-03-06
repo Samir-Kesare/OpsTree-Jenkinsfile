@@ -16,11 +16,6 @@ node {
     def repoUrl = 'https://github.com/CodeOps-Hub/Terraform.git'
     def credentialsId = 'khushimalhoz'
   //  def terraformCI = new org.avengers.template.terraform.terraformCI()
-    terraformCI.call(
-        repoUrl,
-        credentialsId,
-        params.branch,
-        params.rootDir,
-        params.childDir,
-    )
+    terraformCI.call(repoUrl, credentialsId, params.branch, params.rootDir, params.childDir)
+     
 }
