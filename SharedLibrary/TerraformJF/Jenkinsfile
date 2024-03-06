@@ -4,9 +4,12 @@ import org.avengers.template.terraform.*
 def terraformCI = new org.avengers.template.terraform.terraformCI()
 properties([
     parameters([
-        choice(name: 'branch', choices: ['harshit/vpc', ''], description: 'Select the branch'),
-        choice(name: 'rootDir', choices: ['Dev_Infra'], description: 'Select the root directory'),
-        choice(name: 'childDir',choices: ['Static_Tf', 'network'], description: 'Select the child directory'),
+       // choice(name: 'branch', choices: ['harshit/vpc', ''], description: 'Select the branch'),
+       // choice(name: 'rootDir', choices: ['Dev_Infra'], description: 'Select the root directory'),
+       // choice(name: 'childDir',choices: ['Static_Tf', 'network'], description: 'Select the child directory'),
+        choice(name: 'branch', choices: ['main', ''], description: 'Select the branch'),
+        choice(name: 'rootDir', choices: ['modules'], description: 'Select the root directory'),
+        choice(name: 'childDir',choices: ['network'], description: 'Select the child directory'),
     ])
 ])
 node {
