@@ -1,7 +1,7 @@
 @Library('shared-library') _
 
 //import org.avengers.template.terraform.*
-def terraformCI = new org.avengers.template.terraformCI.terraform_CI()
+def terraformCI = new org.avengers.template.terraformCD.terraform_CD()
 properties([
     parameters([
        // choice(name: 'branch', choices: ['harshit/vpc', ''], description: 'Select the branch'),
