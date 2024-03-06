@@ -15,7 +15,9 @@ properties([
 node {
     def url = 'https://github.com/HarshitSingh-Codes/jenkins-final.git'
     def creds = 'khushi_pass'
+    def reportName1 = 'results_cli.txt'
+    def reportName2 = 'tflint_report.json'
   //  def terraformCI = new org.avengers.template.terraform.terraformCI()
-    terraformCI.call(url, creds, params.branch, params.rootPath, params.childPath)
+    terraformCI.call(url, creds, params.branch, params.rootPath, params.childPath, reportName1, reportName2)
      
 }
