@@ -1,4 +1,4 @@
-@Library('snaatak-p7') _
+@Library('my-shared-library') _
 def ansibleRole_CD = new org.avengers.template.ansibleRole_CD.ansibleRoleCD()
 
 node {
