@@ -8,7 +8,7 @@ node {
     def branch = 'main'
     def gitleaksVersion = '8.18.2'
     def tagVersion = '1.1'
-    def path  = '/var/lib/jenkins/workspace/ScyllaRole_CD/scylla-ansible-role/tests/test.yml'
+    def path  = '/var/lib/jenkins/workspace/SharedLiabrary_CICD/scylla-ansible-role/tests/test.yml'
 '
     
     ansibleRole_CD.call(url, creds, branch, gitleaksVersion, tagVersion, path)
