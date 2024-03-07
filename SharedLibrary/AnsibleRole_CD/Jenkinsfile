@@ -12,6 +12,6 @@ node {
     def gitpath = 'CodeOps-Hub/scyllaDB-ansible-role.git'
 
     
-    ansibleRole_CD.call(url, creds, branch, gitleaksVersion, tagVersion, path)
+    ansibleRole_CD.call(url, creds, branch, gitleaksVersion, tagVersion, path, gitpath)
     
 }
