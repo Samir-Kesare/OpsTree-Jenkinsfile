@@ -8,7 +8,8 @@ node {
     def branch = 'main'
     def gitleaksVersion = '8.18.2'
     def tagVersion = '1.0'
+    def path = '/var/lib/jenkins/workspace/Ansible_CD/jenkins_playbook/install_debian.yml'
     
-    ansible_CI.call(url, creds, branch, gitleaksVersion, tagVersion)
+    ansible_CI.call(url, creds, branch, gitleaksVersion, tagVersion, path)
     
 }
