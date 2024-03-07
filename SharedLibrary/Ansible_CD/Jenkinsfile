@@ -1,13 +1,13 @@
-@Library('snaatak-p7') _
+@Library('my-shared-library') _
 def ansible_CD = new org.avengers.template.ansible_CD.ansibleCD()
 
 node {
     
-    def url = 'https://github.com/CodeOps-Hub/Jenkins-Playbook.git'
-    def creds = '890c8a72-7383-4986-8573-519aacdeb7d2'
+    def url = 'https://github.com/CodeOps-Hub/scyllaDB-ansible-role.git'
+    def creds = 'cfb1a43a-bdbe-4b72-9966-6f42f75e98b1'
     def branch = 'main'
     def gitleaksVersion = '8.18.2'
-    def path = '/var/lib/jenkins/workspace/Ansible_CD/jenkins_playbook/install_debian.yml'
+    def path = '/var/lib/jenkins/workspace/SharedLiabrary_CICD/scylla-ansible-role/tasks/main.yml'
     
     ansible_CD.call(url, creds, branch, gitleaksVersion, path)
     
