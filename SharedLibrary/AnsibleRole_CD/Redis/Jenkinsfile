@@ -7,9 +7,9 @@ node {
     def creds = 'SnaatakID'
     def branch = 'main'
     def gitleaksVersion = '8.18.2'
-    def tagVersion = '1.6'
+    def tagVersion = '1.7'
     def path  = "/var/lib/jenkins/workspace/SLCICD01/roles/redis/tests/test.yml"
-    def gitpath = 'https://github.com/CodeOps-Hub/redis-ansiblerole.git'
+    def gitpath = 'CodeOps-Hub/redis-ansiblerole.git'
 
     
     ansibleRole_CD.call(url, creds, branch, gitleaksVersion, tagVersion, path, gitpath)
