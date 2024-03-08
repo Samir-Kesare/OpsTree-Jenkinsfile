@@ -8,7 +8,7 @@ node {
     def branch = 'main'
     def gitleaksVersion = '8.18.2'
     def tagVersion = '1.2'
-    def path  = "/var/lib/jenkins/workspace/SharedLiabrary_CICD/roles/redis/tests/test.yml"
+    def path  = "/var/lib/jenkins/workspace/SLCICD1/roles/redis/tests/test.yml"
     def gitpath = 'CodeOps-Hub/Postgres.git'
 
     
