@@ -2,8 +2,8 @@ pipeline {
     agent any
     
     environment {
-        AWS_ACCESS_KEY_ID     = credentials('Attendance_creds')
-        AWS_SECRET_ACCESS_KEY = credentials('Attendance_creds')
+        AWS_ACCESS_KEY_ID     = credentials('creds_attendance_vidhi')
+        AWS_SECRET_ACCESS_KEY = credentials('creds_attendance_vidhi')
         TF_CLI_ARGS           = '-input=false'
     }
     
