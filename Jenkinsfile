@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'GitHub Credentials for DSL PIpleline', url: 'https://github.com/CodeOps-Hub/Terraform.git'
+                git branch: 'main', credentialsId: 'Harshit-Github-PAT', url: 'https://github.com/CodeOps-Hub/Terraform.git'
             }
         }
         
