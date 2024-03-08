@@ -3,13 +3,13 @@ def ansibleRole_CD = new org.avengers.template.ansibleRole_CD.ansibleRoleCD()
 
 node {
     
-    def url = 'https://github.com/CodeOps-Hub/scyllaDB-ansible-role.git'
-    def creds = 'cfb1a43a-bdbe-4b72-9966-6f42f75e98b1'
+    def url = 'https://github.com/CodeOps-Hub/Postgres.git'
+    def creds = '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'
     def branch = 'main'
     def gitleaksVersion = '8.18.2'
     def tagVersion = '1.1'
-    def path  = "/var/lib/jenkins/workspace/SharedLiabrary_CICD/scylla-ansible-role/tests/test.yml"
-    def gitpath = 'CodeOps-Hub/scyllaDB-ansible-role.git'
+    def path  = "/var/lib/jenkins/workspace/SharedLiabrary_CICD//Role/tests/test.yml"
+    def gitpath = 'CodeOps-Hub/Postgres.git'
 
     
     ansibleRole_CD.call(url, creds, branch, gitleaksVersion, tagVersion, path, gitpath)
