@@ -9,7 +9,7 @@ node {
     def gitleaksVersion = '8.18.2'
     def tagVersion = '1.5'
     def path  = "/var/lib/jenkins/workspace/SLCICD01/roles/redis/tests/test.yml"
-    def gitpath = 'CodeOps-Hub/Postgres.git'
+    def gitpath = 'https://github.com/CodeOps-Hub/redis-ansiblerole.git'
 
     
     ansibleRole_CD.call(url, creds, branch, gitleaksVersion, tagVersion, path, gitpath)
