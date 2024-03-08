@@ -4,7 +4,7 @@ def ansibleRole_CD = new org.avengers.template.ansibleRole_CD.ansibleRoleCD()
 node {
     
     def url = 'https://github.com/CodeOps-Hub/Postgres.git'
-    def creds = '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'
+    def creds = '001aee97-c379-4b31-b42d-49840ec1b296'
     def branch = 'main'
     def gitleaksVersion = '8.18.2'
     def tagVersion = '1.1'
