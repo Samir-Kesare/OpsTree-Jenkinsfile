@@ -3,8 +3,8 @@ pipeline {
     agent any
     
     environment {
-        AWS_ACCESS_KEY_ID     = credentials('')
-        AWS_SECRET_ACCESS_KEY = credentials('')
+        AWS_ACCESS_KEY_ID     = credentials('shikha_salary-api')
+        AWS_SECRET_ACCESS_KEY = credentials('shikha_salary-api')
         TF_CLI_ARGS           = '-input=false'
     }
     
@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'GitHub Credentials for DSL PIpleline', url: 'https://github.com/CodeOps-Hub/Terraform.git'
+                git branch: 'main', credentialsId: 'GitHub Credentials for DSL PIpleline', url: 'https://github.com/CodeOps-Hub/Terraform/tree/Shikha/Salary-API/Auto-Scaling-Policies/Dev_Infra/Static_Tf/security-group'
             }
         }
         
