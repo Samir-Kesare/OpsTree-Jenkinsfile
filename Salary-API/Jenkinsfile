@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'GitHub Credentials for DSL PIpleline', url: 'https://github.com/CodeOps-Hub/Terraform/tree/Shikha/Salary-API/Auto-Scaling-Policies/Dev_Infra/Static_Tf/security-group'
+                git branch: 'main', credentialsId: 'tripathi_cred', url: 'https://github.com/CodeOps-Hub/Terraform/tree/Shikha/Salary-API/Auto-Scaling-Policies/Dev_Infra/Static_Tf/security-group'
             }
         }
         
