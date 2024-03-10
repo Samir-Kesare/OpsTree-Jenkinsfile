@@ -2,8 +2,8 @@ pipeline {
     agent any
     
     environment {
-        AWS_ACCESS_KEY_ID     = credentials('creds_attendance_vidhi')
-        AWS_SECRET_ACCESS_KEY = credentials('creds_attendance_vidhi')
+        AWS_ACCESS_KEY_ID     = credentials('Attendance_creds')
+        AWS_SECRET_ACCESS_KEY = credentials('Attendance_creds')
         TF_CLI_ARGS           = '-input=false'
     }
     
@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'GitHub Credentials for DSL PIpleline', url: 'https://github.com/CodeOps-Hub/Terraform.git'
+                git branch: 'main', credentialsId: 'Harshit-Github-PAT', url: 'https://github.com/CodeOps-Hub/Terraform.git'
             }
         }
         
