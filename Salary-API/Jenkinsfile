@@ -22,7 +22,7 @@ pipeline {
         stage('Copy Terraform Files') {
             steps {
                 // Copy or move specific files from the repository to Jenkins workspace
-                sh 'cd /var/lib/jenkins/workspace/Salary/Salary-API*.'
+                sh 'cd Dev_Infra/Static_Tf/Salary*.'
             }
         }
         
