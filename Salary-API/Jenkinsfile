@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'tripathi_cred', url: 'https://github.com/CodeOps-Hub/Terraform.git'
+                git branch: 'main', credentialsId: 'Salary', url: 'https://github.com/CodeOps-Hub/Terraform.git'
             }
         }
         
