@@ -3,8 +3,8 @@ pipeline {
     agent any
     
     environment {
-        AWS_ACCESS_KEY_ID     = credentials('shikha_salary-api')
-        AWS_SECRET_ACCESS_KEY = credentials('shikha_salary-api')
+        AWS_ACCESS_KEY_ID     = credentials('shikha-cred')
+        AWS_SECRET_ACCESS_KEY = credentials('shikha-cred')
         TF_CLI_ARGS           = '-input=false'
     }
     
