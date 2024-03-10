@@ -17,6 +17,6 @@ node {
   //   def url = 'https://github.com/CodeOps-Hub/Terraform.git'
     def creds = 'khushi_pass'
   //  def terraformCI = new org.avengers.template.terraform.terraformCI()
-    terraformCD.call(url, creds, params.branch, params.rootPath, params.childPath)
+    terraformCD.call(url, creds, params.branch, params.rootPath, params.childPath, params.ACTION)
      
 }
