@@ -1,0 +1,26 @@
+@Library('my-shared-library') _
+def ansible_CD = new org.avengers.template.ansible_CD.ansibleCD()
+pipeline {
+    agent any
+    
+    environment {
+        AWS_ACCESS_KEY_ID     = credentials('vishal-aws-creds')
+        AWS_SECRET_ACCESS_KEY = credentials('vishal-aws-creds')
+    }
+    stages {
+        stage ('Scylla CD'){
+            steps{
+                script{
+                    def url = 'https://github.com/CodeOps-Hub/Ansible.git'
+    def creds = '001aee97-c379-4b31-b42d-49840ec1b296'
+    def branch = 'main'
+    def gitleaksVersion = '8.18.2'
+    def path = './scylla.yml'
+    
+    ansible_CD.call(url, creds, branch, gitleaksVersion, path)
+                }
+            }
+             
+        }
+    }
+}

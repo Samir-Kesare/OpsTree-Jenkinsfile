@@ -2,8 +2,8 @@ pipeline {
     agent any
     
     environment {
-        AWS_ACCESS_KEY_ID     = credentials('snaatak-aws-cred')
-        AWS_SECRET_ACCESS_KEY = credentials('snaatak-aws-cred')
+        AWS_ACCESS_KEY_ID     = credentials('shantanu_creds')
+        AWS_SECRET_ACCESS_KEY = credentials('shantanu_creds')
         TF_CLI_ARGS           = '-input=false'
     }
     
@@ -14,16 +14,17 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'GitHub Credentials for DSL PIpleline', url: 'https://github.com/CodeOps-Hub/Terraform.git'
+                git branch: 'Khushi/EmployeePipeline', credentialsId: 'Harshit-Github-PAT', url: 'https://github.com/CodeOps-Hub/Terraform.git'
             }
         }
         
         stage('Copy Terraform Files') {
             steps {
                 // Copy or move specific files from the repository to Jenkins workspace
-                sh 'cp Dev_Infra/Static_Tf/network/* .'
+                sh 'cp Dev_Infra/Static_Tf/Employee/* .'
             }
         }
+        
         stage('Terraform Init') {
             steps {
                 script {
@@ -73,9 +74,10 @@ pipeline {
         }
     }
     
-   post {
+    post {
         success {
             echo 'Terraform operation successful!'
+            archiveArtifacts artifacts: '*.pem', followSymlinks: false
         }
         failure {
             echo 'Terraform operation failed!'
