@@ -8,7 +8,7 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('vishal-aws-creds')
     }
     stages {
-        stage ('Playbook CD'){
+        stage ('Scylla CD'){
             steps{
                 script{
                     def url = 'https://github.com/CodeOps-Hub/Ansible.git'
