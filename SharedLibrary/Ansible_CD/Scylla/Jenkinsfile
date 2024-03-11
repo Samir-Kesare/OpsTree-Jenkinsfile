@@ -15,7 +15,7 @@ pipeline {
     def creds = '001aee97-c379-4b31-b42d-49840ec1b296'
     def branch = 'main'
     def gitleaksVersion = '8.18.2'
-    def path = './scylla.yaml'
+    def path = './scylla.yml'
     
     ansible_CD.call(url, creds, branch, gitleaksVersion, path)
                 }
