@@ -12,12 +12,12 @@ pipeline {
             steps{
                 script{
                     def url = 'https://github.com/CodeOps-Hub/Ansible.git'
-    def creds = '001aee97-c379-4b31-b42d-49840ec1b296'
-    def branch = 'main'
-    def gitleaksVersion = '8.18.2'
-    def path = './redis.yml'
-    
-    ansible_CD.call(url, creds, branch, gitleaksVersion, path)
+                    def creds = '001aee97-c379-4b31-b42d-49840ec1b296'
+                    def branch = 'main'
+                    def gitleaksVersion = '8.18.2'
+                    def path = './redis.yml'
+                    // Shared Libray for CD
+                    ansible_CD.call(url, creds, branch, gitleaksVersion, path)
                 }
             }
              
