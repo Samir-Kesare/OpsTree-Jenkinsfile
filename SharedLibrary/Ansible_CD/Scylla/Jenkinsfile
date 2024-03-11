@@ -4,8 +4,8 @@ pipeline {
     agent any
     
     environment {
-        AWS_ACCESS_KEY_ID     = credentials('unknown-aws')
-        AWS_SECRET_ACCESS_KEY = credentials('unknown-aws')
+        AWS_ACCESS_KEY_ID     = credentials('vishal-aws-creds')
+        AWS_SECRET_ACCESS_KEY = credentials('vishal-aws-creds')
     }
     stages {
         stage ('Playbook CD'){
