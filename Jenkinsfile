@@ -14,17 +14,16 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'Vikram-EC2-PGSQL', credentialsId: 'GitHub Credentials for DSL PIpleline', url: 'https://github.com/CodeOps-Hub/Terraform.git'
+                git branch: 'main', credentialsId: 'GitHub Credentials for DSL PIpleline', url: 'https://github.com/CodeOps-Hub/Terraform.git'
             }
         }
         
         stage('Copy Terraform Files') {
             steps {
                 // Copy or move specific files from the repository to Jenkins workspace
-                sh 'cp Dev_Infra/EC2/* .'
+                sh 'cp Dev_Infra/Static_Tf/network/* .'
             }
         }
-        
         stage('Terraform Init') {
             steps {
                 script {
@@ -74,14 +73,12 @@ pipeline {
         }
     }
     
-    post {
+   post {
         success {
             echo 'Terraform operation successful!'
-            archiveArtifacts artifacts: '*.pem', followSymlinks: false
         }
         failure {
             echo 'Terraform operation failed!'
-            cleanWs()
         }
     }
 }
