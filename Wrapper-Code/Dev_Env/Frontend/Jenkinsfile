@@ -2,8 +2,8 @@ pipeline {
     agent any
     
     environment {
-        AWS_ACCESS_KEY_ID     = credentials('Frontend Creds')
-        AWS_SECRET_ACCESS_KEY = credentials('Frontend Creds')
+        AWS_ACCESS_KEY_ID     = credentials('aws-cred-vishal-self')
+        AWS_SECRET_ACCESS_KEY = credentials('aws-cred-vishal-self')
         TF_CLI_ARGS           = '-input=false'
     }
     
@@ -14,14 +14,14 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'GitHub Credentials for DSL PIpleline', url: 'https://github.com/CodeOps-Hub/Terraform.git'
+                git branch: 'main', credentialsId: 'Harshit-Github-PAT', url: 'https://github.com/CodeOps-Hub/Terraform-modules.git'
             }
         }
         
         stage('Copy Terraform Files') {
             steps {
                 // Copy or move specific files from the repository to Jenkins workspace
-                sh 'cp Dev_Infra/Static_Tf/Frontend/* .'
+                sh 'cp Frontend_Wrapper_Code/Dev_Env/* .'
             }
         }
         
