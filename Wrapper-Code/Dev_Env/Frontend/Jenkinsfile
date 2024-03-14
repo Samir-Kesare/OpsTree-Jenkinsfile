@@ -5,6 +5,7 @@ pipeline {
         AWS_ACCESS_KEY_ID     = credentials('aws-cred-vishal-self')
         AWS_SECRET_ACCESS_KEY = credentials('aws-cred-vishal-self')
         TF_CLI_ARGS           = '-input=false'
+        TOKEN_VARIABLE        = 'Vishal-PAT-DSL'
     }
     
     parameters {
