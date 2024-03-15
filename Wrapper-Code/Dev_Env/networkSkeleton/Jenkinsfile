@@ -7,27 +7,30 @@ pipeline {
         TF_CLI_ARGS           = '-input=false'
     }
     
-    // parameters {
+    parameters {
     //     choice(name: 'ACTION', choices: ['Apply', 'Destroy'], description: 'Choose to apply or destroy the infrastructure')
-    // }
+            string(name: 'Wrapper_Code_Path', defaultValue: 'wrapperCode/Network-Skeleton-Wrapper-Code/Dev-Network-Skeleton-Wrapper-Code', description: 'Wrapper Code Path?')
+    }
     
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'Vishal-PAT-DSL', url: 'https://github.com/CodeOps-Hub/Terraform-modules.git'
+                git branch: 'main', credentialsId: 'none', url: 'https://github.com/CodeOps-Hub/Terraform-modules.git'
             }
         }
         
-        stage('Copy Terraform Files') {
-            steps {
-                // Copy or move specific files from the repository to Jenkins workspace
-                sh 'cp wrapperCode/Frontend_Wrapper_Code/Dev_Env/* .'
-            }
-        }
+        // stage('Copy Terraform Files') { 
+        //     steps {
+        //         // Copy or move specific files from the repository to Jenkins workspace
+        //         sh 'cp wrapperCode/Frontend_Wrapper_Code/Dev_Env/* .'
+        //     }
+        // }
         
         stage('Terraform Init') {
             steps {
                 script {
+                    // ${params
+                    cd ${params.PATH}/
                     sh 'terraform init'
                 }
             }
@@ -51,23 +54,23 @@ pipeline {
             }
         }
         
-        stage('Review and Approve Destroy') {
-            when {
-                expression { params.ACTION == 'Destroy' }
-            }
-            steps {
-                // Prompt for approval before destroying resources
-                input "Do you want to destroy Terraform resources?"
-            }
-        }
+        // stage('Review and Approve Destroy') {
+        //     when {
+        //         expression { params.ACTION == 'Destroy' }
+        //     }
+        //     steps {
+        //         // Prompt for approval before destroying resources
+        //         input "Do you want to destroy Terraform resources?"
+        //     }
+        // }
         
         stage('Apply or Destroy') {
             steps {
                 script {
-                    if (params.ACTION == 'Apply') {
+                    // if (params.ACTION == 'Apply') {
                         sh 'terraform apply -auto-approve'
-                    } else if (params.ACTION == 'Destroy') {
-                        sh 'terraform destroy -auto-approve'
+                    // } else if (params.ACTION == 'Destroy') {
+                        // sh 'terraform destroy -auto-approve'
                     }
                 }
             }
@@ -76,18 +79,10 @@ pipeline {
     
      post {
         success {
-            script {
-                if (fileExists('*.pem')) {
-                    echo 'Terraform operation successful!'
-                    archiveArtifacts artifacts: '*.pem', followSymlinks: false
-                } else {
-                    echo 'Infra Destoryed and .pem kye cleared'
-                }
-            }
+                echo "Changes Applied Successfully"
         }
         failure {
             echo 'Terraform operation failed!'
-            cleanWs()
         }
     }
 }
