@@ -1,90 +1,52 @@
 pipeline {
     agent any
-    
-    environment {
-        AWS_ACCESS_KEY_ID     = credentials('HARSHIT_AWS_CREDS')
-        AWS_SECRET_ACCESS_KEY = credentials('HARSHIT_AWS_CREDS')
-        TF_CLI_ARGS           = '-input=false'
-    }
-    
-    // parameters {
-    //     choice(name: 'ACTION', choices: ['Apply', 'Destroy'], description: 'Choose to apply or destroy the infrastructure')
-            // string(name: 'PATH', defaultValue: 'wrapperCode/Network-Skeleton-Wrapper-Code/Dev-Network-Skeleton-Wrapper-Code', description: 'Wrapper Code Path?')
-    // }
-    
+
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main', credentialsId: 'Vishal-PAT-DSL', url: 'https://github.com/CodeOps-Hub/Terraform-modules.git'
-            }
+        stage('git checkout') {
+              steps {
+                checkout scmGit(branches: [[name: 'main']], extensions: [], userRemoteConfigs: [[credentialsId: 'Harshit-Github-PAT', url: 'https://github.com/CodeOps-Hub/Terraform-modules.git']])
+              }
         }
-        
-        // stage('Copy Terraform Files') { 
-        //     steps {
-        //         // Copy or move specific files from the repository to Jenkins workspace
-        //         sh 'cp wrapperCode/Frontend_Wrapper_Code/Dev_Env/* .'
-        //     }
-        // }
-        
-        stage('Terraform Init') {
+        stage('Terraform init') {
             steps {
-                script {
-                    // ${params
+                script{
                     sh '''
                         cd wrapperCode/Network-Skeleton-Wrapper-Code/Dev-Network-Skeleton-Wrapper-Code/
-                        terraform init'
-                    '''
+                        terraform init
+                    '''                    
                 }
+                
             }
         }
-        
-        stage('Terraform Plan') {
+        stage('Terraform plan') {
             steps {
-                script {
-                    sh 'terraform plan'
-                }
-            }
-        }
-        
-        stage('Review and Approve Apply') {
-            when {
-                expression { params.ACTION == 'Apply' }
-            }
-            steps {
-                // Prompt for approval before applying changes
-                input "Do you want to apply Terraform changes?"
-            }
-        }
-        
-        // stage('Review and Approve Destroy') {
-        //     when {
-        //         expression { params.ACTION == 'Destroy' }
-        //     }
-        //     steps {
-        //         // Prompt for approval before destroying resources
-        //         input "Do you want to destroy Terraform resources?"
-        //     }
-        // }
-        
-        stage('Apply or Destroy') {
-            steps {
-                script {
-                    // if (params.ACTION == 'Apply') {
-                        sh 'terraform apply -auto-approve'
-                    // } else if (params.ACTION == 'Destroy') {
-                        // sh 'terraform destroy -auto-approve'
+                withAWS(credentials: 'HARSHIT_AWS_CREDS') {
+                    script{
+                        sh '''
+                            cd wrapperCode/Network-Skeleton-Wrapper-Code/Dev-Network-Skeleton-Wrapper-Code/
+                            terraform plan
+                        '''                    
                     }
                 }
             }
         }
-    }
-    
-     post {
-        success {
-                echo "Changes Applied Successfully"
+        stage('Approval Stage') {
+            steps {
+                input 'Do you want to apply Terraform plan?'
+            }
         }
-        failure {
-            echo 'Terraform operation failed!'
+        stage('Terraform apply') {
+            steps {
+                withAWS(credentials: 'HARSHIT_AWS_CREDS') {
+                    script{
+                        sh '''
+                            cd wrapperCode/Network-Skeleton-Wrapper-Code/Dev-Network-Skeleton-Wrapper-Code/
+                            terraform apply --auto-approve
+                        '''                    
+                    }
+                }
+            }
         }
+
     }
-// }
+}
