@@ -7,10 +7,10 @@ pipeline {
         TF_CLI_ARGS           = '-input=false'
     }
     
-    parameters {
+    // parameters {
     //     choice(name: 'ACTION', choices: ['Apply', 'Destroy'], description: 'Choose to apply or destroy the infrastructure')
-            string(name: 'PATH', defaultValue: 'wrapperCode/Network-Skeleton-Wrapper-Code/Dev-Network-Skeleton-Wrapper-Code', description: 'Wrapper Code Path?')
-    }
+            // string(name: 'PATH', defaultValue: 'wrapperCode/Network-Skeleton-Wrapper-Code/Dev-Network-Skeleton-Wrapper-Code', description: 'Wrapper Code Path?')
+    // }
     
     stages {
         stage('Checkout') {
@@ -30,8 +30,10 @@ pipeline {
             steps {
                 script {
                     // ${params
-                    cd "${params.PATH}"
-                    sh 'terraform init'
+                    sh '''
+                        cd wrapperCode/Network-Skeleton-Wrapper-Code/Dev-Network-Skeleton-Wrapper-Code/
+                        terraform init'
+                    '''
                 }
             }
         }
