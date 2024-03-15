@@ -9,7 +9,7 @@ pipeline {
     
     parameters {
     //     choice(name: 'ACTION', choices: ['Apply', 'Destroy'], description: 'Choose to apply or destroy the infrastructure')
-            string(name: 'Wrapper_Code_Path', defaultValue: 'wrapperCode/Network-Skeleton-Wrapper-Code/Dev-Network-Skeleton-Wrapper-Code', description: 'Wrapper Code Path?')
+            string(name: 'PATH', defaultValue: 'wrapperCode/Network-Skeleton-Wrapper-Code/Dev-Network-Skeleton-Wrapper-Code', description: 'Wrapper Code Path?')
     }
     
     stages {
@@ -30,7 +30,7 @@ pipeline {
             steps {
                 script {
                     // ${params
-                    cd ${params.PATH}/
+                    cd "${params.PATH}"
                     sh 'terraform init'
                 }
             }
