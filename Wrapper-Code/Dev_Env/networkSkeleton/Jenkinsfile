@@ -7,9 +7,9 @@ pipeline {
         TF_CLI_ARGS           = '-input=false'
     }
     
-    parameters {
-        choice(name: 'ACTION', choices: ['Apply', 'Destroy'], description: 'Choose to apply or destroy the infrastructure')
-    }
+    // parameters {
+    //     choice(name: 'ACTION', choices: ['Apply', 'Destroy'], description: 'Choose to apply or destroy the infrastructure')
+    // }
     
     stages {
         stage('Checkout') {
