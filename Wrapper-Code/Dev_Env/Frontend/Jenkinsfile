@@ -74,23 +74,20 @@ pipeline {
         }
     }
     
-    post {
+     post {
         success {
             script {
-                if (params.ACTION == 'Apply') {
-                    echo 'Terraform apply successful!'
+                if (fileExists('*.pem')) {
+                    echo 'Terraform operation successful!'
                     archiveArtifacts artifacts: '*.pem', followSymlinks: false
-                    cleanWs()
+                } else {
+                    echo 'No .pem files found, skipping artifact archiving.'
                 }
             }
         }
         failure {
-            script {
-                echo 'Terraform operation failed!'
-                if (params.ACTION == 'Destroy') {
-                    cleanWs()
-                }
-            }
+            echo 'Terraform operation failed!'
+            cleanWs()
         }
     }
 }
