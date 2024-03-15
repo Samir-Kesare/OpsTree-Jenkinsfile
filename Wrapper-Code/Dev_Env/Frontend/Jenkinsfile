@@ -81,7 +81,7 @@ pipeline {
                     echo 'Terraform operation successful!'
                     archiveArtifacts artifacts: '*.pem', followSymlinks: false
                 } else {
-                    echo 'No .pem files found, skipping artifact archiving.'
+                    echo 'Infra Destoryed and .pem kye cleared'
                 }
             }
         }
