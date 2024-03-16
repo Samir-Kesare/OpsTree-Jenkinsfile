@@ -1,0 +1,69 @@
+pipeline {
+    agent any
+    
+    environment {
+        AWS_ACCESS_KEY_ID     = credentials('shreya-aws-cred')
+        AWS_SECRET_ACCESS_KEY = credentials('shreya-aws-cred')
+        TF_CLI_ARGS           = '-input=false'
+    }
+    
+    parameters {
+        choice(name: 'ACTION', choices: ['Apply'], description: 'Choose to apply the infrastructure')
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'shreya/openvpn-wrapper-code', credentialsId: 'shreya PAT', url: 'https://github.com/CodeOps-Hub/Terraform-modules.git'
+            }
+        }
+        
+        stage('Copy Terraform Files') {
+            steps {
+                // Copy or move specific files from the repository to Jenkins workspace
+                sh 'cp wrapperCode/Openvpn-wrapper-code/QA-Env/* .'
+            }
+        }
+        stage('Terraform Init') {
+            steps {
+                script {
+                    sh 'terraform init'
+                }
+            }
+        }
+        
+        stage('Terraform Plan') {
+            steps {
+                script {
+                    sh 'terraform plan'
+                }
+            }
+        }
+        
+        stage('Review and Approve Apply') {
+            steps {
+                // Prompt for approval before applying changes
+                input "Do you want to apply Terraform changes?"
+            }
+        }
+        
+        stage('Apply') {
+            steps {
+                script {
+                    sh 'terraform apply -auto-approve'
+                }
+            }
+        }
+    }
+    
+    post {
+        success {
+            echo 'Terraform operation successful!'
+            archiveArtifacts artifacts: '*.pem', followSymlinks: false
+        }
+        failure {
+            echo 'Terraform operation failed!'
+            cleanWs()
+        }
+    }
+}
