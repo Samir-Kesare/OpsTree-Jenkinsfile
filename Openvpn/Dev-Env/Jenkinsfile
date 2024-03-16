@@ -2,8 +2,8 @@ pipeline {
     agent any
     
     environment {
-        AWS_ACCESS_KEY_ID     = credentials('snaatak-aws-cred')
-        AWS_SECRET_ACCESS_KEY = credentials('snaatak-aws-cred')
+        AWS_ACCESS_KEY_ID     = credentials('shreya-aws-cred')
+        AWS_SECRET_ACCESS_KEY = credentials('shreya-aws-cred')
         TF_CLI_ARGS           = '-input=false'
     }
     
@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'shreya/openvpn-wrapper-code', credentialsId: 'GitHub Credentials for DSL PIpleline', url: 'https://github.com/CodeOps-Hub/Terraform.git'
+                git branch: 'shreya/openvpn-wrapper-code', credentialsId: 'shreya PAT', url: 'https://github.com/CodeOps-Hub/Terraform.git'
             }
         }
         
