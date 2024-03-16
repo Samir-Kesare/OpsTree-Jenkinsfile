@@ -1,1 +1,68 @@
+pipeline {
+    agent any
+    
+    environment {
+        AWS_ACCESS_KEY_ID     = credentials('snaatak-aws-cred')
+        AWS_SECRET_ACCESS_KEY = credentials('snaatak-aws-cred')
+        TF_CLI_ARGS           = '-input=false'
+    }
+    
+    parameters {
+        choice(name: 'ACTION', choices: ['Apply'], description: 'Choose to apply the infrastructure')
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', credentialsId: 'GitHub Credentials for DSL PIpleline', url: 'https://github.com/CodeOps-Hub/Terraform.git'
+            }
+        }
+        
+        stage('Copy Terraform Files') {
+            steps {
+                // Copy or move specific files from the repository to Jenkins workspace
+                sh 'cp Dev_Infra/Static_Tf/network/* .'
+            }
+        }
+        stage('Terraform Init') {
+            steps {
+                script {
+                    sh 'terraform init'
+                }
+            }
+        }
+        
+        stage('Terraform Plan') {
+            steps {
+                script {
+                    sh 'terraform plan'
+                }
+            }
+        }
+        
+        stage('Review and Approve Apply') {
+            steps {
+                // Prompt for approval before applying changes
+                input "Do you want to apply Terraform changes?"
+            }
+        }
+        
+        stage('Apply') {
+            steps {
+                script {
+                    sh 'terraform apply -auto-approve'
+                }
+            }
+        }
+    }
+    
+   post {
+        success {
+            echo 'Terraform operation successful!'
+        }
+        failure {
+            echo 'Terraform operation failed!'
+        }
+    }
+}
 
