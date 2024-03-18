@@ -21,7 +21,8 @@ pipeline {
                             string(name: 'branch', defaultValue: 'main', description: 'Enter the branch name'),
                             string(name: 'rootPath', defaultValue: 'wrapperCode', description: 'Enter the root directory path'),
                             string(name: 'childPath', defaultValue: 'Frontend_Wrapper_Code/Dev_Env', description: 'Enter the child directory path'),
-                            string(name: 'ACTION', defaultValue: ['apply', 'destroy'], description: 'Enter the Terraform action (apply/destroy/etc)')
+                            choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Select Terraform action (apply/destroy)')
+
                         ])
                     ])
 
