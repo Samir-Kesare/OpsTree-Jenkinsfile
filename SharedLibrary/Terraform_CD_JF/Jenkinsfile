@@ -32,7 +32,7 @@ node {
     def url = 'https://github.com/CodeOps-Hub/Terraform-modules.git'
     def creds = 'Khushi_PAT'
 
-    withEnv(['AWS_ACCESS_KEY_ID=vishal_cred', 'AWS_SECRET_ACCESS_KEY=vishal_cred', 'TF_CLI_ARGS=-input=false']) {
+    withEnv(['AWS_ACCESS_KEY_ID=vishal_cred_id', 'AWS_SECRET_ACCESS_KEY=vishal_cred_id', 'TF_CLI_ARGS=-input=false']) {
         stage('Terraform') {
             terraformCD.call(url, creds, params.branch, params.rootPath, params.childPath, params.ACTION)
         }
