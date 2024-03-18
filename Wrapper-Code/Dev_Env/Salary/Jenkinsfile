@@ -76,20 +76,22 @@ pipeline {
         }
     }
     
-     post {
-        success {
-            script {
-                if (fileExists('*.pem')) {
-                    echo 'Terraform operation successful!'
-                    archiveArtifacts artifacts: '*.pem'
-                } else {
-                    echo 'Infra Destoryed and .pem key cleared'
-                }
+    post{
+    success {
+        script {
+            // Check if PEM files exist in the current directory
+            if (fileExists('*.pem')) {
+                echo 'Terraform operation successful!'
+                // Archive PEM files if they exist
+                archiveArtifacts artifacts: '*.pem', fingerprint: true
+            } else {
+                echo 'Infra Destroyed, and .pem key cleared'
             }
         }
-        failure {
-            echo 'Terraform operation failed!'
-            
-        }
+    }
+    failure {
+        echo 'Terraform operation failed!'
+    }
+     }
     }
 }
