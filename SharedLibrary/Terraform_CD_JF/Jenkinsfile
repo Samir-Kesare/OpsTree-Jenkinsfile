@@ -12,6 +12,6 @@ properties([
 
 node {
     def url = 'https://github.com/CodeOps-Hub/Terraform-modules.git'
-    def creds = 'shikha-PAT'
+    def creds = 'Khushi_PAT'
     terraformCD.call(url, creds, params.branch, params.rootPath, params.childPath, params.ACTION)
 }
