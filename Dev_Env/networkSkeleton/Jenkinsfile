@@ -1,7 +1,8 @@
 pipeline {
     agent any
     parameters {
-        choice choices: ['apply', 'destroy'], name: 'ACTION', description: 'Choose terraform ACTION to perform'
+        choice (choices: ['apply', 'destroy'], name: 'ACTION', description: 'Choose terraform ACTION to perform')
+        string (defaultValue: 'wrapperCode/Network-Skeleton-Wrapper-Code/Dev-Network-Skeleton-Wrapper-Code', description: 'define path of wrapper code directory', name: 'WrapperPath')
     }
 
     stages {
@@ -12,12 +13,9 @@ pipeline {
         }
         stage('Terraform init') {
             steps {
-                script{
-                    sh '''
-                        cd wrapperCode/Network-Skeleton-Wrapper-Code/Dev-Network-Skeleton-Wrapper-Code/
-                        terraform init
-                    '''                    
-                }
+                // script{
+                    sh "terraform -chdir='${params.WrapperPath}' init"                    
+                //  }
                 
             }
         }
@@ -25,10 +23,7 @@ pipeline {
             steps {
                 withAWS(credentials: 'HARSHIT_AWS_CREDS') {
                     script{
-                        sh '''
-                            cd wrapperCode/Network-Skeleton-Wrapper-Code/Dev-Network-Skeleton-Wrapper-Code/
-                            terraform plan
-                        '''                    
+                        sh "terraform -chdir='${params.WrapperPath}' plan"                    
                     }
                 }
             }
@@ -54,16 +49,10 @@ pipeline {
                 withAWS(credentials: 'HARSHIT_AWS_CREDS') {
                     script{
                         if (params.ACTION == 'apply') {
-                            sh '''
-                                cd wrapperCode/Network-Skeleton-Wrapper-Code/Dev-Network-Skeleton-Wrapper-Code/
-                                terraform apply --auto-approve
-                                '''
+                            sh "terraform -chdir='${params.WrapperPath}' apply --auto-approve"
                         } 
                         else if (params.ACTION == 'destroy') {
-                        sh '''
-                            cd wrapperCode/Network-Skeleton-Wrapper-Code/Dev-Network-Skeleton-Wrapper-Code/
-                            terraform destroy --auto-approve
-                            '''
+                            sh "terraform -chdir='${params.WrapperPath}' destroy --auto-approve"
                         }
                     }
                 }
