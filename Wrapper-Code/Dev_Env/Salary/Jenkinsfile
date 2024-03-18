@@ -83,7 +83,7 @@ pipeline {
                     echo 'Terraform operation successful!'
                     archiveArtifacts artifacts: '*.pem', followSymlinks: false
                 } else {
-                    echo 'Infra Destoryed and .pem kye cleared'
+                    echo 'Infra Destoryed and .pem key cleared'
                 }
             }
         }
