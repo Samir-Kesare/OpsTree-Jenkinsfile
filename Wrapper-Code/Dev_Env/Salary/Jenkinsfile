@@ -16,7 +16,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'Shikha/Salary/Salary-app', credentialsId: 'Salary', url: 'https://github.com/CodeOps-Hub/Terraform-modules.git'
+                git branch: 'Shikha/Salary/Salary-app', credentialsId: 'shikha-PAT', url: 'https://github.com/CodeOps-Hub/Terraform-modules.git'
             }
         }
         
