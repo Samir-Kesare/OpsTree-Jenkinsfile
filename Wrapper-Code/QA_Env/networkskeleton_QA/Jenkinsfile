@@ -22,7 +22,7 @@ pipeline {
         stage('Copy Terraform Files') {
             steps {
                 // Copy or move specific files from the repository to Jenkins workspace
-                sh "cp ${params.Wrapperpath}/* ."
+                sh "cp ${params.WrapperPath}/* ."
             }
         }
         
