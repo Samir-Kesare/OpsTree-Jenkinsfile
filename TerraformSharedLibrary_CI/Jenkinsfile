@@ -1,0 +1,20 @@
+@Library('shared-library') _
+
+//import org.avengers.template.terraform.*
+def terraformCI = new org.avengers.template.terraformCI.terraform_CI()
+properties([
+    parameters([
+        choice(name: 'branch', choices: ['main'], description: 'Select the branch'),
+        choice(name: 'rootPath', choices: ['modules'], description: 'Select the root directory'),
+        choice(name: 'childPath',choices: ['network'], description: 'Select the child directory'),
+    ])
+])
+node {
+    def url = 'https://github.com/HarshitSingh-Codes/jenkins-final.git'
+    def creds = 'khushi_pass'
+    def reportName1 = 'results_cli.txt'
+    def reportName2 = 'tflint_report.json'
+  //  def terraformCI = new org.avengers.template.terraform.terraformCI()
+    terraformCI.call(url, creds, params.branch, params.rootPath, params.childPath, reportName1, reportName2)
+     
+}
