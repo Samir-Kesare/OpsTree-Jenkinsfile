@@ -20,7 +20,7 @@ pipeline {
         
         stage('Copy Terraform Files') {
             steps {
-                sh 'cp -r wrapperCode/Salary-app/* .'
+                sh 'cp wrapperCode/Salary-wrapper-code/Dev_Env/* .'
             }
         }
         
