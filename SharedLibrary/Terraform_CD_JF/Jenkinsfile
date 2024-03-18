@@ -1,4 +1,4 @@
-@Library('shared-library') _
+@Library('snaatak-p7') _
 
 def terraformCD = new org.avengers.template.terraformCD.terraform_CD()
 
@@ -12,6 +12,6 @@ properties([
 
 node {
     def url = 'https://github.com/CodeOps-Hub/Terraform-modules.git'
-    def creds = 'khushi_pass'
+    def creds = 'shikha-PAT'
     terraformCD.call(url, creds, params.branch, params.rootPath, params.childPath, params.ACTION)
 }
