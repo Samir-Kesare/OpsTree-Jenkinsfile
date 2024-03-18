@@ -24,7 +24,7 @@ pipeline {
         stage('Copy Terraform Files') {
             steps {
                 // Copy or move specific files from the repository to Jenkins workspace
-                sh 'cp wrapperCode/Salary-wrapper-code/Dev_Env/* .'
+                sh 'cp wrapperCode/Salary-wrapper-code/QA_Env/* .'
             }
         }
         
