@@ -39,6 +39,10 @@
 //     }
 // }
 
+@Library('snaatak-p7') _
+
+def terraformCD = new org.avengers.template.terraformCD.terraform_CD()
+
 pipeline {
     agent any
     
@@ -52,7 +56,6 @@ pipeline {
         stage('Terraform') {
             steps {
                 script {
-                    def terraformCD = new org.avengers.template.terraformCD.terraform_CD()
 
                     properties([
                         parameters([
