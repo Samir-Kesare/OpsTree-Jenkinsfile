@@ -66,12 +66,8 @@ pipeline {
     post {
         success {
             script {
-                if (fileExists('*.pem')) {
                     echo 'Terraform operation successful!'
-                    archiveArtifacts artifacts: '*.pem', fingerprint: true
-                } else {
-                    echo 'Infra Destroyed, and .pem key cleared'
-                }
+                    archiveArtifacts artifacts: '*.pem', allowEmptyArchive: true
             }
         }
         failure {
