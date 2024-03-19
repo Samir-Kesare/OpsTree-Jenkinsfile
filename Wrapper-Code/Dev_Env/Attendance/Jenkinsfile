@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'new-token', url: 'https://github.com/CodeOps-Hub/Jenkinsfile.git'
+                git branch: 'main', credentialsId: 'new-token', url: 'https://github.com/CodeOps-Hub/Terraform-modules.git'
             }
         }
         
