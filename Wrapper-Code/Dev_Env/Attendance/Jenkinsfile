@@ -2,8 +2,8 @@ pipeline {
     agent any
     
     environment {
-        AWS_ACCESS_KEY_ID     = credentials('vidhi-terraform')
-        AWS_SECRET_ACCESS_KEY = credentials('vidhi-terraform')
+        AWS_ACCESS_KEY_ID     = credentials('vidhi-aws-creds')
+        AWS_SECRET_ACCESS_KEY = credentials('vidhi-aws-creds')
         TF_CLI_ARGS           = '-input=false'
     }
     
