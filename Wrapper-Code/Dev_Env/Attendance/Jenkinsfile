@@ -57,7 +57,7 @@ pipeline {
                 expression { params.ACTION == 'Destroy' }
             }
             steps {
-                // Prompt for approval before destroying resources
+                // Prompt for approval before destroying
                 input "Do you want to destroy Terraform resources?"
             }
         }
