@@ -23,14 +23,14 @@ pipeline {
                             string(name: 'childPath', defaultValue: 'Auto_Sacling_Module', description: 'Enter the child directory path'),
                             string(name: 'tagVersion', defaultValue: 'null', description: 'Enter the correct version'),
                             string(name: 'gitpath', defaultValue: 'CodeOps-Hub/Terraform-modules.git', description: 'Enter the correct GitHub repository path'),
-                            booleanParam(defaultValue: true, description: 'Run Terraform Action', name: 'RUN_TF_ACTION'),
-                            booleanParam(defaultValue: true, description: 'Run Terraform Init', name: 'RUN_TF_INIT'),
-                            booleanParam(defaultValue: true, description: 'Run Terraform Format', name: 'RUN_TF_FMT'),
-                            booleanParam(defaultValue: true, description: 'Run Terraform Validate', name: 'RUN_TF_VALIDATE'),
-                            booleanParam(defaultValue: true, description: 'Run Static Code Analysis', name: 'RUN_STATIC_CODE_ANALYSIS'),
-                            booleanParam(defaultValue: true, description: 'Run Checkov', name: 'RUN_CHECKOV'),
-                            booleanParam(defaultValue: true, description: 'Run Terraform Plan', name: 'RUN_TF_PLAN'),
-                            booleanParam(defaultValue: true, description: 'Run Git Tag', name: 'RUN_GIT_TAG')
+                            booleanParam(defaultValue: true, description: 'Run Terraform Action', name: 'runTerraformAction'),
+                            booleanParam(defaultValue: true, description: 'Run Terraform Init', name: 'runTerraformInit'),
+                            booleanParam(defaultValue: true, description: 'Run Terraform Format', name: 'runTerraformFmt'),
+                            booleanParam(defaultValue: true, description: 'Run Terraform Validate', name: 'runTerraformValidate'),
+                            booleanParam(defaultValue: true, description: 'Run Static Code Analysis', name: 'runStaticCodeAnalysis'),
+                            booleanParam(defaultValue: true, description: 'Run Checkov', name: 'runCheckov'),
+                            booleanParam(defaultValue: true, description: 'Run Terraform Plan', name: 'runTerraformPlan'),
+                            booleanParam(defaultValue: true, description: 'Run Git Tag', name: 'runGitTag')
                               
                            
                         ])
@@ -40,7 +40,7 @@ pipeline {
                     def creds = 'Harshit-Github-PAT'
                     
                     
-                    asg.call(url, creds, params.branch, params.rootPath, params.childPath, params.tagVersion, params.gitpath, params.RUN_TF_ACTION, params.RUN_TF_INIT, params.RUN_TF_FMT, params.RUN_TF_VALIDATE, params.RUN_STATIC_CODE_ANALYSIS, params.RUN_CHECKOV, params.RUN_TF_PLAN, params.RUN_GIT_TAG)
+                    asg.call(url, creds, params.branch, params.rootPath, params.childPath, params.tagVersion, params.gitpath, params.runTerraformAction, params.runTerraformInit, params.runTerraformFmt, params.runTerraformValidate, params.runStaticCodeAnalysis, params.runCheckov, params.runTerraformPlan, params.runGitTag)
                 }
             }
         }
