@@ -22,7 +22,7 @@ pipeline {
                             string(name: 'rootPath', defaultValue: 'Modules', description: 'Enter the root directory path'),
                             string(name: 'childPath', defaultValue: 'Auto_Sacling_Module', description: 'Enter the child directory path'),
                             string(name: 'tagVersion', defaultValue: 'null', description: 'Enter the correct version')
-                            
+                            string(name: 'gitpath', defaultValue: 'null', description: 'Enter the correct version')
 
                         ])
                     ])
@@ -30,7 +30,7 @@ pipeline {
                     def url = 'https://github.com/CodeOps-Hub/Terraform-modules.git'
                     def creds = 'cfb1a43a-bdbe-4b72-9966-6f42f75e98b1'
                     
-                    asg.call(url, creds, params.branch, params.rootPath, params.childPath, params.tagVersion)
+                    asg.call(url, creds, params.branch, params.rootPath, params.childPath, params.tagVersion, params.gitpath)
                 }
             }
         }
