@@ -38,7 +38,7 @@ pipeline {
                     def creds = 'cfb1a43a-bdbe-4b72-9966-6f42f75e98b1'
                     
                     
-                    asg.call(url, creds, params.branch, params.rootPath, params.childPath, params.tagVersion, params.gitpath)
+                    asg.call(url, creds, params.branch, params.rootPath, params.childPath, params.tagVersion, params.gitpath, params.RUN_TF_ACTION, params.RUN_TF_INIT, params.RUN_TF_FMT, params.RUN_TF_VALIDATE, params.RUN_STATIC_CODE_ANALYSIS, params.RUN_CHECKOV, params.RUN_TF_PLAN, params.RUN_GIT_TAG)
                 }
             }
         }
