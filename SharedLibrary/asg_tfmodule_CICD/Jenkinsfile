@@ -29,9 +29,10 @@ pipeline {
 
                     def url = 'https://github.com/CodeOps-Hub/Terraform-modules.git'
                     def creds = 'cfb1a43a-bdbe-4b72-9966-6f42f75e98b1'
-                    
+                    def reportName1 = 'results_cli.txt'
+                    def reportName2 = 'tflint_report.json'
 
-                    asg.call(url, creds, params.branch, params.rootPath, params.childPath, params.tagVersion)
+                    asg.call(url, creds, reportName1, reportName2, params.branch, params.rootPath, params.childPath, params.tagVersion)
                 }
             }
         }
