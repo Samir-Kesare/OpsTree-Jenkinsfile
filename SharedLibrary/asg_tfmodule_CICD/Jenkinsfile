@@ -1,6 +1,6 @@
 @Library('my-shared-library') _
 
-def asg = new org.avengers.asg_tfmodule_CICD()
+def asg = new org.avengers.asg_tfmodule_CICD.asgCICD()
 
 pipeline {
     agent any
