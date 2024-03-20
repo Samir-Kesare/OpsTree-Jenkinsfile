@@ -1,6 +1,6 @@
 @Library('my-shared-library') _
 
-def terraformCD = new org.avengers.template.terraformCD.terraform_CD()
+def asg_tfmodule_CICD = new org.avengers.template.asg_tfmodule_CICD.asgCICD()
 
 pipeline {
     agent any
