@@ -15,7 +15,6 @@ pipeline {
         stage('Terraform') {
             steps {
                 script {
-
                     properties([
                         parameters([
                             string(name: 'branch', defaultValue: 'main', description: 'Enter the branch name'),
@@ -29,7 +28,7 @@ pipeline {
 
                     def url = 'https://github.com/CodeOps-Hub/Terraform-modules.git'
                     def creds = 'cfb1a43a-bdbe-4b72-9966-6f42f75e98b1'
-                    def gitpath = 'CodeOps-Hub/Terraform-modules.git'
+                    
                     
                     asg.call(url, creds, params.branch, params.rootPath, params.childPath, params.tagVersion, params.gitpath)
                 }
