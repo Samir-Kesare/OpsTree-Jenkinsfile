@@ -22,6 +22,7 @@ pipeline {
                             string(name: 'rootPath', defaultValue: 'Modules', description: 'Enter the root directory path'),
                             string(name: 'childPath', defaultValue: 'Auto_Sacling_Module', description: 'Enter the child directory path'),
                             string(name: 'tagVersion', defaultValue: 'null', description: 'Enter the correct version')
+                            string(name: 'gitpath', defaultValue: 'CodeOps-Hub/Terraform-modules', description: 'Enter the correct GitHub repository path')
                            
                         ])
                     ])
