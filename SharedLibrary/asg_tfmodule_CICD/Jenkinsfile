@@ -1,6 +1,6 @@
 @Library('my-shared-library') _
 
-def asg_tfmodule_CICD = new org.avengers.template.asg_tfmodule_CICD.asgCICD()
+def asg = new org.avengers.template.asg_tfmodule_CICD.asgCICD()
 
 pipeline {
     agent any
@@ -29,7 +29,7 @@ pipeline {
                     def url = 'https://github.com/CodeOps-Hub/Terraform-modules.git'
                     def creds = 'cfb1a43a-bdbe-4b72-9966-6f42f75e98b1'
 
-                    asg_tfmodule_CICD.call(url, creds, params.branch, params.rootPath, params.childPath)
+                    asg.call(url, creds, params.branch, params.rootPath, params.childPath)
                 }
             }
         }
