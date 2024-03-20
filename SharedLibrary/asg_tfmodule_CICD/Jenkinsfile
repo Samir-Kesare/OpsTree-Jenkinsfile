@@ -28,7 +28,7 @@ pipeline {
 
                     def url = 'https://github.com/CodeOps-Hub/Terraform-modules.git'
                     def creds = 'cfb1a43a-bdbe-4b72-9966-6f42f75e98b1'
-                    def gitpath = "https://github.com/CodeOps-Hub/Terraform-modules.git"
+                    def gitpath = 'https://github.com/CodeOps-Hub/Terraform-modules.git'
                     
                     asg.call(url, creds, params.branch, params.rootPath, params.childPath, params.tagVersion, params.gitpath)
                 }
