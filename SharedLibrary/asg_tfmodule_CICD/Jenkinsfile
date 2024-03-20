@@ -1,6 +1,6 @@
 @Library('my-shared-library') _
 
-def asg = new org.avengers.asg_tfmodule_CICD.asgCICD()
+def asg = new org.avengers.template.asg_tfmodule_CICD.asgCICD()
 
 pipeline {
     agent any
@@ -11,22 +11,26 @@ pipeline {
         TF_CLI_ARGS = '-input=false'
     }
     
-    parameters {
-        string(name: 'branch', defaultValue: 'main', description: 'Enter the branch name')
-        string(name: 'rootPath', defaultValue: 'Modules', description: 'Enter the root directory path')
-        string(name: 'childPath', defaultValue: 'Auto_Sacling_Module', description: 'Enter the child directory path')
-        string(name: 'tagVersion', defaultValue: 'null', description: 'Enter the correct version')
-        string(name: 'gitpath', defaultValue: 'null', description: 'Enter the correct version')
-    }
-    
     stages {
         stage('Terraform') {
             steps {
                 script {
+
+                    properties([
+                        parameters([
+                            string(name: 'branch', defaultValue: 'main', description: 'Enter the branch name'),
+                            string(name: 'rootPath', defaultValue: 'Modules', description: 'Enter the root directory path'),
+                            string(name: 'childPath', defaultValue: 'Auto_Sacling_Module', description: 'Enter the child directory path'),
+                            string(name: 'tagVersion', defaultValue: 'null', description: 'Enter the correct version')
+                           
+                        ])
+                    ])
+
                     def url = 'https://github.com/CodeOps-Hub/Terraform-modules.git'
                     def creds = 'cfb1a43a-bdbe-4b72-9966-6f42f75e98b1'
+                    def gitpath = 'https://github.com/CodeOps-Hub/Terraform-modules.git'
                     
-                    asg.call(params.rootPath, params.childPath, params.branch, params.gitpath)
+                    asg.call(url, creds, params.branch, params.rootPath, params.childPath, params.tagVersion, params.gitpath)
                 }
             }
         }
