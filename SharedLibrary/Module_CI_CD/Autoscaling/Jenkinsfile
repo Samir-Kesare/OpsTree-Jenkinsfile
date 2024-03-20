@@ -22,15 +22,15 @@ pipeline {
                             string(name: 'rootPath', defaultValue: 'Modules', description: 'Enter the root directory path'),
                             string(name: 'childPath', defaultValue: 'Auto_Sacling_Module', description: 'Enter the child directory path'),
                             string(name: 'tagVersion', defaultValue: 'null', description: 'Enter the correct version'),
-                            string(name: 'gitpath', defaultValue: 'CodeOps-Hub/Terraform-modules.git', description: 'Enter the correct GitHub repository path')
-                            // booleanParam(defaultValue: true, description: 'Run Terraform Action', name: 'RUN_TF_ACTION')
-                            // booleanParam(defaultValue: true, description: 'Run Terraform Init', name: 'RUN_TF_INIT')
-                            // booleanParam(defaultValue: true, description: 'Run Terraform Format', name: 'RUN_TF_FMT')
-                            // booleanParam(defaultValue: true, description: 'Run Terraform Validate', name: 'RUN_TF_VALIDATE')
-                            // booleanParam(defaultValue: true, description: 'Run Static Code Analysis', name: 'RUN_STATIC_CODE_ANALYSIS')
-                            // booleanParam(defaultValue: true, description: 'Run Checkov', name: 'RUN_CHECKOV')
-                            // booleanParam(defaultValue: true, description: 'Run Terraform Plan', name: 'RUN_TF_PLAN')
-                            // booleanParam(defaultValue: true, description: 'Run Git Tag', name: 'RUN_GIT_TAG')
+                            string(name: 'gitpath', defaultValue: 'CodeOps-Hub/Terraform-modules.git', description: 'Enter the correct GitHub repository path'),
+                            booleanParam(defaultValue: true, description: 'Run Terraform Action', name: 'RUN_TF_ACTION'),
+                            booleanParam(defaultValue: true, description: 'Run Terraform Init', name: 'RUN_TF_INIT'),
+                            booleanParam(defaultValue: true, description: 'Run Terraform Format', name: 'RUN_TF_FMT'),
+                            booleanParam(defaultValue: true, description: 'Run Terraform Validate', name: 'RUN_TF_VALIDATE'),
+                            booleanParam(defaultValue: true, description: 'Run Static Code Analysis', name: 'RUN_STATIC_CODE_ANALYSIS'),
+                            booleanParam(defaultValue: true, description: 'Run Checkov', name: 'RUN_CHECKOV'),
+                            booleanParam(defaultValue: true, description: 'Run Terraform Plan', name: 'RUN_TF_PLAN'),
+                            booleanParam(defaultValue: true, description: 'Run Git Tag', name: 'RUN_GIT_TAG')
                               
                            
                         ])
