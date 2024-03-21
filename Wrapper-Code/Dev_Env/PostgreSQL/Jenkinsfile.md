@@ -85,5 +85,4 @@ post {
             echo 'Terraform operation failed!'
             
 }
- }
- }
+}
