@@ -21,7 +21,7 @@ pipeline {
         
         stage('Copy Terraform Files') {
             steps {
-                sh 'cp Wrapper-Code-Salary-QA/* .'
+                sh 'cp wrapperCode/Salary-wrapper-code/QA_Env/* .'
             }
         }
         
