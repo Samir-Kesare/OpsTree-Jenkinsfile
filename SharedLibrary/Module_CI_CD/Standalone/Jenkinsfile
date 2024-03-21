@@ -1,0 +1,40 @@
+@Library('my-shared-library') _
+
+def standalone = new org.avengers.template.Module_CI_CD.cicd()
+
+pipeline {
+    agent any
+    
+    environment {
+        AWS_ACCESS_KEY_ID = credentials('aws-access-key	')
+        AWS_SECRET_ACCESS_KEY = credentials('aws-secret-key	')
+        TF_CLI_ARGS = '-input=false'
+    }
+    
+    stages {
+        stage('Terraform') {
+            steps {
+                script {
+                    properties([
+                        parameters([
+                            
+                            string(name: 'branch', defaultValue: 'main', description: 'Enter the branch name'),
+                            string(name: 'rootPath', defaultValue: 'Modules', description: 'Enter the root directory path'),
+                            string(name: 'childPath', defaultValue: 'VM-Module', description: 'Enter the child directory path'),
+                            string(name: 'tagVersion', defaultValue: 'null', description: 'Enter the correct version'),
+                            string(name: 'gitpath', defaultValue: 'CodeOps-Hub/Terraform-modules.git', description: 'Enter the correct GitHub repository path')
+                              
+                           
+                        ])
+                    ])
+
+                    def url = 'https://github.com/CodeOps-Hub/Terraform-modules.git'
+                    def creds = 'shantanu-pat'
+                    
+                    
+                    network.call(url, creds, params.branch, params.rootPath, params.childPath, params.tagVersion, params.gitpath)
+                }
+            }
+        }
+    }
+}
