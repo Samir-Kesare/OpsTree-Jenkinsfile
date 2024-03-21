@@ -1,31 +1,31 @@
 pipeline {
     agent any
     
-    environment {
+environment {
         AWS_ACCESS_KEY_ID     = credentials('vikram-aws')
         AWS_SECRET_ACCESS_KEY = credentials('vikram-aws')
         TF_CLI_ARGS           = '-input=false'
     }
     
-    parameters {
+parameters {
         choice(name: 'ACTION', choices: ['Apply', 'Destroy'], description: 'Choose to apply or destroy the infrastructure')
     }
     
-    stages {
+stages {
         stage('Checkout') {
             steps {
                 git branch: 'PostgreSQL_Vikram', credentialsId: 'vikram445', url: 'https://github.com/CodeOps-Hub/Terraform-modules.git'
             }
         }
         
-        stage('Copy Terraform Files') {
+stage('Copy Terraform Files') {
             steps {
                 // Copy or move specific files from the repository to Jenkins workspace
                 sh 'cp wrapperCode/PostgreSQL/dev/* .'
             }
         }
         
-        stage('Terraform Init') {
+stage('Terraform Init') {
             steps {
                 script {
                     sh 'terraform init'
@@ -33,7 +33,7 @@ pipeline {
             }
         }
         
-        stage('Terraform Plan') {
+stage('Terraform Plan') {
             steps {
                 script {
                     sh 'terraform plan'
@@ -41,7 +41,7 @@ pipeline {
             }
         }
         
-        stage('Review and Approve Apply') {
+stage('Review and Approve Apply') {
             when {
                 expression { params.ACTION == 'Apply' }
             }
@@ -51,7 +51,7 @@ pipeline {
             }
         }
         
-        stage('Review and Approve Destroy') {
+stage('Review and Approve Destroy') {
             when {
                 expression { params.ACTION == 'Destroy' }
             }
@@ -61,7 +61,7 @@ pipeline {
             }
         }
         
-        stage('Apply or Destroy') {
+stage('Apply or Destroy') {
             steps {
                 script {
                     if (params.ACTION == 'Apply') {
@@ -74,7 +74,7 @@ pipeline {
         }
     }
     
-     post {
+post {
         success {
             script {
                     echo 'Terraform operation successful!'
