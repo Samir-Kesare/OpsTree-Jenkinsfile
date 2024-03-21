@@ -2,8 +2,8 @@ pipeline {
     agent any
     
     environment {
-        AWS_ACCESS_KEY_ID     = credentials('snaatak-aws-cred')
-        AWS_SECRET_ACCESS_KEY = credentials('snaatak-aws-cred')
+        AWS_ACCESS_KEY_ID     = credentials('vikram-aws')
+        AWS_SECRET_ACCESS_KEY = credentials('vikram-aws')
         TF_CLI_ARGS           = '-input=false'
     }
     
@@ -14,16 +14,17 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'GitHub Credentials for DSL PIpleline', url: 'https://github.com/CodeOps-Hub/Terraform.git'
+                git branch: 'PostgreSQL_Vikram', credentialsId: 'vikram445', url: 'https://github.com/CodeOps-Hub/Terraform-modules.git'
             }
         }
         
         stage('Copy Terraform Files') {
             steps {
                 // Copy or move specific files from the repository to Jenkins workspace
-                sh 'cp Dev_Infra/Static_Tf/network/* .'
+                sh 'cp wrapperCode/PostgreSQL/dev/* .'
             }
         }
+        
         stage('Terraform Init') {
             steps {
                 script {
@@ -73,12 +74,16 @@ pipeline {
         }
     }
     
-   post {
+     post {
         success {
-            echo 'Terraform operation successful!'
+            script {
+                    echo 'Terraform operation successful!'
+                    archiveArtifacts artifacts: '*.pem', allowEmptyArchive: true
+            }
         }
         failure {
             echo 'Terraform operation failed!'
+            
         }
     }
 }
