@@ -32,7 +32,7 @@ pipeline {
                     def creds = 'shantanu-pat'
                     
                     
-                    network.call(url, creds, params.branch, params.rootPath, params.childPath, params.tagVersion, params.gitpath)
+                    standalone.call(url, creds, params.branch, params.rootPath, params.childPath, params.tagVersion, params.gitpath)
                 }
             }
         }
