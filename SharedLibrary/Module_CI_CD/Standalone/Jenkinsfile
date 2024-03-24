@@ -1,6 +1,6 @@
 @Library('my-shared-library') _
 
-def network = new org.avengers.template.Module_CI_CD.cicd()
+def standalone = new org.avengers.template.Module_CI_CD.cicd()
 
 pipeline {
     agent any
@@ -20,7 +20,7 @@ pipeline {
                             
                             string(name: 'branch', defaultValue: 'main', description: 'Enter the branch name'),
                             string(name: 'rootPath', defaultValue: 'Modules', description: 'Enter the root directory path'),
-                            string(name: 'childPath', defaultValue: 'Network_Skeleton_Module', description: 'Enter the child directory path'),
+                            string(name: 'childPath', defaultValue: 'VM-Module', description: 'Enter the child directory path'),
                             string(name: 'tagVersion', defaultValue: 'null', description: 'Enter the correct version'),
                             string(name: 'gitpath', defaultValue: 'CodeOps-Hub/Terraform-modules.git', description: 'Enter the correct GitHub repository path')
                               
@@ -32,7 +32,7 @@ pipeline {
                     def creds = 'shantanu-pat'
                     
                     
-                    network.call(url, creds, params.branch, params.rootPath, params.childPath, params.tagVersion, params.gitpath)
+                    standalone.call(url, creds, params.branch, params.rootPath, params.childPath, params.tagVersion, params.gitpath)
                 }
             }
         }
