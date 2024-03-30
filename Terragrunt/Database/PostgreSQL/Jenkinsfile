@@ -1,4 +1,4 @@
-@Library('my-shared-library@harshit/PostgreSQL-dev-TG') _
+@Library('my-shared-library@Vidhi/terragrunt-sharedlib') _
 
 def postgreSQL = new org.avengers.template.terragrunt.postgreSQL()
 properties([
