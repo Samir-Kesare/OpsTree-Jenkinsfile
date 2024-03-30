@@ -6,7 +6,6 @@ properties([
         choice(name: 'branch', choices: ['Vidhi/network-skeleton-QA'], description: 'Select the branch'),
         choice(name: 'rootPath', choices: ['network-skeleton'], description: 'Select the root directory'),
         choice(name: 'childPath',choices: ['QA'], description: 'Select the child directory'),
-        booleanParam(defaultValue: true, description: 'Execute Destroy?', name: 'executeDestroy')
     ])
 ])
 node {
@@ -14,6 +13,6 @@ node {
     def creds = 'new-token'
 
 
-    terragrunt.call(url, creds, params.branch, params.rootPath, params.childPath, params.executeDestroy)
+    terragrunt.call(url, creds, params.branch, params.rootPath, params.childPath)
      
 }
