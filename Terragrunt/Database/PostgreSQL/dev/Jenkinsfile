@@ -1,18 +1,21 @@
 @Library('terragrunt_sharedLib@Vidhi/terragrunt-sharedlib') _
+import org.avengers.common.*
+import org.avengers.terragrunt.TerragruntUtils
 
-def terragrunt = new org.avengers.template.terragrunt.terragrunt()
 properties([
     parameters([
-        choice(name: 'branch', choices: ['Vidhi/network-skeleton-QA'], description: 'Select the branch'),
-        choice(name: 'rootPath', choices: ['network-skeleton'], description: 'Select the root directory'),
-        choice(name: 'childPath',choices: ['dev'], description: 'Select the child directory'),
+        choice (choices: ['apply', 'destroy'], name: 'ACTION', description: 'Choose terraform ACTION to perform'),
+        string (defaultValue: 'Vidhi/network-skeleton-QA', description: '', name: 'branch'),
+        string (defaultValue: 'dev', description: 'define path of child directory', name: 'childPath'),
+        string (defaultValue: 'network-skeleton', description: 'define path of root directory', name: 'rootPath'),
     ])
 ])
 node {
     def url = 'git@github.com:CodeOps-Hub/Terragrunt.git'
-    def creds = 'new-token'
+    def creds = 'Harshit-Github-PAT'
 
 
     terragrunt.call(url, creds, params.branch, params.rootPath, params.childPath)
      
 }
+
