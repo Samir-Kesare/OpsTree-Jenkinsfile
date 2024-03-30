@@ -5,7 +5,7 @@ properties([
     parameters([
         string(name: 'branch', defaultValue: 'Vidhi/network-skeleton-QA', description: 'Select the branch'),
         string(name: 'rootPath', defaultValue: 'network-skeleton', description: 'Select the root directory'),
-        choice(name: 'childPath',choices: ['QA'], description: 'Select the child directory'),
+        string(name: 'childPath', defaultValue: 'QA', description: 'Select the child directory'),
         choice(name: 'executeDestroy', choices: ['Yes', 'No'], description: 'Select action'),
     ])
 ])
