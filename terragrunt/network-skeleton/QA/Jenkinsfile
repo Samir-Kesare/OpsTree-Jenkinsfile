@@ -3,8 +3,8 @@
 def terragrunt = new org.avengers.template.terragrunt.terragrunt()
 properties([
     parameters([
-        choice(name: 'branch', choices: ['Vidhi/network-skeleton-QA'], description: 'Select the branch'),
-        choice(name: 'rootPath', choices: ['network-skeleton'], description: 'Select the root directory'),
+        string(name: 'branch', choices: ['Vidhi/network-skeleton-QA'], description: 'Select the branch'),
+        string(name: 'rootPath', choices: ['network-skeleton'], description: 'Select the root directory'),
         choice(name: 'childPath',choices: ['QA'], description: 'Select the child directory'),
         choice(name: 'executeDestroy', choices: ['Yes', 'No'], description: 'Select action'),
     ])
