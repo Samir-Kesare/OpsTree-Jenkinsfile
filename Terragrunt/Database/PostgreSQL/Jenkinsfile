@@ -1,6 +1,6 @@
 @Library('my-shared-library@Vidhi/terragrunt-sharedlib') _
 
-def postgreSQL = new org.avengers.template.terragrunt.postgreSQL()
+def postgreSQL = new org.avengers.template.terragrunt.terragrunt()
 properties([
     parameters([
         choice (choices: ['apply', 'destroy'], name: 'action', description: 'Choose Terragrunt ACTION to perform'),
