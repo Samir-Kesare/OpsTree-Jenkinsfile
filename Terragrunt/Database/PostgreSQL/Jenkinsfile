@@ -1,7 +1,6 @@
-@Library('terragrunt_sharedLib@Vidhi/terragrunt-sharedlib') _
-import org.avengers.common.*
-import org.avengers.terragrunt.TerragruntUtils
+@Library('my-shared-library@Vidhi/terragrunt-sharedlib') _
 
+def postgreSQL = new org.avengers.template.terragrunt.postgreSQL()
 properties([
     parameters([
         choice (choices: ['apply', 'destroy'], name: 'action', description: 'Choose Terragrunt ACTION to perform'),
@@ -15,7 +14,7 @@ node {
     def creds = 'Harshit-Github-PAT'
 
 
-    terragrunt.call(url, creds, params.branch, params.rootPath, params.childPath, params.action)
+    postgreSQL.call(url, creds, params.branch, params.rootPath, params.childPath, params.action)
      
 }
 
