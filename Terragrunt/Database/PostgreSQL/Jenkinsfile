@@ -14,7 +14,7 @@ node {
     def creds = 'Harshit-Github-PAT'
 
 withAWS(credentials: 'HARSHIT_AWS_CREDS') {
-                        postgreSQL.call(url, creds, params.branch, params.rootPath, params.childPath, params.action)
+                        terragrunt.call(url, creds, params.branch, params.rootPath, params.childPath, params.action)
 }
      
 }
