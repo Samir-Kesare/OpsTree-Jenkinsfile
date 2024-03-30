@@ -13,8 +13,9 @@ node {
     def url = 'git@github.com:CodeOps-Hub/Terragrunt.git'
     def creds = 'Harshit-Github-PAT'
 
-
-    postgreSQL.call(url, creds, params.branch, params.rootPath, params.childPath, params.action)
+withAWS(credentials: 'HARSHIT_AWS_CREDS') {
+                        postgreSQL.call(url, creds, params.branch, params.rootPath, params.childPath, params.action)
+}
      
 }
 
