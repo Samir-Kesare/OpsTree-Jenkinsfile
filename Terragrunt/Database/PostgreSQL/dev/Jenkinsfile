@@ -4,7 +4,7 @@ import org.avengers.terragrunt.TerragruntUtils
 
 properties([
     parameters([
-        choice (choices: ['apply', 'destroy'], name: 'ACTION', description: 'Choose terraform ACTION to perform'),
+        choice (choices: ['apply', 'destroy'], name: 'action', description: 'Choose Terragrunt ACTION to perform'),
         string (defaultValue: 'Vidhi/network-skeleton-QA', description: '', name: 'branch'),
         string (defaultValue: 'dev', description: 'define path of child directory', name: 'childPath'),
         string (defaultValue: 'network-skeleton', description: 'define path of root directory', name: 'rootPath'),
@@ -15,7 +15,7 @@ node {
     def creds = 'Harshit-Github-PAT'
 
 
-    terragrunt.call(url, creds, params.branch, params.rootPath, params.childPath)
+    terragrunt.call(url, creds, params.branch, params.rootPath, params.childPath, params.action)
      
 }
 
