@@ -1,4 +1,4 @@
-@Library('my-shared-library@Vidhi/terragrunt-sharedlib') _
+@Library('p7-shared-library@Vidhi/terragrunt-sharedlib') _
 
 def terragrunt = new org.avengers.template.terragrunt.terragrunt()
 properties([
