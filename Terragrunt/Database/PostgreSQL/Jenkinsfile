@@ -3,19 +3,15 @@
 def terragrunt = new org.avengers.template.terragrunt.terragrunt()
 properties([
     parameters([
-        choice (choices: ['apply', 'destroy'], name: 'action', description: 'Choose Terragrunt ACTION to perform'),
-        string (defaultValue: 'harshit/PostgreSQL-dev', description: '', name: 'branch'),
-        string (defaultValue: 'Database/PostgreSQL', description: 'define path of root directory', name: 'rootPath'),
-        string (defaultValue: 'dev', description: 'define path of child directory', name: 'childPath'),
+        choice (choices: ['apply', 'destroy'], name: 'operation', description: 'Choose Terragrunt operation to perform'),
+        string (defaultValue: 'harshit/PostgreSQL-dev', description: '', name: 'repoBranch'),
+        string (defaultValue: 'Dev', description: 'Define path of root directory', name: 'environment'),
+        string (defaultValue: 'PostgreSQL', description: 'Define path of child directory', name: 'service'),
     ])
 ])
 node {
-    def url = 'git@github.com:CodeOps-Hub/Terragrunt.git'
+    def url = 'https://github.com/CodeOps-Hub/Terragrunt.git'
     def creds = 'Harshit-Github-PAT'
 
-withAWS(credentials: 'HARSHIT_AWS_CREDS') {
-                        terragrunt.call(url, creds, params.branch, params.rootPath, params.childPath, params.action)
+    terragrunt.call(url, creds, params.repoBranch, params.environment, params.service, params.operation)
 }
-     
-}
-
