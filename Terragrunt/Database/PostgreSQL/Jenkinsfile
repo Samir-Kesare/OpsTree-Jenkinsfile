@@ -11,7 +11,7 @@ properties([
 ])
 node {
     def url = 'https://github.com/CodeOps-Hub/Terragrunt.git'
-    def creds = 'Harshit-Github-PAT'
+    def creds = 'harshit-github-token'
 
     terragrunt.call(url, creds, params.repoBranch, params.environment, params.service, params.operation)
 }
