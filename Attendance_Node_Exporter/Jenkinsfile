@@ -17,12 +17,13 @@ pipeline {
             }
         }
 
-        stage('Ansible Inventory graph')
+        stage('Ansible Inventory graph') {
             steps {
-               script {
-                   sh "ansible-inventory --graph"
-               }
+                script {
+                    sh "ansible-inventory --graph"
+                }
             }
+        }
 
         stage('Ansible Run Stage') {
             steps {
