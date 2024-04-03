@@ -6,7 +6,7 @@ properties([
         choice (choices: ['apply', 'destroy'], name: 'action', description: 'Choose Terragrunt ACTION to perform'),
         string (defaultValue: 'shreya/dev-attendance', description: '', name: 'branch'),
         string (defaultValue: 'Dev', description: 'define path of root directory', name: 'rootPath'),
-        string (defaultValue: 'Attadance', description: 'define path of child directory', name: 'childPath'),
+        string (defaultValue: 'Attendance', description: 'define path of child directory', name: 'childPath'),
     ])
 ])
 node {
