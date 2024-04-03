@@ -16,15 +16,6 @@ pipeline {
                 }
             }
         }
-        
-        stage('Checkout') {
-            steps {
-                script {
-                    // Clone the repository with specified branch
-                    sh "git clone -b ${params.GIT_BRANCH} ${params.GIT_URL} ."
-                }
-            }
-        }
 
         stage('Ansible Run Stage') {
             steps {
