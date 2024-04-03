@@ -8,6 +8,13 @@ pipeline {
         string(name: 'PLAYBOOK_PATH', defaultValue: './playbook.yml', description: 'Path to the playbook file')
     }
 
+    stages ('Clone') {
+        script {
+            git branch: "${params.GIT_BRANCH}", credentialsId: "${params.GIT_CREDENTIALS}", url: "${params.GIT_URL}"
+        }
+
+        "git clone -b ${params.GIT_BRANCH}", credentialsId: "${params.GIT_CREDENTIALS}", url: "${params.GIT_URL}"
+        
     stages {
         stage('Checkout') {
             steps {
