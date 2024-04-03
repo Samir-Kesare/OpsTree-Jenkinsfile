@@ -7,14 +7,13 @@ pipeline {
         string(name: 'GIT_BRANCH', defaultValue: 'Khushi/Attendance-node-exporter', description: 'Git branch to checkout')
         string(name: 'PLAYBOOK_PATH', defaultValue: 'roles/Attendance-node-exporter/playbook.yml', description: 'Path to the playbook file')
     }
-
-    stages ('Clone') {
-        script {
-            git branch: "${params.GIT_BRANCH}", credentialsId: "${params.GIT_CREDENTIALS}", url: "${params.GIT_URL}"
-        }
-    } // <-- Missing closing curly brace for 'stages ('Clone')' block
         
     stages {
+        stage ('Clone') {
+                script {
+                    git branch: "${params.GIT_BRANCH}", credentialsId: "${params.GIT_CREDENTIALS}", url: "${params.GIT_URL}"
+        }
+    }
         stage('Checkout') {
             steps {
                 script {
