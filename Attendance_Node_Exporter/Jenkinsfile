@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    
+    parameters {
+        string(name: 'GIT_URL', defaultValue: 'https://github.com/CodeOps-Hub/Ansible.git', description: 'Git repository URL')
+        string(name: 'GIT_CREDENTIALS', defaultValue: '001aee97-c379-4b31-b42d-49840ec1b296', description: 'Git credentials ID')
+        string(name: 'GIT_BRANCH', defaultValue: 'main', description: 'Git branch to checkout')
+        string(name: 'PLAYBOOK_PATH', defaultValue: './playbook.yml', description: 'Path to the playbook file')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                script {
+                    // Clone the repository with specified branch
+                    sh "git clone -b ${params.GIT_BRANCH} ${params.GIT_URL} ."
+                }
+            }
+        }
+
+        stage('Ansible Run Stage') {
+            steps {
+                script {
+                    // Run the ansible playbook
+                    sh "ansible-playbook ${params.PLAYBOOK_PATH}"
+                }
+            }
+        }               
+    }
+}
