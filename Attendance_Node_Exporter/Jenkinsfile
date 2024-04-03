@@ -9,7 +9,7 @@ pipeline {
     }
         
     stages {
-        stage ('Clone') {
+        stage('Clone') {
             steps {
                 script {
                     git branch: "${params.GIT_BRANCH}", credentialsId: "${params.GIT_CREDENTIALS}", url: "${params.GIT_URL}"
@@ -17,7 +17,7 @@ pipeline {
             }
         }
 
-     stage('Ansible Inventory graph') {
+        stage('Ansible Version') {
             steps {
                 script {
                     sh "ansible --version"
