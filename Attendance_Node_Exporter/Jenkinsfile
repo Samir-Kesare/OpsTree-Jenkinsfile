@@ -37,7 +37,7 @@ pipeline {
             steps {
                 script {
                     // Run the ansible playbook
-                    sh "ansible-playbook ${params.PLAYBOOK_PATH}"
+                    sh "ansible-playbook -vvv ${params.PLAYBOOK_PATH}" 
                 }
             }
         }               
