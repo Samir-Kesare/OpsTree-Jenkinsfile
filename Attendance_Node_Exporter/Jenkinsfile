@@ -12,6 +12,7 @@ pipeline {
         script {
             git branch: "${params.GIT_BRANCH}", credentialsId: "${params.GIT_CREDENTIALS}", url: "${params.GIT_URL}"
         }
+    } // <-- Missing closing curly brace for 'stages ('Clone')' block
         
     stages {
         stage('Checkout') {
