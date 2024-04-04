@@ -15,7 +15,7 @@ pipeline {
         stage('Run Ansible') {
             steps {
                 sh 'ansible --version'
-                sh 'ansible-playbook --private-key /var/lib/jenkins/demo-salary.pem salary-node-exporter.yml'
+                sh 'ansible-playbook --private-key /var/lib/jenkins/snaatak.pem salary-node-exporter.yml'
             }
         }
     }
