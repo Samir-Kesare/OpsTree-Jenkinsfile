@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('GIT Checkout') {
             steps {
-                checkout scmGit(branches: [[name: 'vikram/Frontend-node-exp']], extensions: [], userRemoteConfigs: [[credentialsId: 'vikram github token', url: 'https://github.com/CodeOps-Hub/Ansible.git']])
+                checkout scmGit(branches: [[name: 'vikram/Frontend-node-exp']], extensions: [], userRemoteConfigs: [[credentialsId: '053aa239-b1c0-437d-a686-940941d1eae0', url: 'https://github.com/CodeOps-Hub/Ansible.git']])
             }
         }
         stage('ansible inventory') {
