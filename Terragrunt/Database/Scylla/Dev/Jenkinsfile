@@ -1,4 +1,4 @@
-@Library('my_shared_liabrary') _
+@Library('p7-shared-library@Vidhi/terragrunt-sharedlib') _
 
 def terragrunt = new org.avengers.template.terragrunt.terragrunt()
 properties([
@@ -11,8 +11,11 @@ properties([
 ])
 node {
     def url = 'https://github.com/CodeOps-Hub/Terragrunt.git'
-    def creds = 'Samir-PT'
+    def creds = 'harshit-github-token'
 
-
+// with aws(credentials: 'vikram aws') {
+//                         terragrunt.call(url, creds, params.branch, params.rootPath, params.childPath, params.action)
+// }
+     
      terragrunt.call(url, creds, params.branch, params.rootPath, params.childPath, params.action)
 }
