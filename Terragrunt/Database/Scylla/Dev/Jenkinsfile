@@ -4,9 +4,9 @@ def terragrunt = new org.avengers.template.terragrunt.terragrunt()
 properties([
     parameters([
         choice (choices: ['apply', 'destroy'], name: 'action', description: 'Choose Terragrunt ACTION to perform'),
-        string (defaultValue: 'main', description: '', name: 'branch'),
+        string (defaultValue: 'samir/Dev-Scylla', description: '', name: 'branch'),
         string (defaultValue: 'Dev', description: 'define path of root directory', name: 'rootPath'),
-        string (defaultValue: 'scylla', description: 'define path of child directory', name: 'childPath'),
+        string (defaultValue: 'Scylla', description: 'define path of child directory', name: 'childPath'),
     ])
 ])
 node {
