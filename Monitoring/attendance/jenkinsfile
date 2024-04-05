@@ -12,7 +12,7 @@ pipeline {
         stage('Execute Ansible Role') {
             steps {
                 // Execute Ansible playbook with the role
-               sh 'ansible-playbook --private-key /var/lib/jenkins/prometheus.pem roles/prometheus/playbook.yml'
+               sh 'ansible-playbook --private-key /var/lib/jenkins/prometheus.pem /var/lib/jenkins/workspace/attenance-app/roles/prometheus/playbook.yml'
 
             }
         }
