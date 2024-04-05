@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                // Check out your source code repository
+                git branch: 'Shikha/Employee-App/Alert-Rule', credentialsId: 'shikha/cred', url: 'https://github.com/CodeOps-Hub/Ansible.git'
+            }
+        }
+        
+        stage('Execute Ansible Role') {
+            steps {
+                // Execute Ansible playbook with the role
+               sh 'ansible-playbook --private-key /var/lib/jenkins/prometheus.pem /var/lib/jenkins/workspace/attenance-app/roles/prometheus/playbook.yml'
+
+            }
+        }
+    }
+    
+    post {
+        success {
+            // Send notification on success
+            echo 'Ansible role execution completed successfully!'
+        }
+        
+        failure {
+            // Send notification on failure
+            echo 'Ansible role execution failed!'
+        }
+    }
+}
