@@ -6,16 +6,17 @@ def updateASG = new org.avengers.template.terragrunt.terragrunt()
 properties([
     parameters([
         choice (choices: ['apply', 'destroy'], name: 'operation', description: 'Choose Terragrunt operation to perform'),
-        string (defaultValue: 'harshit/frontend-terragrunt', description: '', name: 'repoBranch'),
+        string (defaultValue: 'harshit/rolling-deployment', description: '', name: 'repoBranch'),
         string (defaultValue: 'root/dev', description: 'Define path of root directory', name: 'environment'),
-        string (defaultValue: 'frontend', description: 'Define path of child directory', name: 'app'),
+        string (defaultValue: 'rollingTG', description: 'Define path of child directory', name: 'createTG'),
+        string (defaultValue: 'frontend', description: 'Define path of child directory', name: 'updateASG'),
     ])
 ])
 node {
     def url = 'https://github.com/CodeOps-Hub/Deployment.git'
     def creds = 'harshit-github-token'
 
-    createTG.call(url, creds, params.repoBranch, params.environment, params.app, params.operation)
-    updateASG.call(url, creds, params.repoBranch, params.environment, params.app, params.operation)
+    createTG.call(url, creds, params.repoBranch, params.environment, params.createTG, params.operation)
+    updateASG.call(url, creds, params.repoBranch, params.environment, params.updateASG, params.operation)
 
 }
