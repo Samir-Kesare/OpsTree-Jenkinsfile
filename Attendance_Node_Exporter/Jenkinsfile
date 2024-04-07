@@ -38,7 +38,7 @@ pipeline {
                 script {
                     // Run the ansible playbook
                     sh 'ansible --version'
-                    sh 'ansible-playbook --private-key /var/lib/jenkins/terragrunt_cred.pem -i /var/lib/jenkins/workspace/DevOps/Monitoring/Node-Exporter/Attendance_pipeline_node_exp/roles/Attendance-node-exporter/aws_ec2.yml attendancenodeexp.yml'
+                    sh 'ansible-playbook --private-key /var/lib/jenkins/terragrunt_cred.pem attendancenodeexp.yml'
                 }
             }
         }               
