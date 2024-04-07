@@ -37,9 +37,12 @@ pipeline {
             steps {
                 script {
                     // Run the ansible playbook
-                    sh "ansible-playbook -vvv ${params.PLAYBOOK_PATH}" 
+                    sh 'ansible --version'
+                    sh 'ansible-playbook --private-key /var/lib/jenkins/terragrunt_cred.pem.pem attendancenodeexp.yml'
                 }
             }
         }               
     }
 }
+
+
