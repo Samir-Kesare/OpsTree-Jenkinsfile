@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('GIT Checkout') {
             steps {
-                checkout scmGit(branches: [[name: 'Vidhi/node-exporter-Scylla']], extensions: [], userRemoteConfigs: [[credentialsId: 'vidhi-new-token', url: 'git@github.com:CodeOps-Hub/Ansible.git']])
+                checkout scmGit(branches: [[name: 'Vidhi/node-exporter-Scylla']], extensions: [], userRemoteConfigs: [[credentialsId: 'harshit-github-token', url: 'git@github.com:CodeOps-Hub/Ansible.git']])
             }
         }
         stage('ansible inventory') {
