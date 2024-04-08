@@ -18,7 +18,7 @@ pipeline {
         stage('Run Ansible') {
             steps {
                 sh 'ansible --version'
-                sh 'ansible-playbook --private-key  scylla_node_exporter.yml'
+                sh 'ansible-playbook --private-key=$ANSIBLE_PRIVATE_KEY scylla_node_exporter.yml'
             }
         }
     }
