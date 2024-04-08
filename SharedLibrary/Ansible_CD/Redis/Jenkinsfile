@@ -1,18 +1,13 @@
-@Library('my-shared-library') _
+@Library('p7-shared-library') _
 def ansible_CD = new org.avengers.template.ansible_CD.ansibleCD()
 pipeline {
     agent any
-    
-    environment {
-        AWS_ACCESS_KEY_ID     = credentials('snaatak-aws-cred')
-        AWS_SECRET_ACCESS_KEY = credentials('snaatak-aws-cred')
-    }
     stages {
         stage ('Playbook CD'){
             steps{
                 script{
                     def url = 'https://github.com/CodeOps-Hub/Ansible.git'
-                    def creds = '001aee97-c379-4b31-b42d-49840ec1b296'
+                    def creds = 'harshit-github-token'
                     def branch = 'main'
                     def gitleaksVersion = '8.18.2'
                     def path = './redis.yml'
