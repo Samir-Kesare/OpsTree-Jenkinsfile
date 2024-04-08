@@ -9,10 +9,11 @@ pipeline {
                     def url = 'https://github.com/CodeOps-Hub/Ansible.git'
                     def creds = 'harshit-github-token'
                     def branch = 'main'
-                    def gitleaksVersion = '8.18.2'
+                    // def gitleaksVersion = '8.18.2'
                     def path = './redis.yml'
                     // Shared Libray for CD
-                    ansible_CD.call(url, creds, branch, gitleaksVersion, path)
+                    // ansible_CD.call(url, creds, branch, gitleaksVersion, path)
+                    ansible_CD.call(url, creds, branch, path)
                 }
             }
              
