@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    stages {
+        stage('GIT Checkout') {
+            steps {
+                checkout scmGit(branches: [[name: 'harshit/salary-node-exp']], extensions: [], userRemoteConfigs: [[credentialsId: 'harshit-github-token', url: 'https://github.com/CodeOps-Hub/Ansible.git']])
+            }
+        }
+        stage('ansible inventory') {
+            steps {
+                sh 'ansible --version'
+                sh 'ansible-inventory --graph'
+            }
+        }
+        stage('Run Ansible') {
+            steps {
+                sh 'ansible --version'
+                sh 'ansible-playbook --private-key /var/lib/jenkins/demo-salary.pem salary-node-exporter.yml'
+            }
+        }
+    }
+}
+
