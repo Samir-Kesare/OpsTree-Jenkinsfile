@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    // environment {
-        // ANSIBLE_PRIVATE_KEY = credentials('vd-key')
-    // }
     stages {
         stage('GIT Checkout') {
             steps {
