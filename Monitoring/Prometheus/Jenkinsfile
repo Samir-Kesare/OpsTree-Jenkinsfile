@@ -1,22 +1,22 @@
+@Library('p7-shared-library') _ 
+def ansible_CD = new org.avengers.template.ansible_CD.ansibleCD()
 pipeline {
     agent any
     stages {
-        stage('GIT Checkout') {
-            steps {
-                checkout scmGit(branches: [[name: 'shreya/prometheus-role']], extensions: [], userRemoteConfigs: [[credentialsId: 'shreya-github-token', url: 'https://github.com/CodeOps-Hub/Ansible.git']])
+        stage ('Playbook CD'){
+            steps{
+                script{
+                    def url = 'https://github.com/CodeOps-Hub/Ansible.git'
+                    def creds = 'shreya-github-token'
+                    def branch = 'main'
+                    // def gitleaksVersion = '8.18.2'
+                    def path = './prometheus.yml'
+                    // Shared Libray for CD
+                    // ansible_CD.call(url, creds, branch, gitleaksVersion, path)
+                    ansible_CD.call(url, creds, branch, path)
+                }
             }
-        }
-        stage('ansible inventory') {
-            steps {
-                sh 'ansible --version'
-                sh 'ansible-inventory --graph'
-            }
-        }
-        stage('Run Ansible') {
-            steps {
-                sh 'ansible --version'
-                sh 'ansible-playbook --private-key /var/lib/jenkins/snaatak.pem prometheus.yml'
-            }
+             
         }
     }
 }
