@@ -29,4 +29,4 @@
             echo 'Ansible role execution failed!'
         }
     }
-}^C
+}
