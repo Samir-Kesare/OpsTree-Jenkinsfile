@@ -1,23 +1,32 @@
-pipeline {
+ pipeline {
     agent any
+    
     stages {
-        stage('GIT Checkout') {
+        stage('Checkout') {
             steps {
-                checkout scmGit(branches: [[name: 'Shikha/ElasticSearch-Ansible-Role/Dynamic-Inventory']], extensions: [], userRemoteConfigs: [[credentialsId: 'shikha/cred', url: 'https://github.com/CodeOps-Hub/Ansible.git']])
+                // Check out your source code repository
+                git branch: 'Shikha/ElasticSearch-Ansible-Role/Dynamic-Inventory', credentialsId: 'shikha/cred', url: 'https://github.com/CodeOps-Hub/Ansible.git'
             }
         }
-        stage('ansible inventory') {
+        
+        stage('Execute Ansible Role') {
             steps {
-                sh 'ansible --version'
-                sh 'ansible-inventory --graph'
-            }
-        }
-        stage('Run Ansible') {
-            steps {
-                sh 'ansible --version'
-                 sh 'ansible-playbook --private-key /var/lib/jenkins/prometheus.pem /var/lib/jenkins/workspace/elasticsearch/roles/elasticsearc/playbook.yml'
+                // Execute Ansible playbook with the role
+            sh 'ansible-playbook --private-key /var/lib/jenkins/prometheus.pem /var/lib/jenkins/workspace/elasticsearch/roles/elasticsearc/playbook.yml'
 
             }
         }
     }
-}
+    
+    post {
+        success {
+            // Send notification on success
+            echo 'Ansible role execution completed successfully!'
+        }
+        
+        failure {
+            // Send notification on failure
+            echo 'Ansible role execution failed!'
+        }
+    }
+}^C
