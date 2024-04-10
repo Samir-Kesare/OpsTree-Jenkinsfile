@@ -15,7 +15,7 @@ pipeline {
         stage('Run Ansible') {
             steps {
                 sh 'ansible --version'
-                 sh 'ansible-playbook --private-key /var/lib/jenkins/prometheus.pem /var/lib/jenkins/workspace/elasticsearc/roles/elasticsearc/playbook.yml'
+                 sh 'ansible-playbook --private-key /var/lib/jenkins/prometheus.pem /var/lib/jenkins/workspace/elasticsearch/roles/elasticsearc/playbook.yml'
 
             }
         }
