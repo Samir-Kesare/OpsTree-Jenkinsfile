@@ -1,0 +1,22 @@
+@Library('p7-shared-library') _ 
+def ansible_CD = new org.avengers.template.ansible_CD.ansibleCD()
+pipeline {
+    agent any
+    stages {
+        stage ('Playbook CD'){
+            steps{
+                script{
+                    def url = 'https://github.com/CodeOps-Hub/Ansible.git'
+                    def creds = 'shreya-github-token'
+                    def branch = 'main'
+                    def gitleaksVersion = '8.18.2'
+                    def path = './prometheus.yml'
+                    // Shared Libray for CD
+                    ansible_CD.call(url, creds, branch, gitleaksVersion, path)
+                    // ansible_CD.call(url, creds, branch, path)
+                }
+            }
+             
+        }
+    }
+}
