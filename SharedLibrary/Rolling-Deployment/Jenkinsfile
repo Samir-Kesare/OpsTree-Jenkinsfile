@@ -1,0 +1,19 @@
+@Library('p7-shared-library@Vidhi/terragrunt-sharedlib') _
+
+def updateASG = new org.avengers.template.terragrunt.terragrunt()
+
+properties([
+    parameters([
+        choice (choices: ['apply', 'destroy'], name: 'operation', description: 'Choose Terragrunt operation to perform'),
+        string (defaultValue: 'harshit/rolling-deployment', description: '', name: 'repoBranch'),
+        string (defaultValue: 'root/dev', description: 'Define path of root directory', name: 'environment'),
+        string (defaultValue: 'frontend', description: 'Define path of child directory', name: 'updateASG'),
+    ])
+])
+node {
+    def url = 'https://github.com/CodeOps-Hub/Deployment.git'
+    def creds = 'harshit-github-token'
+
+    updateASG.call(url, creds, params.repoBranch, params.environment, params.updateASG, params.operation)
+
+}
