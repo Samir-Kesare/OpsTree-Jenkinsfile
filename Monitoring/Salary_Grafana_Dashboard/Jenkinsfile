@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('GIT Checkout') {
             steps {
-                checkout scmGit(branches: [[name: 'vishal/salary-grafana-dashboard']], extensions: [], userRemoteConfigs: [[credentialsId: 'harshit-github-token', url: 'https://github.com/CodeOps-Hub/Ansible.git']])
+                checkout scmGit(branches: [[name: 'vishal/salary-grafana-dashboard']], extensions: [], userRemoteConfigs: [[credentialsId: 'vishal-git-PAT', url: 'https://github.com/CodeOps-Hub/Ansible.git']])
             }
         }
         stage('ansible inventory') {
