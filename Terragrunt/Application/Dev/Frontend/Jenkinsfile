@@ -10,7 +10,7 @@ properties([
     ])
 ])
 node {
-    def url = 'https://github.com/CodeOps-Hub/Terragrunt.git'
+    def url = 'https://github.com/CodeOps-Hub/Terragrunt-depricated.git'
     def creds = 'khushi_github_cred'
 
     terragrunt.call(url, creds, params.repoBranch, params.environment, params.service, params.operation)
