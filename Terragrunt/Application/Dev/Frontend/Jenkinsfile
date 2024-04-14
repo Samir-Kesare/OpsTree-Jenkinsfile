@@ -5,7 +5,7 @@ properties([
     parameters([
         choice (choices: ['apply', 'destroy'], name: 'operation', description: 'Choose Terragrunt operation to perform'),
         string (defaultValue: 'Khushi/Frontend_dev', description: '', name: 'repoBranch'),
-        string (defaultValue: 'Application', description: 'Define path of root directory', name: 'environment'),
+        string (defaultValue: 'Application/Frontend', description: 'Define path of root directory', name: 'environment'),
         string (defaultValue: 'Dev', description: 'Define path of child directory', name: 'service'),
     ])
 ])
