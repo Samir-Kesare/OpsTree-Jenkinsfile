@@ -38,7 +38,7 @@ pipeline {
                 script {
                     // Run the ansible playbook
                     sh 'ansible --version'
-                    sh 'ansible-playbook -i /var/lib/jenkins/workspace/DevOps/Monitoring/Grafana/grafana_Dashboard_redis/roles/GrafanaDashboardRedis/aws_ec2.yml grafana_redis.yml'
+                    sh 'ansible-playbook --private-key /var/lib/jenkins/attendance_api.pem -i /var/lib/jenkins/workspace/DevOps/Monitoring/Grafana/grafana_Dashboard_redis/roles/GrafanaDashboardRedis/aws_ec2.yml grafana_redis.yml'
                 }
             }
         }               
