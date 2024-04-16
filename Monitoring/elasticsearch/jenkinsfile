@@ -7,7 +7,7 @@ pipeline {
             steps{
                 script{
                     def url = 'https://github.com/CodeOps-Hub/Ansible.git'
-                    def creds = 'shikha/cred'
+                    def creds = 'shikha'
                     def branch = 'main'
                     def gitleaksVersion = '8.18.2'
                     def path = './playbook.yml'
