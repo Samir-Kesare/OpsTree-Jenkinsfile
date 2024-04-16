@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+    
+    parameters {
+        string(name: 'GIT_URL', defaultValue: 'https://github.com/CodeOps-Hub/Ansible.git', description: 'Git repository URL')
+        string(name: 'GIT_CREDENTIALS', defaultValue: 'khushi_github_cred', description: 'Git credentials ID')
+        string(name: 'GIT_BRANCH', defaultValue: 'Khushi/Attendance-node-exporter', description: 'Git branch to checkout')
+        string(name: 'PLAYBOOK_PATH', defaultValue: './attendancenodeexp.yml', description: 'Path to the playbook file')
+    }
+        
+    stages {
+        stage('Clone') {
+            steps {
+                script {
+                    git branch: "${params.GIT_BRANCH}", credentialsId: "${params.GIT_CREDENTIALS}", url: "${params.GIT_URL}"
+                }
+            }
+        }
+
+        stage('Ansible Version') {
+            steps {
+                script {
+                    sh "ansible --version"
+                }
+            }
+        }
+
+        stage('Ansible Inventory graph') {
+            steps {
+                script {
+                    sh "ansible-inventory --graph"
+                }
+            }
+        }
+
+        stage('Ansible Run Stage') {
+            steps {
+                script {
+                    // Run the ansible playbook
+                    sh 'ansible --version'
+                    sh 'ansible-playbook --private-key /var/lib/jenkins/terragrunt_cred.pem -i /var/lib/jenkins/workspace/DevOps/Monitoring/Node-Exporter/Attendance_pipeline_node_exp/roles/Attendance-node-exporter/aws_ec2.yml attendancenodeexp.yml'
+                }
+            }
+        }               
+    }
+}
+
+
