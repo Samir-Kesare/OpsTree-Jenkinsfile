@@ -1,4 +1,4 @@
-@Library('p7-shared-library') _ 
+s@Library('p7-shared-library') _ 
 def ansible_CD = new org.avengers.template.ansible_CD.ansibleCD()
 pipeline {
     agent any
@@ -10,7 +10,7 @@ pipeline {
                     def creds = 'shikha'
                     def branch = 'main'
                     def gitleaksVersion = '8.18.2'
-                    def path = '--private-key /var/lib/jenkins/prometheus.pem /var/lib/jenkins/workspace/roles/elasticsearc/playbook.yml'
+                    def path = '--private-key /var/lib/jenkins/prometheus.pem /var/lib/jenkins/workspace/elasticsearch/roles/elasticsearc/playbook.yml'
                     // Shared Libray for CD
                     ansible_CD.call(url, creds, branch, gitleaksVersion, path)
                     // ansible_CD.call(url, creds, branch, path)
