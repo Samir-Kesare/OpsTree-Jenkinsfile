@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('GIT Checkout') {
             steps {
-                checkout scmGit(branches: [[name: 'Vidhi/fluentd-log-aggregator']], extensions: [], userRemoteConfigs: [[credentialsId: 'token-github', url: 'git@github.com:CodeOps-Hub/Ansible.git']])
+                checkout scmGit(branches: [[name: 'Vidhi/fluentd-log-aggregator']], extensions: [], userRemoteConfigs: [[credentialsId: 'token-github', url: 'https://github.com/CodeOps-Hub/Ansible.git']])
             }
         }
         stage('ansible inventory') {
