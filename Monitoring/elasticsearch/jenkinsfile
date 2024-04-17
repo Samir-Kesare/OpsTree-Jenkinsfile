@@ -1,4 +1,4 @@
-s@Library('p7-shared-library') _ 
+@Library('p7-shared-library') _ 
 def ansible_CD = new org.avengers.template.ansible_CD.ansibleCD()
 pipeline {
     agent any
