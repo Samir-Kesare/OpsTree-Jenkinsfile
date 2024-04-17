@@ -1,0 +1,37 @@
+@Library('p7-shared-library@Vidhi/terragrunt-sharedlib') _
+
+def terraformCD = new org.avengers.template.terraformCD.terraform_CD()
+
+pipeline {
+    agent any
+    
+    environment {
+        AWS_ACCESS_KEY_ID = credentials('vikram aws')
+        AWS_SECRET_ACCESS_KEY = credentials('vikram aws')
+        TF_CLI_ARGS = '-input=false'
+    }
+    
+    stages {
+        stage('Terraform') {
+            steps {
+                script {
+
+                    properties([
+                        parameters([
+                            string(name: 'branch', defaultValue: 'main', description: 'Enter the branch name'),
+                            string(name: 'rootPath', defaultValue: 'wrapperCode', description: 'Enter the root directory path'),
+                            string(name: 'childPath', defaultValue: 'PGA-Wrapper-Code', description: 'Enter the child directory path'),
+                            choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Select Terraform action (apply/destroy)')
+
+                        ])
+                    ])
+
+                    def url = 'https://github.com/CodeOps-Hub/Terraform-modules.git'
+                    def creds = 'harshit-github-token'
+
+                    terraformCD.call(url, creds, params.branch, params.rootPath, params.childPath, params.ACTION)
+                }
+            }
+        }
+    }
+}
