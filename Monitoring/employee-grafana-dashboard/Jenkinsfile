@@ -1,9 +1,12 @@
 pipeline {
     agent any
+    environment {
+        ANSIBLE_PRIVATE_KEY=credentials('vd-key')
+    }
     stages {
         stage('GIT Checkout') {
             steps {
-                checkout scmGit(branches: [[name: 'Vidhi/grafana-employee-dashboard']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-token', url: 'https://github.com/CodeOps-Hub/Ansible.git']])
+                checkout scmGit(branches: [[name: 'Vidhi/grafana-employee-dashboard']], extensions: [], userRemoteConfigs: [[credentialsId: 'token-github', url: 'https://github.com/CodeOps-Hub/Ansible.git']])
             }
         }
         stage('ansible inventory') {
