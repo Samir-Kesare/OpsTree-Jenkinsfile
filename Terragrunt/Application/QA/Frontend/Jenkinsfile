@@ -1,0 +1,17 @@
+@Library('p7-shared-library@Vidhi/terragrunt-sharedlib') _
+
+def terragrunt = new org.avengers.template.terragrunt.terragrunt()
+properties([
+    parameters([
+        choice (choices: ['apply', 'destroy'], name: 'operation', description: 'Choose Terragrunt operation to perform'),
+        string (defaultValue: 'Khushi/Frontend_QA', description: '', name: 'repoBranch'),
+        string (defaultValue: 'Application/Frontend', description: 'Define path of root directory', name: 'environment'),
+        string (defaultValue: 'QA_Env', description: 'Define path of child directory', name: 'service'),
+    ])
+])
+node {
+    def url = 'https://github.com/CodeOps-Hub/Terragrunt-depricated.git'
+    def creds = 'khushi_github_cred'
+
+    terragrunt.call(url, creds, params.repoBranch, params.environment, params.service, params.operation)
+}
