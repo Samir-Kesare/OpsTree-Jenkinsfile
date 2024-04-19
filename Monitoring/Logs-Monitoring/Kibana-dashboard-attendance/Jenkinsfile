@@ -1,12 +1,22 @@
 pipeline {
     agent any
     environment {
-        ANSIBLE_PRIVATE_KEY=credentials('vd-key')
+        ANSIBLE_PRIVATE_KEY = credentials('vd-key')
     }
     stages {
         stage('GIT Checkout') {
             steps {
-                checkout scmGit(branches: [[name: 'Vidhi/Kibana-dashboard-role']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-new-token', url: 'https://github.com/CodeOps-Hub/Ansible.git']])
+                script {
+                    // Checkout the repository
+                    checkout scmGit(
+                        branches: [[name: 'Vidhi/Kibana-dashboard-role']],
+                        extensions: [],
+                        userRemoteConfigs: [[credentialsId: 'github-new-token', url: 'https://github.com/CodeOps-Hub/Ansible.git']]
+                    )
+
+                    // Run git remote prune
+                    sh 'git remote prune origin'
+                }
             }
         }
         stage('ansible inventory') {
