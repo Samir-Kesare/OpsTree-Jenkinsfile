@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('GIT Checkout') {
             steps {
-                checkout scmGit(branches: [[name: 'shikha/fluentd/redis']], extensions: [], userRemoteConfigs: [[credentialsId: 'shikha', url: 'https://github.com/CodeOps-Hub/Ansible.git']])
+                checkout scmGit(branches: [[name: 'main']], extensions: [], userRemoteConfigs: [[credentialsId: 'shikha', url: 'https://github.com/CodeOps-Hub/Ansible.git']])
             }
         }
         stage('ansible inventory') {
@@ -15,7 +15,7 @@ pipeline {
         stage('Run Ansible') {
             steps {
                 sh 'ansible --version'
-                sh 'ansible-playbook --private-key /var/lib/jenkins/prometheus.pem ./roles/fluentd/redis/playbook.yml'
+                sh 'ansible-playbook --private-key /var/lib/jenkins/prometheus.pem ./roles/fluentd/playbook.yml'
             }
         }
     }
