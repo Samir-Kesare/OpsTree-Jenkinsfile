@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('GIT Checkout') {
             steps {
-                checkout scmGit(branches: [[name: 'Vidhi/Kibana-dashboard-role']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-new-token', url: 'https://github.com/CodeOps-Hub/Ansible.git']])
+                checkout scmGit(branches: [[name: 'Vidhi/kibana-dashboard-efk']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-new-token', url: 'https://github.com/CodeOps-Hub/Ansible.git']])
             }
         }
         stage('ansible inventory') {
