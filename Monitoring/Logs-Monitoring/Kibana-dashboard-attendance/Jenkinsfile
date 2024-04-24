@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+    environment {
+        ANSIBLE_PRIVATE_KEY=credentials('vd-key')
+    }
+    stages {
+        stage('GIT Checkout') {
+            steps {
+                checkout scmGit(branches: [[name: 'Vidhi/kibana-dashboard-efk']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-new-token', url: 'https://github.com/CodeOps-Hub/Ansible.git']])
+            }
+        }
+        stage('ansible inventory') {
+            steps {
+                sh 'ansible --version'
+                sh 'ansible-inventory --graph'
+            }
+        }
+        stage('Run Ansible') {
+            steps {
+                sh 'ansible --version'
+                sh 'ansible-playbook --private-key=$ANSIBLE_PRIVATE_KEY kibana_dashboard.yml'
+            }
+        }
+    }
+}
