@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    stages {
+        stage('GIT Checkout') {
+            steps {
+                checkout scmGit(branches: [[name: 'main']], extensions: [], userRemoteConfigs: [[credentialsId: 'shikha/cred', url: 'https://github.com/CodeOps-Hub/Ansible.git']])
+            }
+        }
+        stage('ansible inventory') {
+            steps {
+                sh 'ansible --version'
+                sh 'ansible-inventory --graph'
+            }
+        }
+        stage('Run Ansible') {
+            steps {
+                sh 'ansible --version'
+                sh 'ansible-playbook --private-key /var/lib/jenkins/prometheus.pem /var/lib/jenkins/workspace/fluentd_redis/roles/fluentd/playbook.yml'
+            }
+        }
+    }
+}
+
