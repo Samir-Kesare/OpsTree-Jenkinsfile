@@ -1,0 +1,19 @@
+@Library('p7-shared-library@harshit/blue-green') _
+
+def blueGreen = new org.avengers.template.deployment.blue_green()
+
+properties([
+    parameters([
+        choice (choices: ['apply', 'destroy'], name: 'operation', description: 'Choose Terragrunt operation to perform'),
+        string (defaultValue: 'harshit/blue-green-deployment', description: '', name: 'repoBranch'),
+        string (defaultValue: 'root/dev', description: 'Define path of root directory', name: 'environment'),
+        string (defaultValue: 'green', description: 'Define path of green directory', name: 'greenDir'),
+        string (defaultValue: 'frontend', description: 'Define path of blue directory', name: 'blueDir'),
+    ])
+])
+node {
+    def url = 'https://github.com/CodeOps-Hub/Deployment.git'
+    def creds = 'harshit_github_token'
+
+    blueGreen.call(url, creds, params.repoBranch, params.environment, params.greenDir, params.operation, params.blueDir)
+}
