@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+    stages {
+        stage('GIT Checkout') {
+            steps {
+                checkout scmGit(branches: [[name: '*/samir/AlertManager-Role']], extensions: [], userRemoteConfigs: [[credentialsId: 'samir-PAT', url: 'https://github.com/CodeOps-Hub/Ansible.git']])
+            }
+        }
+        stage('ansible inventory') {
+            steps {
+                sh 'ansible --version'
+                sh 'ansible-inventory --graph'
+            }
+        }
+        stage('Run Ansible') {
+            steps {
+                sh 'ansible --version'
+                sh 'ansible-playbook /var/lib/jenkins/workspace/AlertManager/roles/AlertMananger/alertmanager_setup/tests/test.yml'
+            }
+        }
+    }
+}
